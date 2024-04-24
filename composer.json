@@ -1,0 +1,44 @@
+{
+    "name": "sivlev/phpmathobjects",
+    "version": "0.1.0",
+    "type": "library",
+    "description": "PHPMathObjects: A PHP library for handling mathematical objects.",
+    "keywords": ["math", "linear algebra", "matrix"],
+    "homepage": "https://github.com/sivlev/PHPMathObjects/",
+    "authors": [
+        {
+            "name": "Sergei Ivlev",
+            "role": "Developer",
+            "email": "sergei.ivlev@chemie.uni-marburg.de"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan-phpunit": "^1.3",
+        "friendsofphp/php-cs-fixer": "^3.39",
+        "phpbench/phpbench": "^1.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "PHPMathObjects\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PHPMathObjects\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "scripts": {
+        "bench": "phpbench run tests/Benchmark --report=default",
+        "test": "phpunit --testdox --colors=always",
+        "fix": "php-cs-fixer fix --config=.php-cs-fixer.dist.php",
+        "analyze": "phpstan analyze -c phpstan.neon"
+    }
+}
