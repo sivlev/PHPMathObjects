@@ -15,4 +15,10 @@
             <directory>src</directory>
         </include>
     </source>
+    <coverage>
+        <report>
+            <html outputDirectory="reports"/>
+            <text outputFile="php://stdout" showUncoveredFiles="false" showOnlySummary="true"/>
+        </report>
+    </coverage>
 </phpunit>
