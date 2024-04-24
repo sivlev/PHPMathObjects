@@ -2,6 +2,8 @@
 
 The PHPMathObjects library was created with crystallographic applications in mind but should be suitable for broad variety of projects. The library is in active development, do not use it in production environment as the current API is subject to change.
 
+![Tests](https://github.com/sivlev/PHPMathObjects/actions/workflows/tests.yml/badge.svg) ![GitHub License](https://img.shields.io/github/license/sivlev/PHPMathObjects)
+
 ## Installation
 
 Install PHPMathObjects using [Composer](https://getcomposer.org):
