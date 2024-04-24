@@ -2,7 +2,11 @@
     "name": "sivlev/phpmathobjects",
     "type": "library",
     "description": "PHPMathObjects: A PHP library for handling mathematical objects.",
-    "keywords": ["math", "linear algebra", "matrix"],
+    "keywords": [
+        "math",
+        "linear algebra",
+        "matrix"
+    ],
     "homepage": "https://github.com/sivlev/PHPMathObjects/",
     "authors": [
         {
@@ -38,6 +42,7 @@
         "bench": "phpbench run tests/Benchmark --report=default",
         "test": "phpunit --testdox --colors=always",
         "fix": "php-cs-fixer fix --config=.php-cs-fixer.dist.php",
+        "check": "php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --verbose --using-cache=no",
         "analyze": "phpstan analyze -c phpstan.neon"
     }
 }
