@@ -1,0 +1,36 @@
+name: "Tests"
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: PHP ${{ matrix.php-version }} on ${{ matrix.operating-system }}
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-version: ['8.2', '8.3']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          
+      - name: Validate composer.json
+        run: composer validate
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Execute static analysis
+        run: composer analyze
+
+      - name: Run tests
+        run: composer test
+
+      - name: Check coding standards
+        run: composer check
