@@ -1,6 +1,5 @@
 {
     "name": "sivlev/phpmathobjects",
-    "version": "0.1.0",
     "type": "library",
     "description": "PHPMathObjects: A PHP library for handling mathematical objects.",
     "keywords": ["math", "linear algebra", "matrix"],
