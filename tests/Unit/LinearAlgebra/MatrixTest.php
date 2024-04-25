@@ -840,6 +840,88 @@ class MatrixTest extends TestCase
                     [-1.4],
                 ],
             ],
+            [
+                [
+                    [100],
+                    [200],
+                    [300],
+                    [400],
+                    [500],
+                ],
+                [
+                    [100, 200, 300, 400, 500],
+                ],
+            ],
+            [
+                [
+                    [100, -200, -300, -400, -500],
+                    [200, -300, -400, -400, 500],
+                    [300, -300, -400, -400, 500],
+                    [400, -500, 100, 200, 700],
+                ],
+                [
+                    [100, 200, 300, 400],
+                    [-200, -300, -300, -500],
+                    [-300, -400, -400, 100],
+                    [-400, -400, -400, 200],
+                    [-500, 500, 500, 700],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param array<int, array<int, int|float>> $array
+     * @param string $answer
+     * @return void
+     * @throws MatrixException
+     */
+    #[DataProvider('providerToString')]
+    #[TestDox("Matrix transpose() and mTranspose() return correct results")]
+    public function testToString(array $array, string $answer): void
+    {
+        $m = new Matrix($array);
+        $this->assertEquals($answer, (string) $m);
+    }
+
+    /**
+     * @return array<int, array<int, string|array<int, array<int, int|float>>>>
+     */
+    public static function providerToString(): array
+    {
+        return [
+            [
+                [[-100.1]],
+                "[-100.1]",
+            ],
+            [
+                [
+                    [1.1],
+                    [-20.233],
+                    [33],
+                    [1],
+                    [0.1],
+                ],
+                "[1.1]" . PHP_EOL .
+                "[-20.233]" . PHP_EOL .
+                "[33]" . PHP_EOL .
+                "[1]" . PHP_EOL .
+                "[0.1]",
+            ],
+            [
+                [[1, 2, 3, 4, 5]],
+                "[1, 2, 3, 4, 5]",
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                "[1, 2, 3]" . PHP_EOL .
+                "[4, 5, 6]" . PHP_EOL .
+                "[7, 8, 9]",
+            ],
         ];
     }
 }
