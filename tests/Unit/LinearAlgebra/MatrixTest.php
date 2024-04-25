@@ -877,7 +877,7 @@ class MatrixTest extends TestCase
      * @throws MatrixException
      */
     #[DataProvider('providerToString')]
-    #[TestDox("Matrix transpose() and mTranspose() return correct results")]
+    #[TestDox("Method __toString() converts matrix to a string")]
     public function testToString(array $array, string $answer): void
     {
         $m = new Matrix($array);
