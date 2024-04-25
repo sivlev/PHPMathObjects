@@ -13,14 +13,9 @@
 
 declare(strict_types=1);
 
-namespace PHPMathObjects\Exception;
+namespace PHPMathObjects\Tests\Benchmark\LinearAlgebra;
 
-use Exception;
-
-/**
- * Exception handler for PHPMathObjectLibrary
- */
-class MathObjectsException extends Exception
+class MatrixMultiplicationBenchmark
 {
-    //
+
 }
