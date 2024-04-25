@@ -330,11 +330,26 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
         return $this;
     }
 
+    /**
+     * Returns a text representation of the matrix
+     *
+     * @return string
+     */
     public function __toString(): string
     {
         return trim(array_reduce(
             array_map(fn(array $value): string => implode(", ", $value), $this->matrix),
             fn($carry, $value): string => $carry .= "[" . $value . "]" . PHP_EOL
         ) ?? "");
+    }
+
+    /**
+     * Alias to magic method __toString()
+     *
+     * @return string
+     */
+    public function toString(): string
+    {
+        return $this->__toString();
     }
 }

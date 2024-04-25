@@ -877,11 +877,12 @@ class MatrixTest extends TestCase
      * @throws MatrixException
      */
     #[DataProvider('providerToString')]
-    #[TestDox("Method __toString() converts matrix to a string")]
+    #[TestDox("Methods __toString() and toString() convert the matrix to a string")]
     public function testToString(array $array, string $answer): void
     {
         $m = new Matrix($array);
         $this->assertEquals($answer, (string) $m);
+        $this->assertEquals($answer, $m->toString());
     }
 
     /**
