@@ -25,7 +25,7 @@ use PHPMathObjects\LinearAlgebra\Matrix;
 /**
  * Benchmark for matrix multiplication with multiply() and mMultiply() methods
  */
-#[Groups(["Linear Algebra"])]
+#[Groups(["LinearAlgebra"])]
 #[BeforeMethods('setUp')]
 class MatrixMultiplicationBench
 {
