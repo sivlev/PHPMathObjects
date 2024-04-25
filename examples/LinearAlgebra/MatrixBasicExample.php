@@ -19,7 +19,7 @@ use PHPMathObjects\LinearAlgebra\Matrix;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 /*
- * This example shows how to create a simple numeric matrix and perform basic operations on it
+ * This example shows how to create a simple numeric matrix, get information about its properties and perform basic arithmetic operations on it
  */
 
 // Let's create a new matrix
@@ -29,6 +29,15 @@ $matrix = new Matrix([
     [7, 8, 9],
     [10, 11, 12],
 ]);
+
+// You can print it out in the console
+echo "This is our matrix:" . PHP_EOL . $matrix->toString() . PHP_EOL . PHP_EOL;
+/* Output looks like
+ *  [1, 2, 3]
+ *  [4, 5, 6]
+ *  [7, 8, 9]
+ *  [10, 11, 12]
+*/
 
 // The access to its basic properties
 echo "Number of rows: {$matrix->rows()}" . PHP_EOL;             // 4
@@ -75,8 +84,11 @@ $matrix2 = new Matrix([
 
 // Addition
 $result = $matrix->add($matrix2);
+echo "Result of addition is:" . PHP_EOL . $result->toString() . PHP_EOL . PHP_EOL;
+
 // Subtraction
 $result = $matrix->subtract($matrix2);
+echo "Result of subtraction is:" . PHP_EOL . $result->toString() . PHP_EOL . PHP_EOL;
 
 // To demonstrate the matrix multiplication, let's create a matrix with compatible dimensions
 $matrix3 = new Matrix([
@@ -85,6 +97,7 @@ $matrix3 = new Matrix([
     [7, 8],
 ]);
 $result = $matrix->multiply($matrix3);
+echo "Result of multiplication is:" . PHP_EOL . $result->toString() . PHP_EOL . PHP_EOL;
 
 /*
  * The operations above return a new Matrix instance.
@@ -94,7 +107,12 @@ $result = $matrix->multiply($matrix3);
 
 // Mutating addition
 $matrix->mAdd($matrix2);
+echo "Result of mutating addition is:" . PHP_EOL . $matrix->toString() . PHP_EOL . PHP_EOL;
+
 // Mutating subtraction
 $matrix->mSubtract($matrix2);
+echo "Result of mutating subtraction is:" . PHP_EOL . $matrix->toString() . PHP_EOL . PHP_EOL;
+
 // Mutating multiplication
 $matrix->mMultiply($matrix3);
+echo "Result of mutating multiplication is:" . PHP_EOL . $matrix->toString() . PHP_EOL . PHP_EOL;
