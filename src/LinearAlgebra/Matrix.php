@@ -167,6 +167,7 @@ class Matrix extends AbstractMatrix
             }
         }
 
+        // Update the matrix and the information about its dimensions
         $this->matrix = $result;
         $this->rows = count($result);
         $this->columns = count($result[0]);
