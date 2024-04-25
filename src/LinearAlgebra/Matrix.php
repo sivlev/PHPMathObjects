@@ -23,12 +23,14 @@ use function array_fill;
 
 /**
  * Implementation of the AbstractMatrix class to manipulate numeric matrices
+ *
  * @extends AbstractMatrix<int|float>
  */
 class Matrix extends AbstractMatrix
 {
     /**
      * Implementation of the abstract class-specific data validation method for numeric matrices
+     *
      * @param array<int, int|float> $row
      * @return int|true
      */
@@ -45,6 +47,7 @@ class Matrix extends AbstractMatrix
 
     /**
      * Matrix addition
+     *
      * @param Matrix $term
      * @return self
      * @throws MatrixException if the matrices have unequal dimensions
@@ -66,6 +69,7 @@ class Matrix extends AbstractMatrix
 
     /**
      * Mutating matrix addition (the result is stored in the current matrix)
+     *
      * @param Matrix $term
      * @return $this
      * @throws MatrixException if the matrices have unequal dimensions
@@ -86,6 +90,7 @@ class Matrix extends AbstractMatrix
 
     /**
      * Matrix subtraction
+     *
      * @param Matrix $term
      * @return self
      * @throws MatrixException if the matrices have unequal dimensions
@@ -107,6 +112,7 @@ class Matrix extends AbstractMatrix
 
     /**
      * Mutating matrix subtraction (the result is stored in the current matrix)
+     *
      * @param Matrix $term
      * @return $this
      * @throws MatrixException if the matrices have unequal dimensions
@@ -127,6 +133,7 @@ class Matrix extends AbstractMatrix
 
     /**
      * Matrix multiplication
+     *
      * @param Matrix $term
      * @return self
      * @throws MatrixException if the matrices have incompatible dimensions
@@ -139,6 +146,7 @@ class Matrix extends AbstractMatrix
 
     /**
      * Mutating matrix multiplication (the result is stored in the current matrix)
+     *
      * @param Matrix $term
      * @return $this
      * @throws MatrixException

@@ -26,6 +26,7 @@ use function is_array;
 
 /**
  * Abstract class to implement matrices of different types
+ *
  * @template T
  * @implements ArrayAccess<array<int, int>, T>
  * @phpstan-consistent-constructor
@@ -34,30 +35,35 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 {
     /**
      * Two-dimensional array to store the matrix data
+     *
      * @var array<int, array<int, T>>
      */
     protected array $matrix;
 
     /**
      * Number of rows in the matrix
+     *
      * @var int
      */
     protected int $rows;
 
     /**
      * Number of columns in the matrix
+     *
      * @var int
      */
     protected int $columns;
 
     /**
      * Total number of elements in the matrix
+     *
      * @var int
      */
     protected int $size;
 
     /**
      * AbstractMatrix class constructor
+     *
      * @param array<int, array<int, T>> $data
      * @param bool $validateData If true, the provided $data array must be validated
      * @throws MatrixException if the provided $data array is ill-behaved (e.g. not all rows have same number of columns)
@@ -81,6 +87,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Method for data validation independent of matrix type. Checks that all matrix rows are arrays of equal length. During the cycle a class-specific validation will be called.
+     *
      * @throws MatrixException if the matrix is empty, or its rows are empty, or its rows have different sizes
      */
     protected function validateData(): void
@@ -113,6 +120,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Abstract method for class-specific data validation
+     *
      * @param array<int, T> $row The current row to be validated
      * @return int|true
      */
@@ -129,6 +137,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Getter for the "rows" property. Returns number of rows
+     *
      * @return int
      */
     public function rows(): int
@@ -138,6 +147,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Getter for the "columns" property. Returns number of columns
+     *
      * @return int
      */
     public function columns(): int
@@ -147,6 +157,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Returns the size the matrix, i.e. the number of elements
+     *
      * @return int
      */
     public function size(): int
@@ -156,6 +167,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Implementation of the "Countable" interface, alias for size() method
+     *
      * @return int
      */
     public function count(): int
@@ -166,6 +178,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Returns true if the elements with the given indices exist, or false otherwise
+     *
      * @param int $row
      * @param int $column
      * @return bool
@@ -177,6 +190,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Returns the value of a matrix element with given indices.
+     *
      * @param int $row
      * @param int $column
      * @return T
@@ -192,6 +206,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Sets the matrix element with the given indices to the given value
+     *
      * @param int $row
      * @param int $column
      * @param T $value
@@ -215,6 +230,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * OffsetExists() method of the ArrayAccess interface
+     *
      * @param array<int, int> $offset
      * @return bool
      * @throws MatrixException if method does not receive an array of the format [row, column]
@@ -230,6 +246,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * OffsetGet() method of the ArrayAccess interface
+     *
      * @param array<int, int> $offset
      * @return T
      * @throws MatrixException if the method does not receive an array of the format [row, column] or if the element does not exist
@@ -245,6 +262,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * OffsetSet() method of the ArrayAccess interface
+     *
      * @param array<int, int> $offset
      * @param T $value
      * @return void
@@ -261,6 +279,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Unset() method of the ArrayAccess interface (not implemented)
+     *
      * @param mixed $offset
      * @throws MatrixException on call
      */
@@ -271,6 +290,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Matrix transpose (flips the matrix over its diagonal)
+     *
      * @return static
      * @throws MatrixException
      */
@@ -282,6 +302,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Mutating matrix transpose (the current matrix will be modified)
+     *
      * @return $this
      */
     public function mTranspose(): static
