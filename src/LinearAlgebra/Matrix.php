@@ -184,20 +184,26 @@ class Matrix extends AbstractMatrix
             throw new MatrixException("Cannot multiply matrices with incompatible dimensions.");
         }
 
-        $result = array_fill(0, $this->rows, array_fill(0, $term->columns, 0));
-        $arrayRight = $term->transpose()->toArray();
-        foreach ($this->matrix as $rowIndex => $rowLeft) {
-            foreach ($arrayRight as $columnIndex => $columnRight) {
-                foreach ($rowLeft as $index => $elementLeft) {
-                    $result[$rowIndex][$columnIndex] += $elementLeft * $columnRight[$index];
+        // Classic algorithm using three cycles but micro-optimized
+        $result = [];
+        $count = $this->columns;   // Stores number of columns in left matrix = number of rows in right matrix
+        $arrayRight = $term->transpose()->toArray();   // Transpose right matrix to use foreach
+        foreach ($this->matrix as $rowLeft) {
+            $resultRow = [];    // Temporary array to store a row of resulting matrix
+            foreach ($arrayRight as $columnRight) {
+                $sum = 0;
+                // Using a for inner cycle is slightly faster that foreach
+                for($i = 0; $i < $count; $i++) {
+                    $sum += $rowLeft[$i] * $columnRight[$i];
                 }
+                $resultRow[] = $sum;
             }
+            $result[] = $resultRow;
         }
 
         // Update the matrix and the information about its dimensions
         $this->matrix = $result;
-        $this->rows = count($result);
-        $this->columns = count($result[0]);
+        $this->columns = $term->columns;
         $this->size = $this->rows * $this->columns;
 
         return $this;
