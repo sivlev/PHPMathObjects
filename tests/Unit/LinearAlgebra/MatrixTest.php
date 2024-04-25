@@ -1009,7 +1009,7 @@ class MatrixTest extends TestCase
     public function testToString(array $array, string $answer): void
     {
         $m = new Matrix($array);
-        $this->assertEquals($answer, (string)$m);
+        $this->assertEquals($answer, (string) $m);
         $this->assertEquals($answer, $m->toString());
     }
 
