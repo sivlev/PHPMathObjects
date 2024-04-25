@@ -65,7 +65,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * AbstractMatrix class constructor
      *
      * @param array<int, array<int, T>> $data
-     * @param bool $validateData If true, the provided $data array must be validated
+     * @param bool $validateData If true, the provided $data array must be validated. It is mostly intended for internal use. All user-input data must be validated.
      * @throws MatrixException if the provided $data array is ill-behaved (e.g. not all rows have same number of columns)
      */
     public function __construct(array $data, bool $validateData = true)
@@ -83,6 +83,23 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
         /* @phpstan-ignore-next-line */
         $this->columns = count(is_array($data[0]) ? $data[0] : []);
         $this->size = $this->rows * $this->columns;
+    }
+
+    /**
+     * Factory method to create a matrix with the given dimensions and filled with the given value
+     *
+     * @param int $rows
+     * @param int $columns
+     * @param T $value
+     * @return static
+     * @throws MatrixException if the matrix dimensions are non-positive or if the given value is incompatible with the matrix type
+     */
+    public static function fill(int $rows, int $columns, mixed $value): static
+    {
+        if ($rows <= 0 || $columns <= 0) {
+            throw new MatrixException("Matrix dimensions must be greater than zero. Rows $rows and columns $columns are given");
+        }
+        return new static(array_fill(0, $rows, array_fill(0, $columns, $value)));
     }
 
     /**

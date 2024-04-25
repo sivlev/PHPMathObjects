@@ -66,6 +66,78 @@ class MatrixTest extends TestCase
     }
 
     /**
+     * @param int $rows
+     * @param int $columns
+     * @param int|float $value
+     * @param array<int, array<int, int|float>> $expected
+     * @return void
+     * @throws MatrixException
+     */
+    #[DataProvider('providerFillFactory')]
+    #[TestDox("Fill() factory creates a matrix of the given size and filled with the given value")]
+    public function testFillFactory(int $rows, int $columns, int|float $value, array $expected): void
+    {
+        $m = Matrix::fill($rows, $columns, $value);
+        $this->assertEqualsWithDelta($expected, $m->toArray(), self::e);
+    }
+
+    /**
+     * @return array<int, array<int, int|float|array<int, array<int, int|float>>>>
+     */
+    public static function providerFillFactory(): array
+    {
+        return [
+            [
+                1, 1, 0.1,
+                [[0.1]],
+            ],
+            [
+                5, 1, -2,
+                [
+                    [-2],
+                    [-2],
+                    [-2],
+                    [-2],
+                    [-2],
+                ],
+            ],
+            [
+                1, 10, 0,
+                [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+            ],
+            [
+                5, 3, -100.635,
+                [
+                    [-100.635, -100.635, -100.635],
+                    [-100.635, -100.635, -100.635],
+                    [-100.635, -100.635, -100.635],
+                    [-100.635, -100.635, -100.635],
+                    [-100.635, -100.635, -100.635],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param int $rows
+     * @param int $columns
+     * @param mixed $value
+     * @param string $exceptionMessage
+     * @return void
+     * @throws MatrixException
+     */
+    #[TestWith([-4, 5, 0, "Matrix dimensions must be greater than zero. Rows -4 and columns 5 are given"])]
+    #[TestWith([3, 0, -0.1, "Matrix dimensions must be greater than zero. Rows 3 and columns 0 are given"])]
+    #[TestWith([3, 3, "1", "Elements of a numeric matrix must be either integer or float. Element [0][0] is of type 'string'."])]
+    #[TestDox("Fill() factory an exception if the given dimensions or value type are invalid")]
+    public function testFillFactoryException(int $rows, int $columns, mixed $value, string $exceptionMessage): void
+    {
+        $this->expectException(MatrixException::class);
+        $this->expectExceptionMessage($exceptionMessage);
+        Matrix::fill($rows, $columns, $value);
+    }
+
+    /**
      * @param array<int, array<int, int|float>> $matrix
      * @param string $exceptionMessage
      * @return void
@@ -81,7 +153,6 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * Data provider for testDataValidationNumericMatrixException()
      * @return array<int, array<int, array<int, array<int, mixed>>|string>>
      * @throws MatrixException
      */
@@ -179,7 +250,6 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * Data provider for testRowsAndColumns
      * @return array<int, array<int, int|array<int, array<int, int|float>>>>
      */
     public static function providerRowsAndColumns(): array
@@ -230,7 +300,6 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * Data provider for testSizeAndCount()
      * @return array<int, array<int, int|array<int, array<int, int|float>>>>
      */
     public static function providerSizeAndCount(): array
@@ -881,7 +950,7 @@ class MatrixTest extends TestCase
     public function testToString(array $array, string $answer): void
     {
         $m = new Matrix($array);
-        $this->assertEquals($answer, (string) $m);
+        $this->assertEquals($answer, (string)$m);
         $this->assertEquals($answer, $m->toString());
     }
 
