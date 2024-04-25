@@ -85,13 +85,20 @@ class Matrix extends AbstractMatrix
             throw new MatrixException("Cannot add matrices with different dimensions.");
         }
 
-        $array = $this->matrix;
-        foreach ($array as $rowIndex => &$row) {
-            foreach ($row as $columnIndex => &$element) {
-                $element += $term->matrix[$rowIndex][$columnIndex];
+        $result = [];
+        $count = $this->columns;
+
+        foreach ($this->matrix as $rowIndex => $rowLeft) {
+            $rowRight = $term->matrix[$rowIndex];
+            $resultRow = [];
+            // For-cycle is here faster than foreach
+            for ($i = 0; $i < $count; $i++) {
+                $resultRow[] = $rowLeft[$i] + $rowRight[$i];
             }
+            $result[] = $resultRow;
         }
-        return new Matrix($array, false);
+
+        return new Matrix($result, false);
     }
 
     /**
@@ -107,9 +114,12 @@ class Matrix extends AbstractMatrix
             throw new MatrixException("Cannot add matrices with different dimensions.");
         }
 
-        foreach ($term->matrix as $rowIndex => $row) {
-            foreach ($row as $columnIndex => $element) {
-                $this->matrix[$rowIndex][$columnIndex] += $element;
+        // Micro-optimized cycles
+        $count = $this->columns;
+        foreach ($this->matrix as $rowIndex => &$rowLeft) {
+            $rowRight = $term->matrix[$rowIndex];
+            for ($i = 0; $i < $count; $i++) {
+                $rowLeft[$i] += $rowRight[$i];
             }
         }
         return $this;
@@ -128,13 +138,20 @@ class Matrix extends AbstractMatrix
             throw new MatrixException("Cannot subtract matrices with different dimensions.");
         }
 
-        $array = $this->matrix;
-        foreach ($array as $rowIndex => &$row) {
-            foreach ($row as $columnIndex => &$element) {
-                $element -= $term->matrix[$rowIndex][$columnIndex];
+        $result = [];
+        $count = $this->columns;
+
+        foreach ($this->matrix as $rowIndex => $rowLeft) {
+            $rowRight = $term->matrix[$rowIndex];
+            $resultRow = [];
+            // For-cycle is here faster than foreach
+            for ($i = 0; $i < $count; $i++) {
+                $resultRow[] = $rowLeft[$i] - $rowRight[$i];
             }
+            $result[] = $resultRow;
         }
-        return new Matrix($array, false);
+
+        return new Matrix($result, false);
     }
 
     /**
@@ -150,9 +167,12 @@ class Matrix extends AbstractMatrix
             throw new MatrixException("Cannot subtract matrices with different dimensions.");
         }
 
-        foreach ($term->matrix as $rowIndex => $row) {
-            foreach ($row as $columnIndex => $element) {
-                $this->matrix[$rowIndex][$columnIndex] -= $element;
+        // Micro-optimized cycles
+        $count = $this->columns;
+        foreach ($this->matrix as $rowIndex => &$rowLeft) {
+            $rowRight = $term->matrix[$rowIndex];
+            for ($i = 0; $i < $count; $i++) {
+                $rowLeft[$i] -= $rowRight[$i];
             }
         }
         return $this;
