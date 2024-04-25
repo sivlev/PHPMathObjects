@@ -44,6 +44,9 @@ $columns = $matrix->columns();
 $numberOfElements = $matrix->size(); 
 $numberOfElements = count($matrix); // Alternative way as Matrix implements "Countable" interface
 
+// Get matrix as array
+$array = $matrix->toArray(); 
+
 // Element getters and setters (zero-based)
 $element = $matrix->get(1, 2);
 $matrix->set(1, 2, -15.6);
@@ -65,4 +68,12 @@ $difference = $matrix->subtract($anotherMatrix);
 $matrix->mSubtract($anotherMatrix);
 $multiplication = $matrix->multiply($anotherMatrix);
 $matrix->mMultiply($anotherMatrix);
+
+// Conversion to a string representation
+$string = $matrix->toString();
+$string = (string) $matrix;
+// Both ways will return
+// [1, 2, 3]
+// [4, 5, 6]
+// [7, 8, 9]
 ```
