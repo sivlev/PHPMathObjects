@@ -39,7 +39,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
-        "bench": "phpbench run tests/Benchmark --report=default",
+        "bench": "phpbench run tests/Benchmark --report=aggregate",
         "test": "phpunit --testdox --colors=always --no-coverage",
         "coverage": "phpunit --testdox --colors=always",
         "fix": "php-cs-fixer fix --config=.php-cs-fixer.dist.php",

@@ -1,5 +1,7 @@
 {
-  "$schema":"./vendor/phpbench/phpbench/phpbench.schema.json",
-  "runner.bootstrap": "vendor/autoload.php",
-  "runner.time_unit": "milliseconds"
+    "$schema": "./vendor/phpbench/phpbench/phpbench.schema.json",
+    "runner.bootstrap": "vendor/autoload.php",
+    "runner.time_unit": "milliseconds",
+    "runner.path": "tests/Benchmark",
+    "runner.php_disable_ini": true
 }
