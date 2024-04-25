@@ -129,12 +129,71 @@ class MatrixTest extends TestCase
     #[TestWith([-4, 5, 0, "Matrix dimensions must be greater than zero. Rows -4 and columns 5 are given"])]
     #[TestWith([3, 0, -0.1, "Matrix dimensions must be greater than zero. Rows 3 and columns 0 are given"])]
     #[TestWith([3, 3, "1", "Elements of a numeric matrix must be either integer or float. Element [0][0] is of type 'string'."])]
-    #[TestDox("Fill() factory an exception if the given dimensions or value type are invalid")]
+    #[TestDox("Fill() factory throws an exception if the given dimensions or value type are invalid")]
     public function testFillFactoryException(int $rows, int $columns, mixed $value, string $exceptionMessage): void
     {
         $this->expectException(MatrixException::class);
         $this->expectExceptionMessage($exceptionMessage);
         Matrix::fill($rows, $columns, $value);
+    }
+
+    /**
+     * @param int $size
+     * @param array<int, array<int, int>> $expected
+     * @return void
+     * @throws MatrixException
+     */
+    #[DataProvider('providerIdentityFactory')]
+    #[TestDox("Identity() factory creates an identity matrix of the given size")]
+    public function testIdentityFactory(int $size, array $expected): void
+    {
+        $m = Matrix::identity($size);
+        $this->assertEquals($expected, $m->toArray());
+    }
+
+    /**
+     * @return array<int, array<int, int|array<int, array<int, int>>>>
+     */
+    public static function providerIdentityFactory(): array
+    {
+        return [
+            [
+                1,
+                [[1]],
+            ],
+            [
+                2,
+                [
+                    [1, 0],
+                    [0, 1],
+                ],
+            ],
+            [
+                4,
+                [
+                    [1, 0, 0, 0],
+                    [0, 1, 0, 0],
+                    [0, 0, 1, 0],
+                    [0, 0, 0, 1],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param int $size
+     * @param string $exceptionMessage
+     * @return void
+     * @throws MatrixException
+     */
+    #[TestWith([0, "Size of identity matrix must greater than zero. Size 0 is given."])]
+    #[TestWith([-10, "Size of identity matrix must greater than zero. Size -10 is given."])]
+    #[TestDox("Identity() factory throws an exception if the given size is non-positive")]
+    public function testIdentityFactoryException(int $size, string $exceptionMessage): void
+    {
+        $this->expectException(MatrixException::class);
+        $this->expectExceptionMessage($exceptionMessage);
+        Matrix::identity($size);
     }
 
     /**

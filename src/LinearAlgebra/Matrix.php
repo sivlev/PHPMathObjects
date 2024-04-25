@@ -29,9 +29,35 @@ use function array_fill;
 class Matrix extends AbstractMatrix
 {
     /**
+     * Factory method to create an identity matrix with dimensions of size x size
+     *
+     * @param int $size
+     * @return self
+     * @throws MatrixException if the given size is non-positive
+     */
+    public static function identity(int $size): self
+    {
+        if ($size <= 0) {
+            throw new MatrixException("Size of identity matrix must greater than zero. Size $size is given.");
+        }
+
+        // Create a 2D array filled with zeros
+        $array = array_fill(0, $size, array_fill(0, $size, 0));
+
+        // Replace the diagonal elements with ones
+        for ($i = 0; $i < $size; $i++) {
+            $array[$i][$i] = 1;
+        }
+
+        return new self($array, false);
+    }
+
+    /**
      * Implementation of the abstract class-specific data validation method for numeric matrices
      *
      * @param array<int, int|float> $row
+     * @param int $rowIndex
+     * @param string $exceptionMessage
      * @return int|true
      */
     protected function validateDataClassSpecific(array $row, int $rowIndex = 0, string &$exceptionMessage = ""): int|true

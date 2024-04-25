@@ -38,6 +38,9 @@ $matrix = new Matrix([
     [7, 8, 9],
 ]);
 
+// Or use a suitable factory method
+$matrix = Matrix::fill(3, 4, 0.1);  // Make a 3 x 4 and fill its elements with 0.1
+
 // Matrix dimensions
 $rows = $matrix->rows();
 $columns = $matrix->columns();
