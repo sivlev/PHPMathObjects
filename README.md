@@ -40,6 +40,7 @@ $matrix = new Matrix([
 
 // Or use a suitable factory method
 $matrix = Matrix::fill(3, 4, 0.1);  // Make a 3 x 4 and fill its elements with 0.1
+$matrix = Matrix::identity(3);      // Make a 3 x 3 identity matrix
 
 // Matrix dimensions
 $rows = $matrix->rows();
