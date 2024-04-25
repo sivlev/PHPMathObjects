@@ -128,9 +128,10 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
             $row = array_values($row);
 
-            $columnIndex = $this->validateDataClassSpecific($row);
+            $exceptionMessage = "";
+            $columnIndex = $this->validateDataClassSpecific($row, $rowIndex, $exceptionMessage);
             if ($this->validateDataClassSpecific($row) !== true) {
-                throw new MatrixException("Elements of a numeric matrix must be either integer or float. Element [$rowIndex][$columnIndex] is of type '" . gettype($this->matrix[$rowIndex][$columnIndex]) . "'.");
+                throw new MatrixException($exceptionMessage);
             }
         }
     }
@@ -139,9 +140,10 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * Abstract method for class-specific data validation
      *
      * @param array<int, T> $row The current row to be validated
-     * @return int|true
+     * @param string &$exceptionMessage Contains a message for the exception to be thrown if the data are found to be invalid
+     * @return int|true Returns true if data are valid or the column index where an invalid data entry was found
      */
-    abstract protected function validateDataClassSpecific(array $row): int|true;
+    abstract protected function validateDataClassSpecific(array $row, int $rowIndex = 0, string &$exceptionMessage = ""): int|true;
 
     /**
      * Returns the matrix as array

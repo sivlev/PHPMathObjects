@@ -34,11 +34,12 @@ class Matrix extends AbstractMatrix
      * @param array<int, int|float> $row
      * @return int|true
      */
-    protected function validateDataClassSpecific(array $row): int|true
+    protected function validateDataClassSpecific(array $row, int $rowIndex = 0, string &$exceptionMessage = ""): int|true
     {
         foreach ($row as $columnIndex => $element) {
             /* @phpstan-ignore-next-line */
             if (!is_int($element) && !is_float($element)) {
+                $exceptionMessage = "Elements of a numeric matrix must be either integer or float. Element [$rowIndex][$columnIndex] is of type '" . gettype($this->matrix[$rowIndex][$columnIndex]) . "'.";
                 return $columnIndex;
             }
         }
