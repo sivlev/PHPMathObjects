@@ -1,8 +1,10 @@
 # PHPMathObjects - A PHP library to handle mathematical objects
 
-The PHPMathObjects library was created with crystallographic applications in mind but should be suitable for broad variety of projects. The library is in active development, do not use it in production environment as the current API is subject to change.
-
 ![Tests](https://github.com/sivlev/PHPMathObjects/actions/workflows/tests.yml/badge.svg) ![GitHub License](https://img.shields.io/github/license/sivlev/PHPMathObjects)
+
+The PHPMathObjects library was created with crystallographic applications in mind but should be suitable for broad variety of projects. 
+The library has 100 % coverage with unit tests and is performance-optimized. 
+Being actively developed, it is not yet suitable for production environment since the current API is subject to change.
 
 ## Installation
 
