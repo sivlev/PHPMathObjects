@@ -1,7 +1,8 @@
-* text=auto
+* text eol=lf
 
 *.md diff=markdown
 *.php diff=php
+*.bat eol=crlf
 
 /tests export-ignore
 /examples export-ignore
