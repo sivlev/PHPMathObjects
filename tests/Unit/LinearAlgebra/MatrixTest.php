@@ -934,9 +934,9 @@ class MatrixTest extends TestCase
     #[TestDox("mSubtract() method subtracts one matrix from another correctly")]
     public function testMultiplyByScalar(array $array, int|float $multiplier, array $answer): void
     {
-        $m1 = new Matrix($array);
-        $this->assertEqualsWithDelta($answer, $m1->multiplyByScalar($multiplier)->toArray(), self::e);
-        $this->assertEqualsWithDelta($answer, $m1->mMultiplyByScalar($multiplier)->toArray(), self::e);
+        $m = new Matrix($array);
+        $this->assertEqualsWithDelta($answer, $m->multiplyByScalar($multiplier)->toArray(), self::e);
+        $this->assertEqualsWithDelta($answer, $m->mMultiplyByScalar($multiplier)->toArray(), self::e);
     }
 
     /**
@@ -991,6 +991,70 @@ class MatrixTest extends TestCase
                 [
                     [-0.3795, -0.76935],
                     [1.154025, 1.5375615],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param array<int, array<int, int|float>> $array
+     * @param array<int, array<int, int|float>> $answer
+     * @return void
+     * @throws MatrixException
+     */
+    #[DataProvider('providerChangeSign')]
+    #[TestDox("changeSign() and mChangeSign() methods change signs of all elements")]
+    public function testChangeSign(array $array, array $answer): void
+    {
+        $m = new Matrix($array);
+        $this->assertEqualsWithDelta($answer, $m->changeSign()->toArray(), self::e);
+        $this->assertEqualsWithDelta($answer, $m->mChangeSign()->toArray(), self::e);
+    }
+
+    /**
+     * @return array<int, array<int, array<int, array<int, int|float>>>>
+     */
+    public static function providerChangeSign(): array
+    {
+        return [
+            [
+                [[-32.5331]],
+                [[32.5331]],
+            ],
+            [
+                [
+                    [1, -2, 3],
+                    [-4, 5, -6],
+                    [7, -8, 9],
+                ],
+                [
+                    [-1, 2, -3],
+                    [4, -5, 6],
+                    [-7, 8, -9],
+                ],
+            ],
+            [
+                [
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                ],
+                [
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                ],
+            ],
+            [
+                [
+                    [-12.42, 4],
+                    [0, -1.53],
+                ],
+                [
+                    [12.42, -4],
+                    [-0, 1.53],
                 ],
             ],
         ];

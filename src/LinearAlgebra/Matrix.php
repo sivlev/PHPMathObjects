@@ -224,7 +224,7 @@ class Matrix extends AbstractMatrix
      * Mutating multiplication of a matrix by a scalar elementwise (result stored in the current matrix)
      *
      * @param int|float $multiplier
-     * @return self
+     * @return $this
      */
     public function mMultiplyByScalar(int|float $multiplier): self
     {
@@ -236,5 +236,27 @@ class Matrix extends AbstractMatrix
             }
         }
         return $this;
+    }
+
+    /**
+     * Change of signs of all elements
+     *
+     * @return self
+     * @throws MatrixException
+     */
+    public function changeSign(): self
+    {
+        $newMatrix = new Matrix($this->matrix, false);
+        return $newMatrix->mMultiplyByScalar(-1);
+    }
+
+    /**
+     * Mutating change of signs of all elements (result stored in the current matrix)
+     *
+     * @return $this
+     */
+    public function mChangeSign(): self
+    {
+        return $this->mMultiplyByScalar(-1);
     }
 }
