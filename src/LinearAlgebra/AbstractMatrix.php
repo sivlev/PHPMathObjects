@@ -24,6 +24,7 @@ use function array_map;
 use function array_reduce;
 use function count;
 use function is_array;
+use function gettype;
 
 /**
  * Abstract class to implement matrices of different types
