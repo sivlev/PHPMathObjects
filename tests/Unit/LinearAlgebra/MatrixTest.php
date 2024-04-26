@@ -1359,6 +1359,7 @@ class MatrixTest extends TestCase
     /**
      * @param array<int, array<int, int|float>> $array
      * @param int|float $expected
+     * @param bool $exception
      * @return void
      * @throws MatrixException
      */
@@ -1409,12 +1410,12 @@ class MatrixTest extends TestCase
                     [7, 8],
                 ],
                 1, true,
+            ],
+            [
                 [
-                    [
-                        [0],
-                    ],
-                    0, false,
+                    [0],
                 ],
+                0, false,
             ],
         ];
     }
