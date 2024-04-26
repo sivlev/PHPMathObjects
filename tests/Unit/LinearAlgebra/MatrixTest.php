@@ -925,6 +925,79 @@ class MatrixTest extends TestCase
 
     /**
      * @param array<int, array<int, int|float>> $array
+     * @param int|float $multiplier
+     * @param array<int, array<int, int|float>> $answer
+     * @return void
+     * @throws MatrixException
+     */
+    #[DataProvider('providerMultiplyByScalar')]
+    #[TestDox("mSubtract() method subtracts one matrix from another correctly")]
+    public function testMultiplyByScalar(array $array, int|float $multiplier, array $answer): void
+    {
+        $m1 = new Matrix($array);
+        $this->assertEqualsWithDelta($answer, $m1->multiplyByScalar($multiplier)->toArray(), self::e);
+        $this->assertEqualsWithDelta($answer, $m1->mMultiplyByScalar($multiplier)->toArray(), self::e);
+    }
+
+    /**
+     * @return array<int, array<int, array<int, array<int, int|float>>>>
+     */
+    public static function providerMultiplyByScalar(): array
+    {
+        return [
+            [
+                [
+                    [52, 1000, 1.1],
+                    [4.4, -12, 1.2],
+                    [3, 4, 6.6],
+                ],
+                0,
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                ],
+            ],
+            [
+                [
+                    [11, -2, 11.0],
+                    [18, 3, 593.1],
+                    [-29.334, 2.1, -0.821],
+                ],
+                1,
+                [
+                    [11, -2, 11.0],
+                    [18, 3, 593.1],
+                    [-29.334, 2.1, -0.821],
+                ],
+            ],
+            [
+                [
+                    [-11, -62.3, 7, 49.1],
+                    [0, 1.8, 7.9, -39],
+                ],
+                2,
+                [
+                    [-22, -124.6, 14, 98.2],
+                    [0, 3.6, 15.8, -78],
+                ],
+            ],
+            [
+                [
+                    [1.1, 2.23],
+                    [-3.345, -4.4567],
+                ],
+                -0.345,
+                [
+                    [-0.3795, -0.76935],
+                    [1.154025, 1.5375615],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param array<int, array<int, int|float>> $array
      * @param array<int, array<int, int|float>> $answer
      * @return void
      * @throws MatrixException

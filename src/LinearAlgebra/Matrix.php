@@ -187,7 +187,7 @@ class Matrix extends AbstractMatrix
      */
     public function multiply(Matrix $term): self
     {
-        $newMatrix = new static($this->matrix, false);
+        $newMatrix = new Matrix($this->matrix, false);
         return $newMatrix->mMultiply($term);
     }
 
@@ -226,6 +226,36 @@ class Matrix extends AbstractMatrix
         $this->columns = $term->columns;
         $this->size = $this->rows * $this->columns;
 
+        return $this;
+    }
+
+    /**
+     * Multiplication of a matrix by a scalar elementwise
+     *
+     * @param int|float $multiplier
+     * @return self
+     * @throws MatrixException
+     */
+    public function multiplyByScalar(int|float $multiplier): self
+    {
+        $newMatrix = new Matrix($this->matrix, false);
+        return $newMatrix->mMultiplyByScalar($multiplier);
+    }
+
+    /**
+     * Mutating multiplication of a matrix by a scalar elementwise (result stored in the current matrix)
+     *
+     * @param int|float $multiplier
+     * @return self
+     */
+    public function mMultiplyByScalar(int|float $multiplier): self
+    {
+        $count = $this->columns;
+        foreach ($this->matrix as &$row) {
+            for ($i = 0; $i < $count; $i++) {
+                $row[$i] *= $multiplier;
+            }
+        }
         return $this;
     }
 }
