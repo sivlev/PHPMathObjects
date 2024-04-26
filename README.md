@@ -81,6 +81,8 @@ $multiplication = $matrix->multiply($anotherMatrix);
 $matrix->mMultiply($anotherMatrix);
 $multiplicationByScalar = $matrix->multiplyByScalar(2.5);
 $matrix->mMultiplyByScalar(2.5);
+$signsChanged = $matrix->changeSign();
+$matrix->mChangeSign();
 
 // Conversion to a string representation
 $string = $matrix->toString();
