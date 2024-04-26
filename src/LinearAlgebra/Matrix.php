@@ -85,20 +85,8 @@ class Matrix extends AbstractMatrix
             throw new MatrixException("Cannot add matrices with different dimensions.");
         }
 
-        $result = [];
-        $count = $this->columns;
-
-        foreach ($this->matrix as $rowIndex => $rowLeft) {
-            $rowRight = $term->matrix[$rowIndex];
-            $resultRow = [];
-            // For-cycle is here faster than foreach
-            for ($i = 0; $i < $count; $i++) {
-                $resultRow[] = $rowLeft[$i] + $rowRight[$i];
-            }
-            $result[] = $resultRow;
-        }
-
-        return new Matrix($result, false);
+        $newMatrix = new Matrix($this->matrix, false);
+        return $newMatrix->mAdd($term);
     }
 
     /**
@@ -138,20 +126,8 @@ class Matrix extends AbstractMatrix
             throw new MatrixException("Cannot subtract matrices with different dimensions.");
         }
 
-        $result = [];
-        $count = $this->columns;
-
-        foreach ($this->matrix as $rowIndex => $rowLeft) {
-            $rowRight = $term->matrix[$rowIndex];
-            $resultRow = [];
-            // For-cycle is here faster than foreach
-            for ($i = 0; $i < $count; $i++) {
-                $resultRow[] = $rowLeft[$i] - $rowRight[$i];
-            }
-            $result[] = $resultRow;
-        }
-
-        return new Matrix($result, false);
+        $newMatrix = new Matrix($this->matrix, false);
+        return $newMatrix->mSubtract($term);
     }
 
     /**
@@ -250,6 +226,7 @@ class Matrix extends AbstractMatrix
      */
     public function mMultiplyByScalar(int|float $multiplier): self
     {
+        // Micro-optimized
         $count = $this->columns;
         foreach ($this->matrix as &$row) {
             for ($i = 0; $i < $count; $i++) {
