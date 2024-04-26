@@ -940,7 +940,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, array<int, array<int, int|float>>>>
+     * @return array<int, array<int, int|float|array<int, array<int, int|float>>>>
      */
     public static function providerMultiplyByScalar(): array
     {
