@@ -30,6 +30,13 @@ use function abs;
 class Matrix extends AbstractMatrix
 {
     /**
+     * Cached value of the trace of a matrix
+     *
+     * @var int|float|null
+     */
+    protected int|float|null $traceCache = null;
+
+    /**
      * Factory method to create an identity matrix with dimensions of size x size
      *
      * @param int $size
@@ -295,5 +302,31 @@ class Matrix extends AbstractMatrix
         }
 
         return true;
+    }
+
+    /**
+     * Calculation of the trace of a matrix (defined for square matrices only)
+     *
+     * @return int|float
+     * @throws MatrixException if the matrix is not square
+     */
+    public function trace(): int|float
+    {
+        // Check if the trace has been once already calculated
+        if (isset($this->traceCache)) {
+            return $this->traceCache;
+        }
+
+        // Check if the trace can be calculated for the given matrix
+        if ($this->rows !== $this->columns) {
+            throw new MatrixException("The trace is only defined for a square matrix.");
+        }
+
+        $trace = 0;
+        foreach ($this->matrix as $index => $row) {
+            $trace += $row[$index];
+        }
+
+        return $trace;
     }
 }

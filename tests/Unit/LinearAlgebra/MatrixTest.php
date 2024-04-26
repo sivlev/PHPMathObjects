@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 class MatrixTest extends TestCase
 {
     // Tolerance used to compare two floats
-    protected const e = 1e-5;
+    protected const e = 1e-6;
 
     /**
      * @throws MatrixException
@@ -1352,6 +1352,69 @@ class MatrixTest extends TestCase
                     [-1.23456, -2.34578, -3.45678, -4.56789, -5.67891],
                     [-6.78912, -7.89123, -8.91234, -9.12345, -0.123456],
                 ], false,
+            ],
+        ];
+    }
+
+    /**
+     * @param array<int, array<int, int|float>> $array
+     * @param int|float $expected
+     * @return void
+     * @throws MatrixException
+     */
+    #[DataProvider('providerTrace')]
+    #[TestDox("trace() method calculates the trace of the matrix")]
+    public function testTrace(array $array, int|float $expected, bool $exception = false): void
+    {
+        if ($exception) {
+            $this->expectException(MatrixException::class);
+        }
+        $m = new Matrix($array);
+        $this->assertEqualsWithDelta($expected, $m->trace(), self::e);
+    }
+
+    /**
+     * @return array<int, array<int, bool|int|float|array<int, array<int, int|float>>>>
+     */
+    public static function providerTrace(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                15, false,
+            ],
+            [
+                [
+                    [0.1, -0.2, 30],
+                    [4.1, 50, 3.2],
+                    [1.023, 22, -0.654],
+                ],
+                49.446, false,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                ],
+                1, true,
+            ],
+            [
+                [
+                    [1, 2],
+                    [4, 5],
+                    [7, 8],
+                ],
+                1, true,
+                [
+                    [
+                        [0],
+                    ],
+                    0, false,
+                ],
             ],
         ];
     }
