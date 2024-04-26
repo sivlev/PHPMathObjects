@@ -585,27 +585,12 @@ class MatrixTest extends TestCase
      * @throws MatrixException
      */
     #[DataProvider('providerAdd')]
-    #[TestDox("add() method adds two matrices correctly")]
+    #[TestDox("add() and mAdd() methods add two matrices correctly")]
     public function testAdd(array $array1, array $array2, array $answer): void
     {
         $m1 = new Matrix($array1);
         $m2 = new Matrix($array2);
         $this->assertEqualsWithDelta($answer, $m1->add($m2)->toArray(), self::e);
-    }
-
-    /**
-     * @param array<int, array<int, int|float>> $array1
-     * @param array<int, array<int, int|float>> $array2
-     * @param array<int, array<int, int|float>> $answer
-     * @return void
-     * @throws MatrixException
-     */
-    #[DataProvider('providerAdd')]
-    #[TestDox("mAdd() method adds two matrices correctly")]
-    public function testMAdd(array $array1, array $array2, array $answer): void
-    {
-        $m1 = new Matrix($array1);
-        $m2 = new Matrix($array2);
         $this->assertEqualsWithDelta($answer, $m1->mAdd($m2)->toArray(), self::e);
     }
 
@@ -671,27 +656,12 @@ class MatrixTest extends TestCase
      * @throws MatrixException
      */
     #[DataProvider('providerSubtract')]
-    #[TestDox("subtract() method subtracts one matrix from another correctly")]
+    #[TestDox("subtract() and mSubtract() methods subtract one matrix from another correctly")]
     public function testSubtract(array $array1, array $array2, array $answer): void
     {
         $m1 = new Matrix($array1);
         $m2 = new Matrix($array2);
         $this->assertEqualsWithDelta($answer, $m1->subtract($m2)->toArray(), self::e);
-    }
-
-    /**
-     * @param array<int, array<int, int|float>> $array1
-     * @param array<int, array<int, int|float>> $array2
-     * @param array<int, array<int, int|float>> $answer
-     * @return void
-     * @throws MatrixException
-     */
-    #[DataProvider('providerSubtract')]
-    #[TestDox("mSubtract() method subtracts one matrix from another correctly")]
-    public function testMSubtract(array $array1, array $array2, array $answer): void
-    {
-        $m1 = new Matrix($array1);
-        $m2 = new Matrix($array2);
         $this->assertEqualsWithDelta($answer, $m1->mSubtract($m2)->toArray(), self::e);
     }
 
