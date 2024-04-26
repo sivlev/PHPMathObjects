@@ -17,11 +17,10 @@ namespace PHPMathObjects\LinearAlgebra;
 
 use PHPMathObjects\Exception\MatrixException;
 
-use PHPStan\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs;
-
 use function is_int;
 use function is_float;
 use function array_fill;
+use function abs;
 
 /**
  * Implementation of the AbstractMatrix class to manipulate numeric matrices

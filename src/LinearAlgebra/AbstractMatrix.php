@@ -21,6 +21,7 @@ use PHPMathObjects\Exception\MatrixException;
 
 use function array_values;
 use function array_map;
+use function array_reduce;
 use function count;
 use function is_array;
 
