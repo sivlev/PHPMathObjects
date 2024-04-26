@@ -17,6 +17,8 @@ namespace PHPMathObjects\LinearAlgebra;
 
 use PHPMathObjects\Exception\MatrixException;
 
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs;
+
 use function is_int;
 use function is_float;
 use function array_fill;
@@ -172,7 +174,7 @@ class Matrix extends AbstractMatrix
      *
      * @param Matrix $term
      * @return $this
-     * @throws MatrixException
+     * @throws MatrixException if the matrices have incompatible dimensions
      */
     public function mMultiply(Matrix $term): self
     {
@@ -210,7 +212,7 @@ class Matrix extends AbstractMatrix
      *
      * @param int|float $multiplier
      * @return self
-     * @throws MatrixException
+     * @throws MatrixException (not expected)
      */
     public function multiplyByScalar(int|float $multiplier): self
     {

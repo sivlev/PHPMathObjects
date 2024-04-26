@@ -308,10 +308,10 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
     }
 
     /**
-     * Matrix transpose (flips the matrix over its diagonal)
+     * Matrix transpose
      *
      * @return static
-     * @throws MatrixException
+     * @throws MatrixException (not expected)
      */
     public function transpose(): static
     {
