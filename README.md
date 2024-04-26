@@ -32,6 +32,10 @@ The library requires PHP 8.2 or above. No other external dependencies are requir
 
 #### Matrix
 
+Many matrix methods in PHPMathObjects are implemented in two versions: non-mutating (return a new matrix object) and mutating (change the existing matrix).
+The latter method names have a letter "m" in the beginning, e.g. add() and mAdd(), transform() and mTransform(), etc.
+You can decide which method is more suitable for a particular task. Usually the mutating methods are slightly faster than non-mutating ones because the no new object instantiation is needed.
+
 ```php
 // Create a new matrix object using class constructor
 $matrix = new Matrix([
@@ -66,14 +70,17 @@ $doesElementExist = isset($matrix[[1, 2]]);
 
 // Matrix unary operations
 $transpose = $matrix->transpose();
+$matrix->mTranspose();
 
-// Matrix-matrix arithmetics (exist as non-mutating and mutating versions)
-$sum = $matrix->add($anotherMatrix);    // Returns a new object
-$matrix->mAdd($anotherMatrix);          // Mutates $matrix
+// Matrix arithmetics
+$sum = $matrix->add($anotherMatrix);
+$matrix->mAdd($anotherMatrix);
 $difference = $matrix->subtract($anotherMatrix);
 $matrix->mSubtract($anotherMatrix);
 $multiplication = $matrix->multiply($anotherMatrix);
 $matrix->mMultiply($anotherMatrix);
+$multiplicationByScalar = $matrix->multiplyByScalar(2.5);
+$matrix->mMultiplyByScalar(2.5);
 
 // Conversion to a string representation
 $string = $matrix->toString();
