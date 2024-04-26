@@ -259,4 +259,42 @@ class Matrix extends AbstractMatrix
     {
         return $this->mMultiplyByScalar(-1);
     }
+
+    public function isEqual(Matrix $term, float $tolerance = 1e-6): bool
+    {
+        if ($this->rows !== $term->rows || $this->columns !== $term->columns) {
+            return false;
+        }
+
+        $countColumns = $this->columns;
+        foreach ($this->matrix as $rowIndex => $rowLeft) {
+            $rowRight = $term->matrix[$rowIndex];
+            for ($i = 0; $i < $countColumns; $i++) {
+                if (abs($rowLeft[$i] - $rowRight[$i]) > $tolerance) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public function isEqualExactly(Matrix $term): bool
+    {
+        if ($this->rows !== $term->rows || $this->columns !== $term->columns) {
+            return false;
+        }
+
+        $countColumns = $this->columns;
+        foreach ($this->matrix as $rowIndex => $rowLeft) {
+            $rowRight = $term->matrix[$rowIndex];
+            for ($i = 0; $i < $countColumns; $i++) {
+                if ($rowLeft[$i] !== $rowRight[$i]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }

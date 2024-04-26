@@ -84,6 +84,11 @@ $matrix->mMultiplyByScalar(2.5);
 $signsChanged = $matrix->changeSign();
 $matrix->mChangeSign();
 
+// Compare matrices
+$equal = $matrix->isEqual($anotherMatrix);          // Compare elementwise within a default tolerance of 1.0e^-6
+$equal = $matrix->isEqual($anotherMatrix, 1e-8);    // Or set the tolerance explicitly
+$equal = $matrix->isEqualExactly($anotherMatrix);   // Compare matrices elementwise with '===' operator
+
 // Conversion to a string representation
 $string = $matrix->toString();
 $string = (string) $matrix;

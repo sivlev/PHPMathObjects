@@ -1160,4 +1160,199 @@ class MatrixTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * @param array<int, array<int, int|float>> $array1
+     * @param array<int, array<int, int|float>> $array2
+     * @param bool $expected
+     * @param float|null $tolerance
+     * @return void
+     * @throws MatrixException
+     */
+    #[DataProvider('providerIsEqual')]
+    #[TestDox("isEqual() method compares two matrices within a given tolerance")]
+    public function testIsEqual(array $array1, array $array2, bool $expected, ?float $tolerance): void
+    {
+        $m1 = new Matrix($array1);
+        $m2 = new Matrix($array2);
+        if (isset($tolerance)) {
+            $this->assertEquals($expected, $m1->isEqual($m2, $tolerance));
+        } else {
+            $this->assertEquals($expected, $m1->isEqual($m2));
+        }
+    }
+
+    /**
+     * @return array<int, array<int, bool|null|float|array<int, array<int, int|float>>>>
+     */
+    public static function providerIsEqual(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], true, null,
+            ],
+            [
+                [
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                ],
+                [
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 1],
+                ], false, null,
+            ],
+            [
+                [
+                    [1.11112, -1.11113, 1.11114, -1.11115, 1.11116],
+                    [1.11117, -1.11118, 1.11119, -1.11120, 1.11121],
+                    [1.11122, -1.11123, 1.11124, -1.11125, 1.11126],
+                    [1.11127, -1.11128, 1.11129, -1.11130, 1.11131],
+                ],
+                [
+                    [1.11112, -1.11113, 1.11114, -1.11115, 1.11116],
+                    [1.11117, -1.11118, 1.11119, -1.11120, 1.11121],
+                    [1.11122, -1.11123, 1.11124, -1.11125, 1.11126],
+                    [1.11127, -1.11128, 1.11129, -1.11130, 1.11132],
+                ], false, null,
+            ],
+            [
+                [
+                    [1.11112, -1.11113, 1.11114, -1.11115, 1.11116],
+                    [1.11117, -1.11118, 1.11119, -1.11120, 1.11121],
+                    [1.11122, -1.11123, 1.11124, -1.11125, 1.11126],
+                    [1.11127, -1.11128, 1.11129, -1.11130, 1.11131],
+                ],
+                [
+                    [1.11112, -1.11113, 1.11114, -1.11115, 1.11116],
+                    [1.11117, -1.11118, 1.11119, -1.11120, 1.11121],
+                    [1.11122, -1.11123, 1.11124, -1.11125, 1.11126],
+                    [1.11127, -1.11128, 1.11129, -1.11130, 1.11132],
+                ], true, 0.001,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                ], false, null,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                [
+                    [1, 2],
+                    [4, 5],
+                    [7, 8],
+                ], false, null,
+            ],
+        ];
+    }
+
+    /**
+     * @param array<int, array<int, int|float>> $array1
+     * @param array<int, array<int, int|float>> $array2
+     * @param bool $expected
+     * @return void
+     * @throws MatrixException
+     */
+    #[DataProvider('providerIsEqualExactly')]
+    #[TestDox("isEqualExactly() method compares two matrices for exact equality")]
+    public function testIsEqualExactly(array $array1, array $array2, bool $expected): void
+    {
+        $m1 = new Matrix($array1);
+        $m2 = new Matrix($array2);
+        $this->assertEquals($expected, $m1->isEqualExactly($m2));
+    }
+
+    /**
+     * @return array<int, array<int, bool|array<int, array<int, int|float>>>>
+     */
+    public static function providerIsEqualExactly(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], true,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                ], false,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                [
+                    [1, 2],
+                    [4, 5],
+                    [7, 8],
+                ], false,
+            ],
+            [
+                [
+                    [1.23456, 2.34567, 3.45678, 4.56789, 5.67891],
+                    [6.78912, 7.89123, 8.91234, 9.12345, 0.12345],
+                    [-1.23456, -2.34578, -3.45678, -4.56789, -5.67891],
+                    [-6.78912, -7.89123, -8.91234, -9.12345, -0.12345],
+                ],
+                [
+                    [1.23456, 2.34567, 3.45678, 4.56789, 5.67891],
+                    [6.78912, 7.89123, 8.91234, 9.12345, 0.12345],
+                    [-1.23456, -2.34578, -3.45678, -4.56789, -5.67891],
+                    [-6.78912, -7.89123, -8.91234, -9.12345, -0.12345],
+                ], true,
+            ],
+            [
+                [
+                    [1.23456, 2.34567, 3.45678, 4.56789, 5.67891],
+                    [6.78912, 7.89123, 8.91234, 9.12345, 0.12345],
+                    [-1.23456, -2.34578, -3.45678, -4.56789, -5.67891],
+                    [-6.78912, -7.89123, -8.91234, -9.12345, -0.12345],
+                ],
+                [
+                    [1.23456, 2.34567, 3.45678, 4.56789, 5.67891],
+                    [6.78912, 7.89123, 8.91234, 9.12345, 0.12345],
+                    [-1.23456, -2.34578, -3.45678, -4.56789, -5.67891],
+                    [-6.78912, -7.89123, -8.91234, -9.12345, -0.123456],
+                ], false,
+            ],
+        ];
+    }
 }
