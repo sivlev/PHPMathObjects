@@ -15,12 +15,10 @@ declare(strict_types=1);
 
 namespace PHPMathObjects\Exception;
 
-use Exception;
-
 /**
- * Parent exception class for all exceptions in PHPMathObject library
+ * Exception thrown if a value is not a valid index or lies somehow else out of bounds or out of range
  */
-class MathObjectsException extends Exception
+class OutOfBoundsException extends MathObjectsException
 {
     //
 }

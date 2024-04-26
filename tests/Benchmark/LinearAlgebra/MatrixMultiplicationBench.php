@@ -19,7 +19,9 @@ use PhpBench\Attributes\BeforeMethods;
 use PhpBench\Attributes\Groups;
 use PhpBench\Attributes\Iterations;
 use PhpBench\Attributes\Revs;
+use PHPMathObjects\Exception\InvalidArgumentException;
 use PHPMathObjects\Exception\MatrixException;
+use PHPMathObjects\Exception\OutOfBoundsException;
 use PHPMathObjects\LinearAlgebra\Matrix;
 
 /**
@@ -42,7 +44,8 @@ class MatrixMultiplicationBench
 
     /**
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
      */
     public function setUp(): void
     {
@@ -53,6 +56,7 @@ class MatrixMultiplicationBench
     /**
      * @return void
      * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[Iterations(5)]
     #[Revs(10)]
@@ -63,6 +67,7 @@ class MatrixMultiplicationBench
 
     /**
      * @return void
+     * @throws InvalidArgumentException
      * @throws MatrixException
      */
     #[Iterations(5)]

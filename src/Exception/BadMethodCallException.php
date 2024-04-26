@@ -15,12 +15,10 @@ declare(strict_types=1);
 
 namespace PHPMathObjects\Exception;
 
-use Exception;
-
 /**
- * Parent exception class for all exceptions in PHPMathObject library
+ * Exception thrown if a method is not implemented or is undefined
  */
-class MathObjectsException extends Exception
+class BadMethodCallException extends MathObjectsException
 {
     //
 }

@@ -15,7 +15,10 @@ declare(strict_types=1);
 
 namespace PHPMathObjects\LinearAlgebra;
 
+use PHPMathObjects\Exception\InvalidArgumentException;
 use PHPMathObjects\Exception\MatrixException;
+
+use PHPMathObjects\Exception\OutOfBoundsException;
 
 use function is_int;
 use function is_float;
@@ -41,12 +44,13 @@ class Matrix extends AbstractMatrix
      *
      * @param int $size
      * @return self
-     * @throws MatrixException if the given size is non-positive
+     * @throws OutOfBoundsException if the given size is non-positive
+     * @throws InvalidArgumentException (not expected)
      */
     public static function identity(int $size): self
     {
         if ($size <= 0) {
-            throw new MatrixException("Size of identity matrix must greater than zero. Size $size is given.");
+            throw new OutOfBoundsException("Size of identity matrix must greater than zero. Size $size is given.");
         }
 
         // Create a 2D array filled with zeros
@@ -86,6 +90,7 @@ class Matrix extends AbstractMatrix
      * @param Matrix $term
      * @return self
      * @throws MatrixException if the matrices have unequal dimensions
+     * @throws InvalidArgumentException (not expected)
      */
     public function add(Matrix $term): self
     {
@@ -127,6 +132,7 @@ class Matrix extends AbstractMatrix
      * @param Matrix $term
      * @return self
      * @throws MatrixException if the matrices have unequal dimensions
+     * @throws InvalidArgumentException (not expected)
      */
     public function subtract(Matrix $term): self
     {
@@ -168,6 +174,7 @@ class Matrix extends AbstractMatrix
      * @param Matrix $term
      * @return self
      * @throws MatrixException if the matrices have incompatible dimensions
+     * @throws InvalidArgumentException (not expected)
      */
     public function multiply(Matrix $term): self
     {
@@ -181,6 +188,7 @@ class Matrix extends AbstractMatrix
      * @param Matrix $term
      * @return $this
      * @throws MatrixException if the matrices have incompatible dimensions
+     * @throws InvalidArgumentException (not expected)
      */
     public function mMultiply(Matrix $term): self
     {
@@ -218,7 +226,7 @@ class Matrix extends AbstractMatrix
      *
      * @param int|float $multiplier
      * @return self
-     * @throws MatrixException (not expected)
+     * @throws InvalidArgumentException (not expected)
      */
     public function multiplyByScalar(int|float $multiplier): self
     {
@@ -248,7 +256,7 @@ class Matrix extends AbstractMatrix
      * Change of signs of all elements
      *
      * @return self
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     public function changeSign(): self
     {

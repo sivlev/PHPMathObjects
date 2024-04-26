@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace PHPMathObjects\Exception;
 
 /**
- * Exception handler for the AbstractMatrix class and its children classes
+ * Exception thrown if a requested operation is not valid for the given type of matrix (e.g. determinant on a non-square matrix)
  */
 class MatrixException extends MathObjectsException
 {

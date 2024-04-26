@@ -17,7 +17,9 @@ namespace PHPMathObjects\LinearAlgebra;
 
 use ArrayAccess;
 use Countable;
-use PHPMathObjects\Exception\MatrixException;
+use PHPMathObjects\Exception\BadMethodCallException;
+use PHPMathObjects\Exception\InvalidArgumentException;
+use PHPMathObjects\Exception\OutOfBoundsException;
 
 use function array_values;
 use function array_map;
@@ -68,7 +70,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      *
      * @param array<int, array<int, T>> $data
      * @param bool $validateData If true, the provided $data array must be validated. It is mostly intended for internal use. All user-input data must be validated.
-     * @throws MatrixException if the provided $data array is ill-behaved (e.g. not all rows have same number of columns)
+     * @throws InvalidArgumentException if the provided $data array is ill-behaved (e.g. not all rows have same number of columns)
      */
     public function __construct(array $data, bool $validateData = true)
     {
@@ -94,12 +96,13 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * @param int $columns
      * @param T $value
      * @return static
-     * @throws MatrixException if the matrix dimensions are non-positive or if the given value is incompatible with the matrix type
+     * @throws InvalidArgumentException if the given value is incompatible with the matrix type
+     * @throws OutOfBoundsException if the matrix dimensions are non-positive
      */
     public static function fill(int $rows, int $columns, mixed $value): static
     {
         if ($rows <= 0 || $columns <= 0) {
-            throw new MatrixException("Matrix dimensions must be greater than zero. Rows $rows and columns $columns are given");
+            throw new OutOfBoundsException("Matrix dimensions must be greater than zero. Rows $rows and columns $columns are given");
         }
         return new static(array_fill(0, $rows, array_fill(0, $columns, $value)));
     }
@@ -107,13 +110,13 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
     /**
      * Method for data validation independent of matrix type. Checks that all matrix rows are arrays of equal length. During the cycle a class-specific validation will be called.
      *
-     * @throws MatrixException if the matrix is empty, or its rows are empty, or its rows have different sizes
+     * @throws InvalidArgumentException if the matrix is empty, or its rows are empty, or its rows have different sizes
      */
     protected function validateData(): void
     {
         // Check that the matrix is not empty and that the first row is not empty
         if ($this->rows === 0 || !is_array($this->matrix[0]) || count($this->matrix[0]) === 0) {
-            throw new MatrixException('Matrix cannot be empty or contain empty rows or rows with non-array elements.');
+            throw new InvalidArgumentException('Matrix cannot be empty or contain empty rows or rows with non-array elements.');
         }
 
         $this->columns = count($this->matrix[0]);
@@ -121,19 +124,19 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
         // Check that every row has the same amount of elements (columns), remove the array keys and call class-specific validation
         foreach ($this->matrix as $rowIndex => &$row) {
             if (!is_array($row)) {
-                throw new MatrixException("The matrix array must be two-dimensional array (array of arrays). The row [$rowIndex] is not an array.");
+                throw new InvalidArgumentException("The matrix array must be two-dimensional array (array of arrays). The row [$rowIndex] is not an array.");
             }
 
             if (count($row) !== $this->columns) {
-                throw new MatrixException("All matrix rows must have the same number of columns. The row [$rowIndex] has a different number of columns.");
+                throw new InvalidArgumentException("All matrix rows must have the same number of columns. The row [$rowIndex] has a different number of columns.");
             }
 
             $row = array_values($row);
 
             $exceptionMessage = "";
             $columnIndex = $this->validateDataClassSpecific($row, $rowIndex, $exceptionMessage);
-            if ($this->validateDataClassSpecific($row) !== true) {
-                throw new MatrixException($exceptionMessage);
+            if ($columnIndex !== true) {
+                throw new InvalidArgumentException($exceptionMessage);
             }
         }
     }
@@ -215,12 +218,12 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * @param int $row
      * @param int $column
      * @return T
-     * @throws MatrixException if the element with the given indices does not exist
+     * @throws OutOfBoundsException if the element with the given indices does not exist
      */
     public function get(int $row, int $column): mixed
     {
         if (!isset($this->matrix[$row][$column])) {
-            throw new MatrixException("The element [$row][$column] does not exist.");
+            throw new OutOfBoundsException("The element [$row][$column] does not exist.");
         }
         return $this->matrix[$row][$column];
     }
@@ -232,17 +235,18 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * @param int $column
      * @param T $value
      * @return $this
-     * @throws MatrixException if the element with the given indices does not exist or if the given value has a type incompatible with the matrix instance
+     * @throws OutOfBoundsException if the element with the given indices does not exist
+     * @throws InvalidArgumentException if the given value has a type incompatible with the matrix instance
      */
     public function set(int $row, int $column, mixed $value): static
     {
         if (!isset($this->matrix[$row][$column])) {
-            throw new MatrixException("The element [$row][$column] does not exist.");
+            throw new OutOfBoundsException("The element [$row][$column] does not exist.");
         }
 
         // Check if the type of the given value is compatible with the matrix
         if ($this->validateDataClassSpecific([$value]) !== true) {
-            throw new MatrixException("The type '" . gettype($value) . "' is incompatible with the given Matrix instance.");
+            throw new InvalidArgumentException("The type '" . gettype($value) . "' is incompatible with the given Matrix instance.");
         }
 
         $this->matrix[$row][$column] = $value;
@@ -254,12 +258,12 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      *
      * @param array<int, int> $offset
      * @return bool
-     * @throws MatrixException if method does not receive an array of the format [row, column]
+     * @throws InvalidArgumentException if method does not receive an array of the format [row, column]
      */
     public function offsetExists(mixed $offset): bool
     {
         if (!is_array($offset) || count($offset) !== 2) {
-            throw new MatrixException("Wrong format of array access. The offsetExists method expects a 1D array [row, column].");
+            throw new InvalidArgumentException("Wrong format of array access. The offsetExists method expects a 1D array [row, column].");
         }
 
         return isset($this->matrix[(int) $offset[0]][(int) $offset[1]]);
@@ -270,12 +274,13 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      *
      * @param array<int, int> $offset
      * @return T
-     * @throws MatrixException if the method does not receive an array of the format [row, column] or if the element does not exist
+     * @throws InvalidArgumentException if the method does not receive an array of the format [row, column]
+     * @throws OutOfBoundsException if the element does not exist
      */
     public function offsetGet(mixed $offset): mixed
     {
         if (!is_array($offset) || count($offset) !== 2) {
-            throw new MatrixException("Wrong format of array access. The offsetExists method expects a 1D array [row, column].");
+            throw new InvalidArgumentException("Wrong format of array access. The offsetExists method expects a 1D array [row, column].");
         }
 
         return $this->get((int) $offset[0], (int) $offset[1]);
@@ -287,12 +292,13 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * @param array<int, int> $offset
      * @param T $value
      * @return void
-     * @throws MatrixException if the method does not receive an array of the format [row, column] or if the element does not exist
+     * @throws InvalidArgumentException if the method does not receive an array of the format [row, column]
+     * @throws OutOfBoundsException if the element does not exist
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
         if (!is_array($offset) || count($offset) !== 2) {
-            throw new MatrixException("Wrong format of array access. The offsetExists method expects a 1D array [row, column].");
+            throw new InvalidArgumentException("Wrong format of array access. The offsetExists method expects a 1D array [row, column].");
         }
 
         $this->set((int) $offset[0], (int) $offset[1], $value);
@@ -302,18 +308,18 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * Unset() method of the ArrayAccess interface (not implemented)
      *
      * @param mixed $offset
-     * @throws MatrixException on call
+     * @throws BadMethodCallException on call
      */
     public function offsetUnset(mixed $offset): void
     {
-        throw new MatrixException("The matrix elements cannot be unset directly.");
+        throw new BadMethodCallException("The matrix elements cannot be unset directly.");
     }
 
     /**
      * Matrix transpose
      *
      * @return static
-     * @throws MatrixException (not expected)
+     * @throws InvalidArgumentException (not expected)
      */
     public function transpose(): static
     {

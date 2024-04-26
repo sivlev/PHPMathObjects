@@ -15,7 +15,10 @@ declare(strict_types=1);
 
 namespace PHPMathObjects\Tests\Unit\LinearAlgebra;
 
+use PHPMathObjects\Exception\InvalidArgumentException;
+use PHPMathObjects\Exception\MathObjectsException;
 use PHPMathObjects\Exception\MatrixException;
+use PHPMathObjects\Exception\OutOfBoundsException;
 use PHPMathObjects\LinearAlgebra\AbstractMatrix;
 use PHPMathObjects\LinearAlgebra\Matrix;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -32,7 +35,7 @@ class MatrixTest extends TestCase
     protected const e = 1e-6;
 
     /**
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[TestDox("Construct creates an instance of the expected classes")]
     public function testConstructor(): void
@@ -50,7 +53,7 @@ class MatrixTest extends TestCase
      * @param array<int, array<int, int|float>> $matrix
      * @param string $exceptionMessage
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[TestWith([[], "Matrix cannot be empty or contain empty rows or rows with non-array elements."])]
     #[TestWith([[[], [1]], "Matrix cannot be empty or contain empty rows or rows with non-array elements."])]
@@ -60,7 +63,7 @@ class MatrixTest extends TestCase
     #[TestDox("Abstract constructor throws exceptions if the given array is invalid")]
     public function testConstructorException(array $matrix, string $exceptionMessage): void
     {
-        $this->expectException(MatrixException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage($exceptionMessage);
         new Matrix($matrix);
     }
@@ -71,7 +74,8 @@ class MatrixTest extends TestCase
      * @param int|float $value
      * @param array<int, array<int, int|float>> $expected
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
      */
     #[DataProvider('providerFillFactory')]
     #[TestDox("Fill() factory creates a matrix of the given size and filled with the given value")]
@@ -122,17 +126,19 @@ class MatrixTest extends TestCase
      * @param int $rows
      * @param int $columns
      * @param mixed $value
+     * @param class-string<MathObjectsException> $exceptionClass
      * @param string $exceptionMessage
      * @return void
-     * @throws MatrixException
+     * @throws OutOfBoundsException
+     * @throws InvalidArgumentException
      */
-    #[TestWith([-4, 5, 0, "Matrix dimensions must be greater than zero. Rows -4 and columns 5 are given"])]
-    #[TestWith([3, 0, -0.1, "Matrix dimensions must be greater than zero. Rows 3 and columns 0 are given"])]
-    #[TestWith([3, 3, "1", "Elements of a numeric matrix must be either integer or float. Element [0][0] is of type 'string'."])]
+    #[TestWith([-4, 5, 0, "PHPMathObjects\Exception\OutOfBoundsException", "Matrix dimensions must be greater than zero. Rows -4 and columns 5 are given"])]
+    #[TestWith([3, 0, -0.1, "PHPMathObjects\Exception\OutOfBoundsException", "Matrix dimensions must be greater than zero. Rows 3 and columns 0 are given"])]
+    #[TestWith([3, 3, "1", "PHPMathObjects\Exception\InvalidArgumentException", "Elements of a numeric matrix must be either integer or float. Element [0][0] is of type 'string'."])]
     #[TestDox("Fill() factory throws an exception if the given dimensions or value type are invalid")]
-    public function testFillFactoryException(int $rows, int $columns, mixed $value, string $exceptionMessage): void
+    public function testFillFactoryException(int $rows, int $columns, mixed $value, string $exceptionClass, string $exceptionMessage): void
     {
-        $this->expectException(MatrixException::class);
+        $this->expectException($exceptionClass);
         $this->expectExceptionMessage($exceptionMessage);
         Matrix::fill($rows, $columns, $value);
     }
@@ -141,7 +147,8 @@ class MatrixTest extends TestCase
      * @param int $size
      * @param array<int, array<int, int>> $expected
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
      */
     #[DataProvider('providerIdentityFactory')]
     #[TestDox("Identity() factory creates an identity matrix of the given size")]
@@ -184,14 +191,15 @@ class MatrixTest extends TestCase
      * @param int $size
      * @param string $exceptionMessage
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
      */
     #[TestWith([0, "Size of identity matrix must greater than zero. Size 0 is given."])]
     #[TestWith([-10, "Size of identity matrix must greater than zero. Size -10 is given."])]
     #[TestDox("Identity() factory throws an exception if the given size is non-positive")]
     public function testIdentityFactoryException(int $size, string $exceptionMessage): void
     {
-        $this->expectException(MatrixException::class);
+        $this->expectException(OutOfBoundsException::class);
         $this->expectExceptionMessage($exceptionMessage);
         Matrix::identity($size);
     }
@@ -200,20 +208,20 @@ class MatrixTest extends TestCase
      * @param array<int, array<int, int|float>> $matrix
      * @param string $exceptionMessage
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerConstructorNumericMatrixException')]
     #[TestDox("Data validation method of numeric matrix class throws exceptions if the given array is contains elements other then int or float")]
     public function testDataValidationNumericMatrixException(array $matrix, string $exceptionMessage): void
     {
-        $this->expectException(MatrixException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage($exceptionMessage);
         new Matrix($matrix);
     }
 
     /**
      * @return array<int, array<int, array<int, array<int, mixed>>|string>>
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     public static function providerConstructorNumericMatrixException(): array
     {
@@ -236,7 +244,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[TestDox("Strange objects can be created if data validation is avoided")]
     public function testConstructorWithoutValidation(): void
@@ -254,7 +262,7 @@ class MatrixTest extends TestCase
 
     /**
      * @param array<int, array<int, int|float>> $array
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerToArray')]
     #[TestDox("ToArray() method returns the matrix as an array")]
@@ -297,7 +305,7 @@ class MatrixTest extends TestCase
      * @param int $rows
      * @param int $columns
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerRowsAndColumns')]
     #[TestDox("rows() and columns() getters return correct values")]
@@ -347,7 +355,7 @@ class MatrixTest extends TestCase
      * @param array<int, array<int, int|float>> $array
      * @param int $size
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerSizeAndCount')]
     #[TestDox("size() and count() methods return correct values for number elements")]
@@ -401,7 +409,8 @@ class MatrixTest extends TestCase
      * @param int $column
      * @param float|int $valueToSet
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
      */
     #[DataProvider('providerIsSetGetSet')]
     #[TestDox("The methods set(), get(), isSet() and corresponding ArrayAccess interface methods properly operate on matrix class")]
@@ -454,16 +463,18 @@ class MatrixTest extends TestCase
      * @param int $column
      * @param string $method
      * @param mixed $value
+     * @param class-string<MathObjectsException> $exceptionClass
      * @param string $exceptionMessage
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
      */
     #[DataProvider('providerIsSetGetSetException')]
     #[TestDox("The methods set(), get(), isSet() and corresponding ArrayAccess interface methods throw exceptions upon wrong indices or wrong data types")]
-    public function testIsSetGetSetException(array $array, int $row, int $column, string $method, mixed $value = "", string $exceptionMessage = ""): void
+    public function testIsSetGetSetException(array $array, int $row, int $column, string $method, mixed $value, string $exceptionClass, string $exceptionMessage = ""): void
     {
         $m = new Matrix($array);
-        $this->expectException(MatrixException::class);
+        $this->expectException($exceptionClass);
         if (!empty($exceptionMessage)) {
             $this->expectExceptionMessage($exceptionMessage);
         }
@@ -497,45 +508,45 @@ class MatrixTest extends TestCase
                     [1, 2, 3],
                     [4, 5, 6],
                     [7, 8, 9],
-                ], 3, 1, "get", 0, "The element [3][1] does not exist.",
+                ], 3, 1, "get", 0, "PHPMathObjects\Exception\OutOfBoundsException", "The element [3][1] does not exist.",
             ],
             [
                 [
                     [1],
                     [4],
                     [7],
-                ], 1, 2, "set", -1.1, "The element [1][2] does not exist.",
+                ], 1, 2, "set", -1.1, "PHPMathObjects\Exception\OutOfBoundsException", "The element [1][2] does not exist.",
             ],
             [
                 [
                     [1],
                     [4],
                     [7],
-                ], 1, 0, "set", "1", "The type 'string' is incompatible with the given Matrix instance.",
+                ], 1, 0, "set", "1", "PHPMathObjects\Exception\InvalidArgumentException", "The type 'string' is incompatible with the given Matrix instance.",
             ],
             [
                 [
                     [1, -1],
                     [4, -8],
                     [7, 20],
-                ], 5, 1, "offsetSet", 1.1, "The element [5][1] does not exist.",
+                ], 5, 1, "offsetSet", 1.1, "PHPMathObjects\Exception\OutOfBoundsException", "The element [5][1] does not exist.",
             ],
             [
                 [
                     [1, -1, -1, 5.2, 4.2],
                     [4, -8, 2.5, 2.11, 4],
                     [7, 20, 5, -2, 4],
-                ], 1, 1, "offsetSet", [1.2], "The type 'array' is incompatible with the given Matrix instance.",
+                ], 1, 1, "offsetSet", [1.2], "PHPMathObjects\Exception\InvalidArgumentException", "The type 'array' is incompatible with the given Matrix instance.",
             ],
             [
                 [
                     [1],
-                ], 1, 0, "offsetGet", "The element [1][0] does not exist.",
+                ], 1, 0, "offsetGet", 0, "PHPMathObjects\Exception\OutOfBoundsException", "The element [1][0] does not exist.",
             ],
             [
                 [
                     [1],
-                ], 0, 0, "unset",
+                ], 0, 0, "unset", 0, "PHPMathObjects\Exception\BadMethodCallException",
             ],
         ];
     }
@@ -544,7 +555,7 @@ class MatrixTest extends TestCase
      * @param mixed $index
      * @param string $method
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[TestWith([1, "offsetGet"])]
     #[TestWith([1.1, "offsetSet"])]
@@ -561,7 +572,7 @@ class MatrixTest extends TestCase
             [7, 8, 9],
         ]);
 
-        $this->expectException(MatrixException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         switch ($method) {
             case "offsetGet":
@@ -582,6 +593,7 @@ class MatrixTest extends TestCase
      * @param array<int, array<int, int|float>> $array2
      * @param array<int, array<int, int|float>> $answer
      * @return void
+     * @throws InvalidArgumentException
      * @throws MatrixException
      */
     #[DataProvider('providerAdd')]
@@ -653,6 +665,7 @@ class MatrixTest extends TestCase
      * @param array<int, array<int, int|float>> $array2
      * @param array<int, array<int, int|float>> $answer
      * @return void
+     * @throws InvalidArgumentException
      * @throws MatrixException
      */
     #[DataProvider('providerSubtract')]
@@ -727,6 +740,7 @@ class MatrixTest extends TestCase
      * @param array<int, array<int, int|float>> $array2
      * @param array<int, array<int, int|float>> $answer
      * @return void
+     * @throws InvalidArgumentException
      * @throws MatrixException
      */
     #[DataProvider('providerMultiply')]
@@ -810,7 +824,7 @@ class MatrixTest extends TestCase
      * @param array<int, array<int, int|float>> $array2
      * @param string $method
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerArithmeticException')]
     #[TestDox("Arithmetic methods throw exceptions if the matrices have incompatible dimensions")]
@@ -898,7 +912,7 @@ class MatrixTest extends TestCase
      * @param int|float $multiplier
      * @param array<int, array<int, int|float>> $answer
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerMultiplyByScalar')]
     #[TestDox("mSubtract() method subtracts one matrix from another correctly")]
@@ -970,7 +984,7 @@ class MatrixTest extends TestCase
      * @param array<int, array<int, int|float>> $array
      * @param array<int, array<int, int|float>> $answer
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerChangeSign')]
     #[TestDox("changeSign() and mChangeSign() methods change signs of all elements")]
@@ -1034,7 +1048,7 @@ class MatrixTest extends TestCase
      * @param array<int, array<int, int|float>> $array
      * @param array<int, array<int, int|float>> $answer
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerTranspose')]
     #[TestDox("Matrix transpose() and mTranspose() return correct results")]
@@ -1109,7 +1123,7 @@ class MatrixTest extends TestCase
      * @param array<int, array<int, int|float>> $array
      * @param string $answer
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerToString')]
     #[TestDox("Methods __toString() and toString() convert the matrix to a string")]
@@ -1167,7 +1181,7 @@ class MatrixTest extends TestCase
      * @param bool $expected
      * @param float|null $tolerance
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerIsEqual')]
     #[TestDox("isEqual() method compares two matrices within a given tolerance")]
@@ -1273,7 +1287,7 @@ class MatrixTest extends TestCase
      * @param array<int, array<int, int|float>> $array2
      * @param bool $expected
      * @return void
-     * @throws MatrixException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerIsEqualExactly')]
     #[TestDox("isEqualExactly() method compares two matrices for exact equality")]
@@ -1361,6 +1375,7 @@ class MatrixTest extends TestCase
      * @param int|float $expected
      * @param bool $exception
      * @return void
+     * @throws InvalidArgumentException
      * @throws MatrixException
      */
     #[DataProvider('providerTrace')]
