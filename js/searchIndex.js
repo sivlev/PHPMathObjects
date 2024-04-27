@@ -1,15 +1,30 @@
 Search.appendIndex(
     [
                 {
+            "fqsen": "\\PHPMathObjects\\Exception\\BadMethodCallException",
+            "name": "BadMethodCallException",
+            "summary": "Exception\u0020thrown\u0020if\u0020a\u0020method\u0020is\u0020not\u0020implemented\u0020or\u0020is\u0020undefined",
+            "url": "classes/PHPMathObjects-Exception-BadMethodCallException.html"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Exception\\InvalidArgumentException",
+            "name": "InvalidArgumentException",
+            "summary": "Exception\u0020thrown\u0020if\u0020a\u0020value\u0020is\u0020not\u0020of\u0020the\u0020expected\u0020type",
+            "url": "classes/PHPMathObjects-Exception-InvalidArgumentException.html"
+        },                {
             "fqsen": "\\PHPMathObjects\\Exception\\MathObjectsException",
             "name": "MathObjectsException",
-            "summary": "Exception\u0020handler\u0020for\u0020PHPMathObjectLibrary",
+            "summary": "Parent\u0020exception\u0020class\u0020for\u0020all\u0020exceptions\u0020in\u0020PHPMathObject\u0020library",
             "url": "classes/PHPMathObjects-Exception-MathObjectsException.html"
         },                {
             "fqsen": "\\PHPMathObjects\\Exception\\MatrixException",
             "name": "MatrixException",
-            "summary": "Exception\u0020handler\u0020for\u0020the\u0020AbstractMatrix\u0020class\u0020and\u0020its\u0020children\u0020classes",
+            "summary": "Exception\u0020thrown\u0020if\u0020a\u0020requested\u0020operation\u0020is\u0020not\u0020valid\u0020for\u0020the\u0020given\u0020type\u0020of\u0020matrix\u0020\u0028e.g.\u0020determinant\u0020on\u0020a\u0020non\u002Dsquare\u0020matrix\u0029",
             "url": "classes/PHPMathObjects-Exception-MatrixException.html"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Exception\\OutOfBoundsException",
+            "name": "OutOfBoundsException",
+            "summary": "Exception\u0020thrown\u0020if\u0020a\u0020value\u0020is\u0020not\u0020a\u0020valid\u0020index\u0020or\u0020lies\u0020somehow\u0020else\u0020out\u0020of\u0020bounds\u0020or\u0020out\u0020of\u0020range",
+            "url": "classes/PHPMathObjects-Exception-OutOfBoundsException.html"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix",
             "name": "AbstractMatrix",
@@ -195,6 +210,16 @@ Search.appendIndex(
             "name": "isEqualExactly",
             "summary": "",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isEqualExactly"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003Atrace\u0028\u0029",
+            "name": "trace",
+            "summary": "Calculation\u0020of\u0020the\u0020trace\u0020of\u0020a\u0020matrix\u0020\u0028defined\u0020for\u0020square\u0020matrices\u0020only\u0029",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_trace"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003A\u0024traceCache",
+            "name": "traceCache",
+            "summary": "Cached\u0020value\u0020of\u0020the\u0020trace\u0020of\u0020a\u0020matrix",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_traceCache"
         },                {
             "fqsen": "\\",
             "name": "\\",
