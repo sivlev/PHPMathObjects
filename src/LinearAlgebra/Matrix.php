@@ -89,11 +89,20 @@ class Matrix extends AbstractMatrix
      * Implementation of abstract clearCache() method for numeric matrices
      *
      * @return void
-     *@see AbstractMatrix::clearCache()
+     * @see AbstractMatrix::clearCache()
      */
     protected function clearCache(): void
     {
+        // If cache flag is not set, then nothing to clear
+        if ($this->isCachePresent === false) {
+            return;
+        }
+
+        // Set all cached properties to zero
         $this->cacheTrace = null;
+
+        // Set the cache flag to false
+        $this->isCachePresent = false;
     }
 
     /**
@@ -346,6 +355,9 @@ class Matrix extends AbstractMatrix
         foreach ($this->matrix as $index => $row) {
             $trace += $row[$index];
         }
+
+        // Set cache flag to true
+        $this->isCachePresent = true;
 
         return $trace;
     }
