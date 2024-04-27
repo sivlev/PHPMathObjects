@@ -66,6 +66,14 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
     protected int $size;
 
     /**
+     * If true, then at least one cacheable property is cached, and the cache must be cleared by any mutation of the matrix
+     *
+     * @see self::clearCache()
+     * @var bool
+     */
+    protected bool $isCachePresent = false;
+
+    /**
      * AbstractMatrix class constructor
      *
      * @param array<int, array<int, T>> $data
@@ -152,7 +160,8 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
     /**
      * Abstract method for flushing cached properties, such as determinants etc.
-     * Every child class must flush cached properties upon any mutation
+     * Some matrix properties (e.g. the determinant) are cached after being calculated. When the corresponding getter is
+     * called once again later, the property is immediately returned from the cache and is not calculated again.
      *
      * @return void
      */
@@ -321,6 +330,16 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
     public function offsetUnset(mixed $offset): void
     {
         throw new BadMethodCallException("The matrix elements cannot be unset directly.");
+    }
+
+    /**
+     * Returns true if the matrix is square (i.e. number of rows is equal to number of columns)
+     *
+     * @return bool
+     */
+    public function isSquare(): bool
+    {
+        return $this->rows === $this->columns;
     }
 
     /**

@@ -63,6 +63,9 @@ $matrix->set(1, 2, -15.6);
 $element = $matrix->set(1, 2, 100)->get(1, 2); // Set() method returns $this so it can be chained
 $doesElementExist = $matrix->isSet(2, 1);
 
+// Matrix properties
+$isSquare = $matrix->isSquare(); 
+
 // Alternative getters and setters via "ArrayAccess" interface
 $element = $matrix[[1, 2]];    // Note the format of the index. The problem is that PHP supports native ArrayAccess for 1D arrays only
 $matrix[[1, 2]] = 15;

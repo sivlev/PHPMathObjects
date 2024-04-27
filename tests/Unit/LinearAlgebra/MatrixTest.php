@@ -1121,6 +1121,54 @@ class MatrixTest extends TestCase
 
     /**
      * @param array<int, array<int, int|float>> $array
+     * @param bool $expected
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[DataProvider('providerIsSquare')]
+    #[TestDox("IsSquare() method returns true if the matrix is square, and false otherwise")]
+    public function testIsSquare(array $array, bool $expected): void
+    {
+        $m = new Matrix($array);
+        $this->assertEquals($expected, $m->isSquare());
+    }
+
+    /**
+     * @return array<int, array<int, bool|array<int, array<int, int|float>>>>
+     */
+    public static function providerIsSquare(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], true,
+            ],
+            [
+                [
+                    [6.6],
+                ], true,
+            ],
+            [
+                [
+                    [1, 2],
+                    [4, 5],
+                    [7, 8],
+                ], false,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                ], false,
+            ],
+        ];
+    }
+
+    /**
+     * @param array<int, array<int, int|float>> $array
      * @param string $answer
      * @return void
      * @throws InvalidArgumentException
