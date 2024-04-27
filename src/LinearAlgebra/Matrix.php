@@ -86,12 +86,12 @@ class Matrix extends AbstractMatrix
     }
 
     /**
-     * Implementation of abstract resetCache() method for numeric matrices
+     * Implementation of abstract clearCache() method for numeric matrices
      *
-     * @see AbstractMatrix::resetCache()
      * @return void
+     *@see AbstractMatrix::clearCache()
      */
-    protected function resetCache(): void
+    protected function clearCache(): void
     {
         $this->cacheTrace = null;
     }

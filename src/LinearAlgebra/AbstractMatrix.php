@@ -151,12 +151,12 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
     abstract protected function validateDataClassSpecific(array $row, int $rowIndex = 0, string &$exceptionMessage = ""): int|true;
 
     /**
-     * Abstract method for resetting cached properties, such as determinants etc.
-     * Every child class must reset cached properties upon any mutation
+     * Abstract method for flushing cached properties, such as determinants etc.
+     * Every child class must flush cached properties upon any mutation
      *
      * @return void
      */
-    abstract protected function resetCache(): void;
+    abstract protected function clearCache(): void;
 
     /**
      * Returns the matrix as array
