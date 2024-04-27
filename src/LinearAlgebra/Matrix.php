@@ -129,6 +129,7 @@ class Matrix extends AbstractMatrix
      * @param Matrix $term
      * @return $this
      * @throws MatrixException if the matrices have unequal dimensions
+     * @internal Mutating method
      */
     public function mAdd(Matrix $term): self
     {
@@ -171,6 +172,7 @@ class Matrix extends AbstractMatrix
      * @param Matrix $term
      * @return $this
      * @throws MatrixException if the matrices have unequal dimensions
+     * @internal Mutating method
      */
     public function mSubtract(Matrix $term): self
     {
@@ -210,6 +212,7 @@ class Matrix extends AbstractMatrix
      * @return $this
      * @throws MatrixException if the matrices have incompatible dimensions
      * @throws InvalidArgumentException (not expected)
+     * @internal Mutating method
      */
     public function mMultiply(Matrix $term): self
     {
@@ -260,6 +263,7 @@ class Matrix extends AbstractMatrix
      *
      * @param int|float $multiplier
      * @return $this
+     * @internal Mutating method
      */
     public function mMultiplyByScalar(int|float $multiplier): self
     {
@@ -289,6 +293,7 @@ class Matrix extends AbstractMatrix
      * Mutating change of signs of all elements (result stored in the current matrix)
      *
      * @return $this
+     * @internal Mutating method
      */
     public function mChangeSign(): self
     {

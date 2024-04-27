@@ -254,6 +254,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * @return $this
      * @throws OutOfBoundsException if the element with the given indices does not exist
      * @throws InvalidArgumentException if the given value has a type incompatible with the matrix instance
+     * @internal Mutating method
      */
     public function set(int $row, int $column, mixed $value): static
     {
@@ -311,6 +312,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * @return void
      * @throws InvalidArgumentException if the method does not receive an array of the format [row, column]
      * @throws OutOfBoundsException if the element does not exist
+     * @internal Mutating method
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -358,6 +360,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * Mutating matrix transpose (the current matrix will be modified)
      *
      * @return $this
+     * @internal Mutating method
      */
     public function mTranspose(): static
     {
