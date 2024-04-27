@@ -145,6 +145,10 @@ class Matrix extends AbstractMatrix
                 $rowLeft[$i] += $rowRight[$i];
             }
         }
+
+        // Clear cache before return
+        $this->clearCache();
+
         return $this;
     }
 
@@ -188,6 +192,10 @@ class Matrix extends AbstractMatrix
                 $rowLeft[$i] -= $rowRight[$i];
             }
         }
+
+        // Clear cache before return
+        $this->clearCache();
+
         return $this;
     }
 
@@ -242,6 +250,9 @@ class Matrix extends AbstractMatrix
         $this->columns = $term->columns;
         $this->size = $this->rows * $this->columns;
 
+        // Clear cache before return
+        $this->clearCache();
+
         return $this;
     }
 
@@ -274,6 +285,10 @@ class Matrix extends AbstractMatrix
                 $row[$i] *= $multiplier;
             }
         }
+
+        // Clear cache before return
+        $this->clearCache();
+
         return $this;
     }
 

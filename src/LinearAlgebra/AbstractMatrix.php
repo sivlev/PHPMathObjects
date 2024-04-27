@@ -384,6 +384,10 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
 
         [$this->rows, $this->columns] = [$this->columns, $this->rows];
         $this->matrix = array_map(null, ...$this->matrix);
+
+        // Clear cache before return
+        $this->clearCache();
+
         return $this;
     }
 
