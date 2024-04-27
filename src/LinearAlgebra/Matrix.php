@@ -37,7 +37,7 @@ class Matrix extends AbstractMatrix
      *
      * @var int|float|null
      */
-    protected int|float|null $traceCache = null;
+    protected int|float|null $cacheTrace = null;
 
     /**
      * Factory method to create an identity matrix with dimensions of size x size
@@ -67,6 +67,7 @@ class Matrix extends AbstractMatrix
     /**
      * Implementation of the abstract class-specific data validation method for numeric matrices
      *
+     * @see AbstractMatrix::validateDataClassSpecific()
      * @param array<int, int|float> $row
      * @param int $rowIndex
      * @param string $exceptionMessage
@@ -82,6 +83,17 @@ class Matrix extends AbstractMatrix
             }
         }
         return true;
+    }
+
+    /**
+     * Implementation of abstract resetCache() method for numeric matrices
+     *
+     * @see AbstractMatrix::resetCache()
+     * @return void
+     */
+    protected function resetCache(): void
+    {
+        $this->cacheTrace = null;
     }
 
     /**
@@ -321,8 +333,8 @@ class Matrix extends AbstractMatrix
     public function trace(): int|float
     {
         // Check if the trace has been once already calculated
-        if (isset($this->traceCache)) {
-            return $this->traceCache;
+        if (isset($this->cacheTrace)) {
+            return $this->cacheTrace;
         }
 
         // Check if the trace can be calculated for the given matrix
