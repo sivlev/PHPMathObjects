@@ -33,11 +33,30 @@ use function abs;
 class Matrix extends AbstractMatrix
 {
     /**
+     * This constant is used as the default tolerance: If a float point number is below the tolerance, then it is considered being equal to zero.
+     */
+    protected const DEFAULT_TOLERANCE = 1e-6;
+
+    /**
      * Cached value of the trace of a matrix
      *
      * @var int|float|null
      */
     protected int|float|null $cacheTrace = null;
+
+    /**
+     * Cached value of the row echelon form
+     *
+     * @var Matrix|null
+     */
+    protected self|null $cacheRef = null;
+
+    /**
+     * Cached value of number of swaps used to make the row echelon form
+     *
+     * @var int|null
+     */
+    protected ?int $cacheRefSwaps = null;
 
     /**
      * Factory method to create an identity matrix with dimensions of size x size
@@ -67,11 +86,11 @@ class Matrix extends AbstractMatrix
     /**
      * Implementation of the abstract class-specific data validation method for numeric matrices
      *
-     * @see AbstractMatrix::validateDataClassSpecific()
      * @param array<int, int|float> $row
      * @param int $rowIndex
      * @param string $exceptionMessage
      * @return int|true
+     * @see AbstractMatrix::validateDataClassSpecific()
      */
     protected function validateDataClassSpecific(array $row, int $rowIndex = 0, string &$exceptionMessage = ""): int|true
     {
@@ -100,6 +119,8 @@ class Matrix extends AbstractMatrix
 
         // Set all cached properties to zero
         $this->cacheTrace = null;
+        $this->cacheRef = null;
+        $this->cacheRefSwaps = null;
 
         // Set the cache flag to false
         $this->isCachePresent = false;
@@ -237,7 +258,7 @@ class Matrix extends AbstractMatrix
             foreach ($arrayRight as $columnRight) {
                 $sum = 0;
                 // Using a for inner cycle is slightly faster that foreach
-                for($i = 0; $i < $count; $i++) {
+                for ($i = 0; $i < $count; $i++) {
                     $sum += $rowLeft[$i] * $columnRight[$i];
                 }
                 $resultRow[] = $sum;
@@ -315,7 +336,7 @@ class Matrix extends AbstractMatrix
         return $this->mMultiplyByScalar(-1);
     }
 
-    public function isEqual(Matrix $term, float $tolerance = 1e-6): bool
+    public function isEqual(Matrix $term, float $tolerance = self::DEFAULT_TOLERANCE): bool
     {
         if ($this->rows !== $term->rows || $this->columns !== $term->columns) {
             return false;
@@ -380,5 +401,64 @@ class Matrix extends AbstractMatrix
         $this->isCachePresent = true;
 
         return $trace;
+    }
+
+    public function mRef(bool $doSwaps = false, int &$swaps = 0, float $zeroTolerance = self::DEFAULT_TOLERANCE): self
+    {
+        // Check if the values are already once calculated
+        if (isset($this->cacheRef) && isset($this->cacheRefSwaps)) {
+            $swaps = $this->cacheRefSwaps;
+            return $this->cacheRef;
+        }
+
+        // Calculate the row echelon form by Gaussian elimination
+        $rowIndex = $columnIndex = 0;
+        $maxRowIndex = $this->rows - 1;
+        $maxColumnIndex = $this->columns;
+
+        while ($rowIndex < $maxRowIndex && $columnIndex < $maxColumnIndex) {
+
+            // Go through the column to find the max absolute value
+            $maxValue = $this->matrix[$rowIndex][$columnIndex];
+            $maxValueRow = null;
+            for ($i = $rowIndex; $i < $this->rows; $i++) {
+                if (abs($this->matrix[$i][$columnIndex]) > $maxValue) {
+                    $maxValue = $this->matrix[$i][$columnIndex];
+                    $maxValueRow = $i;
+                }
+            }
+
+            // If the current row does not have the maximum value in the current column, then swap the rows
+            if ($doSwaps && isset($maxValueRow)) {
+                [$this->matrix[$rowIndex], $this->matrix[$maxValueRow]] = [$this->matrix[$maxValueRow], $this->matrix[$rowIndex]];
+                $swaps++;
+            }
+
+            // If all remaining elements in the current column are zeros, then go on
+            if ($maxValue == 0) {
+                $rowIndex++;
+                $columnIndex++;
+                continue;
+            }
+
+            // Go through the remaining rows
+            for ($i = $rowIndex + 1; $i < $this->rows; $i++) {
+                // Calculate the multiplier
+                $multiplier = $this->matrix[$i][$columnIndex] / $this->matrix[$rowIndex][$columnIndex];
+
+                // Replace the current element with zero
+                $this->matrix[$i][$columnIndex] = 0;
+
+                // Go through the rest of the row
+                for ($j = $columnIndex + 1; $j < $this->columns; $j++) {
+                    $this->matrix[$i][$j] -= $this->matrix[$rowIndex][$j] * $multiplier;
+                }
+            }
+
+            $rowIndex++;
+            $columnIndex++;
+        }
+
+        return $this;
     }
 }

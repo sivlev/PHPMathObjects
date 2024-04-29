@@ -1482,4 +1482,95 @@ class MatrixTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * @param array<int, array<int, int|float>> $array
+     * @param array<int, array<int, int|float>> $expected
+     * @param bool $doSwaps
+     * @param int $swapsExpected
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[DataProvider('providerRef')]
+    #[TestDox("ref() and mRef() methods return a row echelon form of the matrix")]
+    public function testRef(array $array, array $expected, bool $doSwaps, int $swapsExpected): void
+    {
+        $m = new Matrix($array);
+        $swaps = 0;
+        $this->assertEqualsWithDelta($expected, $m->mRef($doSwaps, $swaps)->toArray(), self::e);
+        $this->assertEquals($swapsExpected, $swaps);
+    }
+
+    /**
+     * @return array<int, array<int, bool|int|float|array<int, array<int, int|float>>>>
+     */
+    public static function providerRef(): array
+    {
+        return [
+            [
+                [
+                    [5],
+                ],
+                [
+                    [5],
+                ], true, 0,
+            ],
+            [
+                [
+                    [5, 1, 4],
+                    [6, 1, 8],
+                ],
+                [
+                    [5, 1, 4],
+                    [0, -0.2, 3.2],
+                ], false, 0,
+            ],
+            [
+                [
+                    [5, 1, 4],
+                    [6, 1, 8],
+                ],
+                [
+                    [6, 1, 8],
+                    [0, 1 / 6, 4 - 8 * 5 / 6],
+                ], true, 1,
+            ],
+            [
+                [
+                    [1.5, 2.8],
+                    [7.7, 5.3],
+                    [9.8, 7.5],
+                ],
+                [
+                    [9.8, 7.5],
+                    [0, 2.8 - 7.5 * 1.5 / 9.8],
+                    [0, 0],
+                ], true, 2,
+            ],
+            [
+                [
+                    [1.5, 2.8],
+                    [7.7, 5.3],
+                    [9.8, 7.5],
+                ],
+                [
+                    [1.5, 2.8],
+                    [0, 5.3 - 2.8 * 7.7 / 1.5],
+                    [0, 0],
+                ], false, 0,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 4, 5],
+                    [7, 8, 9],
+                ],
+                [
+                    [1, 2, 3],
+                    [0, -4, -7],
+                    [0, 0, -1.5],
+                ], false, 0,
+            ],
+        ];
+    }
 }
