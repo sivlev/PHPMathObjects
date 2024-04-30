@@ -12,7 +12,7 @@
         {
             "name": "Sergei Ivlev",
             "role": "Developer",
-            "email": "sergei.ivlev@chemie.uni-marburg.de"
+            "email": "s.ivlev.me@gmail.com"
         }
     ],
     "require": {
@@ -45,5 +45,10 @@
         "fix": "php-cs-fixer fix --config=.php-cs-fixer.dist.php",
         "check": "php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --verbose --using-cache=no",
         "analyze": "phpstan analyze -c phpstan.neon"
+    },
+    "support": {
+        "issues": "https://github.com/sivlev/phpmathobjects/issues",
+        "source": "https://github.com/sivlev/phpmathobjects",
+        "email": "s.ivlev.me@gmail.com"
     }
 }

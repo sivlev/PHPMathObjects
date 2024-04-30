@@ -4,7 +4,7 @@
  *
  * @see https://github.com/sivlev/PHPMathObjects
  *
- * @author Sergei Ivlev <sergei.ivlev@chemie.uni-marburg.de>
+ * @author Sergei Ivlev <s.ivlev.me@gmail.com>
  * @copyright (c) 2024 Sergei Ivlev
  * @license https://opensource.org/license/mit The MIT License
  *
