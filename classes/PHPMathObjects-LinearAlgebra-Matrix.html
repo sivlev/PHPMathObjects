@@ -164,6 +164,20 @@
 
 
 
+<h4 id="toc-constants">
+    Constants
+    <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -protected">
+    <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#constant_DEFAULT_TOLERANCE">DEFAULT_TOLERANCE</a>
+    <span>
+        &nbsp;= 1.0E-6                            </span>
+</dt>
+<dd>This constant is used as the default tolerance: If a float point number is below the tolerance, then it is considered being equal to zero.</dd>
+
+    </dl>
 
 
 <h4 id="toc-properties">
@@ -172,6 +186,20 @@
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheRef">$cacheRef</a>
+    <span>
+                        &nbsp;: <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html"><abbr title="\PHPMathObjects\LinearAlgebra\Matrix">Matrix</abbr></a>|null            </span>
+</dt>
+<dd>Cached value of the row echelon form</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheRefSwaps">$cacheRefSwaps</a>
+    <span>
+                        &nbsp;: int|null            </span>
+</dt>
+<dd>Cached value of number of swaps used to make the row echelon form</dd>
+
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheTrace">$cacheTrace</a>
     <span>
@@ -312,6 +340,12 @@
 <dd>Returns true if the matrix is square (i.e. number of rows is equal to number of columns)</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_mRef">mRef()</a>
+    <span>
+                                &nbsp;: self    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_multiply">multiply()</a>
     <span>
                                 &nbsp;: self    </span>
@@ -424,6 +458,42 @@
         
 
         
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article class="phpdocumentor-element -constant -protected ">
+    <h4 class="phpdocumentor-element__name" id="constant_DEFAULT_TOLERANCE">
+        DEFAULT_TOLERANCE
+        <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#constant_DEFAULT_TOLERANCE" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">38</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">This constant is used as the default tolerance: If a float point number is below the tolerance, then it is considered being equal to zero.</p>
+
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">DEFAULT_TOLERANCE</span>
+    = <span class="phpdocumentor-signature__default-value">1.0E-6</span>
+</code>
+
+
+    
+    
+    
+
+</article>
+            </section>
 
         
     <section class="phpdocumentor-properties">
@@ -432,6 +502,74 @@
             <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_cacheRef">
+        $cacheRef
+        <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheRef" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">52</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Cached value of the row echelon form</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html"><abbr title="\PHPMathObjects\LinearAlgebra\Matrix">Matrix</abbr></a>|null</span>
+    <span class="phpdocumentor-signature__name">$cacheRef</span>
+     = <span class="phpdocumentor-signature__default-value">null</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_cacheRefSwaps">
+        $cacheRefSwaps
+        <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheRefSwaps" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">59</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Cached value of number of swaps used to make the row echelon form</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">int|null</span>
+    <span class="phpdocumentor-signature__name">$cacheRefSwaps</span>
+     = <span class="phpdocumentor-signature__default-value">null</span></code>
+
+    
+    
+    
+
+</article>
                     <article
         class="
             phpdocumentor-element
@@ -449,7 +587,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
@@ -777,7 +915,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">137</span>
 
     </aside>
 
@@ -850,7 +988,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">301</span>
+    <span class="phpdocumentor-element-found-in__line">322</span>
 
     </aside>
 
@@ -1130,7 +1268,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
@@ -1203,14 +1341,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">318</span>
+    <span class="phpdocumentor-element-found-in__line">339</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">isEqual</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html"><abbr title="\PHPMathObjects\LinearAlgebra\Matrix">Matrix</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$term</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tolerance</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">1.0E-6</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">isEqual</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html"><abbr title="\PHPMathObjects\LinearAlgebra\Matrix">Matrix</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$term</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tolerance</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_TOLERANCE</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1227,7 +1365,7 @@
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$tolerance</span>
                 : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">1.0E-6</span>            </dt>
+                 = <span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_TOLERANCE</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
@@ -1255,7 +1393,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">337</span>
+    <span class="phpdocumentor-element-found-in__line">358</span>
 
     </aside>
 
@@ -1381,6 +1519,65 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_mRef">
+        mRef()
+        <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_mRef" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">406</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">mRef</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$doSwaps</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$swaps</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$zeroTolerance</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_TOLERANCE</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$doSwaps</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$swaps</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$zeroTolerance</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_TOLERANCE</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_multiply">
         multiply()
         <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_multiply" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1389,7 +1586,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">210</span>
+    <span class="phpdocumentor-element-found-in__line">231</span>
 
     </aside>
 
@@ -1462,7 +1659,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">266</span>
+    <span class="phpdocumentor-element-found-in__line">287</span>
 
     </aside>
 
@@ -1792,7 +1989,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">163</span>
+    <span class="phpdocumentor-element-found-in__line">184</span>
 
     </aside>
 
@@ -1937,7 +2134,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">362</span>
+    <span class="phpdocumentor-element-found-in__line">383</span>
 
     </aside>
 
@@ -2286,14 +2483,23 @@ called once again later, the property is immediately returned from the cache and
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
+                                        <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#toc-constants">Constants</a></li>
                                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#toc-properties">Properties</a></li>
                                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
+                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#constant_DEFAULT_TOLERANCE">DEFAULT_TOLERANCE</a></li>
+                                            </ul>
+                </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheRef">$cacheRef<a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html"></li>
+                                                    <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheRefSwaps">$cacheRefSwaps<a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html"></li>
                                                     <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheTrace">$cacheTrace<a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html"></li>
                                                     <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#property_columns">$columns<a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html"></li>
                                                     <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#property_isCachePresent">$isCachePresent<a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html"></li>
@@ -2319,6 +2525,7 @@ called once again later, the property is immediately returned from the cache and
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isEqualExactly">isEqualExactly()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_isSet">isSet()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_isSquare">isSquare()</a></li>
+                                            <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_mRef">mRef()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_multiply">multiply()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_multiplyByScalar">multiplyByScalar()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_offsetExists">offsetExists()</a></li>

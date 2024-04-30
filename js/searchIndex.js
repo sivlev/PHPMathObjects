@@ -196,10 +196,30 @@ Search.appendIndex(
             "summary": "Calculation\u0020of\u0020the\u0020trace\u0020of\u0020a\u0020matrix\u0020\u0028defined\u0020for\u0020square\u0020matrices\u0020only\u0029",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_trace"
         },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AmRef\u0028\u0029",
+            "name": "mRef",
+            "summary": "",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_mRef"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003ADEFAULT_TOLERANCE",
+            "name": "DEFAULT_TOLERANCE",
+            "summary": "This\u0020constant\u0020is\u0020used\u0020as\u0020the\u0020default\u0020tolerance\u003A\u0020If\u0020a\u0020float\u0020point\u0020number\u0020is\u0020below\u0020the\u0020tolerance,\u0020then\u0020it\u0020is\u0020considered\u0020being\u0020equal\u0020to\u0020zero.",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#constant_DEFAULT_TOLERANCE"
+        },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003A\u0024cacheTrace",
             "name": "cacheTrace",
             "summary": "Cached\u0020value\u0020of\u0020the\u0020trace\u0020of\u0020a\u0020matrix",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheTrace"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003A\u0024cacheRef",
+            "name": "cacheRef",
+            "summary": "Cached\u0020value\u0020of\u0020the\u0020row\u0020echelon\u0020form",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheRef"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003A\u0024cacheRefSwaps",
+            "name": "cacheRefSwaps",
+            "summary": "Cached\u0020value\u0020of\u0020number\u0020of\u0020swaps\u0020used\u0020to\u0020make\u0020the\u0020row\u0020echelon\u0020form",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheRefSwaps"
         },                {
             "fqsen": "\\",
             "name": "\\",
