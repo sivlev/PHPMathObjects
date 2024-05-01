@@ -71,28 +71,34 @@ $element = $matrix[[1, 2]];    // Note the format of the index. The problem is t
 $matrix[[1, 2]] = 15;
 $doesElementExist = isset($matrix[[1, 2]]);
 
-// Matrix unary operations
-$transpose = $matrix->transpose();
-$matrix->mTranspose();
-$trace = $matrix->trace();
-$determinant = $matrix->determinant();
-
-// Matrix arithmetics
-$sum = $matrix->add($anotherMatrix);
-$matrix->mAdd($anotherMatrix);
-$difference = $matrix->subtract($anotherMatrix);
-$matrix->mSubtract($anotherMatrix);
-$multiplication = $matrix->multiply($anotherMatrix);
-$matrix->mMultiply($anotherMatrix);
-$multiplicationByScalar = $matrix->multiplyByScalar(2.5);
-$matrix->mMultiplyByScalar(2.5);
-$signsChanged = $matrix->changeSign();
-$matrix->mChangeSign();
-
 // Compare matrices
 $equal = $matrix->isEqual($anotherMatrix);          // Compare elementwise within a default tolerance of 1.0e^-6
 $equal = $matrix->isEqual($anotherMatrix, 1e-8);    // Or set the tolerance explicitly
 $equal = $matrix->isEqualExactly($anotherMatrix);   // Compare matrices elementwise with '===' operator
+
+// Matrix arithmetics
+$sum = $matrix->add($anotherMatrix);
+$difference = $matrix->subtract($anotherMatrix);
+$multiplication = $matrix->multiply($anotherMatrix);
+$multiplicationByScalar = $matrix->multiplyByScalar($scalarIntOrFloat);
+$signsChanged = $matrix->changeSign();
+
+// Matrix arithmetics (mutating methods)
+$matrix->mAdd($anotherMatrix);
+$matrix->mSubtract($anotherMatrix);
+$matrix->mMultiply($anotherMatrix);
+$matrix->mMultiplyByScalar($scalarIntOrFloat);
+$matrix->mChangeSign();
+
+// Matrix unary operations
+$transpose = $matrix->transpose();
+$trace = $matrix->trace();
+$determinant = $matrix->determinant();
+$rowEchelonForm = $matrix->ref();
+
+// Matrix unary operations (mutating methods)
+$matrix->mTranspose();
+$matrix->mRef();            //Row echelon form
 
 // Conversion to a string representation
 $string = $matrix->toString();
