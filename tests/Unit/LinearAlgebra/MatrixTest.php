@@ -208,6 +208,7 @@ class MatrixTest extends TestCase
     }
 
     /**
+     * @param class-string $method
      * @param int $rows
      * @param int $columns
      * @param int|float $min
@@ -217,21 +218,27 @@ class MatrixTest extends TestCase
      * @throws InvalidArgumentException
      * @throws OutOfBoundsException
      */
-    #[TestWith([5, 4])]
-    #[TestWith([3, 3, -1, 0])]
-    #[TestWith([6, 2, -10.15, -10.10])]
-    #[TestWith([2, 2, 4.5, 4.5])]
-    #[TestWith([-3, 4, 0, 1, "Matrix dimensions must be greater than zero. Rows -3 and columns 4 are given"])]
-    #[TestWith([8, -1, 0, 1, "Matrix dimensions must be greater than zero. Rows 8 and columns -1 are given"])]
-    #[TestWith([3, 3, 2.5, 1.2, "The maximum value 1.2 cannot be less than the minimum value 2.5"])]
-    #[TestDox("Random() factory creates a matrix of the given size and filled with float values within the given range")]
-    public function testRandom(int $rows, int $columns, int|float $min = 0.0, int|float $max = 1.0, string $exceptionMessage = ""): void
+    #[TestWith(["random", 5, 4, 0.0, 1.0])]
+    #[TestWith(["random", 3, 3, -1, 0])]
+    #[TestWith(["random", 6, 2, -10.15, -10.10])]
+    #[TestWith(["random", 2, 2, 4.5, 4.5])]
+    #[TestWith(["random", -3, 4, 0, 1, "Matrix dimensions must be greater than zero. Rows -3 and columns 4 are given"])]
+    #[TestWith(["random", 8, -1, 0, 1, "Matrix dimensions must be greater than zero. Rows 8 and columns -1 are given"])]
+    #[TestWith(["random", 3, 3, 2.5, 1.2, "The maximum value 1.2 cannot be less than the minimum value 2.5"])]
+    #[TestWith(["randomInt", 1, 1, 0, 100])]
+    #[TestWith(["random", 5, 5, -10, -6])]
+    #[TestWith(["random", 2, 3, -100, 100])]
+    #[TestWith(["randomInt", -10, 2, 0, 1, "Matrix dimensions must be greater than zero. Rows -10 and columns 2 are given"])]
+    #[TestWith(["randomInt", 20, -100, 0, 1, "Matrix dimensions must be greater than zero. Rows 20 and columns -100 are given"])]
+    #[TestWith(["randomInt", 10, 10, 100, 50, "The maximum value 50 cannot be less than the minimum value 100"])]
+    #[TestDox("Random() and randomInt() factories create a matrix of the given size and filled with float or integer values within the given range")]
+    public function testRandom(string $method, int $rows, int $columns, int|float $min, int|float $max, string $exceptionMessage = ""): void
     {
         if (!empty($exceptionMessage)) {
             $this->expectException(OutOfBoundsException::class);
             $this->expectExceptionMessage($exceptionMessage);
         }
-        $m = Matrix::random($rows, $columns, $min, $max);
+        $m = Matrix::$method($rows, $columns, $min, $max);
         foreach ($m->toArray() as $row) {
             foreach ($row as $element) {
                 $this->assertThat(

@@ -50,7 +50,8 @@ $matrix = new Matrix([
 // Or use a suitable factory method
 $matrix = Matrix::fill(3, 4, 0.1);          // Make a 3x4 matrix and fill its elements with 0.1
 $matrix = Matrix::identity(3);              // Make a 3x3 identity matrix
-$matrix = Matrix::random(5, 8, -3.5, 9.5)   // Make a 5x8 matrix filled with random numbers between -3.5 and 9.5
+$matrix = Matrix::random(5, 8, -3.5, 9.5)   // Make a 5x8 matrix filled with random float numbers between -3.5 and 9.5
+$matrix = Matrix::randomInt(3, 3, 1, 10)    // Make a 3x3 matrix filled with random integer numbers between 1 and 10
 
 // Matrix dimensions
 $rows = $matrix->rows();

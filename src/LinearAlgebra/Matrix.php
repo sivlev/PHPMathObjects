@@ -21,6 +21,8 @@ use PHPMathObjects\Exception\MatrixException;
 
 use PHPMathObjects\Exception\OutOfBoundsException;
 
+use Random\Randomizer;
+
 use function is_int;
 use function is_float;
 use function array_fill;
@@ -104,7 +106,7 @@ class Matrix extends AbstractMatrix
      * @param int|float $max
      * @return self
      * @throws InvalidArgumentException (not expected)
-     * @throws OutOfBoundsException if the rows or columns are non-positive, or if $min > $max
+     * @throws OutOfBoundsException if the rows or columns are non-positive, or if $min is greater than $max
      */
     public static function random(int $rows, int $columns, int|float $min = 0.0, int|float $max = 1.0): self
     {
@@ -123,6 +125,41 @@ class Matrix extends AbstractMatrix
             $row = [];
             for ($j = 0; $j < $columns; $j++) {
                 $row[] = rand() / $maxNumber * ($max - $min) + $min;
+            }
+            $array[] = $row;
+        }
+
+        return new Matrix($array, false);
+    }
+
+    /**
+     * Factory method to create a matrix filled with random integer numbers between the given limits
+     *
+     * @param int $rows
+     * @param int $columns
+     * @param int $min
+     * @param int $max
+     * @return self
+     * @throws InvalidArgumentException (not expected)
+     * @throws OutOfBoundsException if the rows or columns are non-positive, or if $min is greater than $max
+     */
+    public static function randomInt(int $rows, int $columns, int $min = 0, int $max = 100): self
+    {
+        // Check if the dimensions are correct
+        if ($rows <= 0 || $columns <= 0) {
+            throw new OutOfBoundsException("Matrix dimensions must be greater than zero. Rows $rows and columns $columns are given");
+        }
+
+        if ($min > $max) {
+            throw new OutOfBoundsException("The maximum value $max cannot be less than the minimum value $min");
+        }
+
+        $r = new Randomizer();
+        $array = [];
+        for ($i = 0; $i < $rows; $i++) {
+            $row = [];
+            for ($j = 0; $j < $columns; $j++) {
+                $row[] = $r->getInt($min, $max);
             }
             $array[] = $row;
         }
