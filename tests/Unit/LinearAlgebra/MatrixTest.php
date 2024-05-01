@@ -28,6 +28,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Test case for the Matrix class as well as for its parent class AbstractMatrix
+ *
+ * @phpstan-type MatrixArray array<int, array<int, int|float>>
  */
 class MatrixTest extends TestCase
 {
@@ -50,7 +52,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $matrix
+     * @param MatrixArray $matrix
      * @param string $exceptionMessage
      * @return void
      * @throws InvalidArgumentException
@@ -72,7 +74,7 @@ class MatrixTest extends TestCase
      * @param int $rows
      * @param int $columns
      * @param int|float $value
-     * @param array<int, array<int, int|float>> $expected
+     * @param MatrixArray $expected
      * @return void
      * @throws InvalidArgumentException
      * @throws OutOfBoundsException
@@ -86,7 +88,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, int|float|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, int|float|MatrixArray>>
      */
     public static function providerFillFactory(): array
     {
@@ -205,7 +207,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $matrix
+     * @param MatrixArray $matrix
      * @param string $exceptionMessage
      * @return void
      * @throws InvalidArgumentException
@@ -261,7 +263,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
+     * @param MatrixArray $array
      * @throws InvalidArgumentException
      */
     #[DataProvider('providerToArray')]
@@ -273,7 +275,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, array<int, array<int, int|float>>>>
+     * @return array<int, array<int, MatrixArray>>
      */
     public static function providerToArray(): array
     {
@@ -301,7 +303,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
+     * @param MatrixArray $array
      * @param int $rows
      * @param int $columns
      * @return void
@@ -317,7 +319,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, int|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, int|MatrixArray>>
      */
     public static function providerRowsAndColumns(): array
     {
@@ -352,7 +354,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
+     * @param MatrixArray $array
      * @param int $size
      * @return void
      * @throws InvalidArgumentException
@@ -367,7 +369,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, int|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, int|MatrixArray>>
      */
     public static function providerSizeAndCount(): array
     {
@@ -404,7 +406,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
+     * @param MatrixArray $array
      * @param int $row
      * @param int $column
      * @param float|int $valueToSet
@@ -429,7 +431,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, float|int|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, float|int|MatrixArray>>
      */
     public static function providerIsSetGetSet(): array
     {
@@ -458,7 +460,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
+     * @param MatrixArray $array
      * @param int $row
      * @param int $column
      * @param string $method
@@ -498,7 +500,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, string|float|int|array<float|int>|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, string|float|int|array<float|int>|MatrixArray>>
      */
     public static function providerIsSetGetSetException(): array
     {
@@ -589,9 +591,9 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array1
-     * @param array<int, array<int, int|float>> $array2
-     * @param array<int, array<int, int|float>> $answer
+     * @param MatrixArray $array1
+     * @param MatrixArray $array2
+     * @param MatrixArray $answer
      * @return void
      * @throws InvalidArgumentException
      * @throws MatrixException
@@ -607,7 +609,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, array<int, array<int, int|float>>>>
+     * @return array<int, array<int, MatrixArray>>
      */
     public static function providerAdd(): array
     {
@@ -661,9 +663,9 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array1
-     * @param array<int, array<int, int|float>> $array2
-     * @param array<int, array<int, int|float>> $answer
+     * @param MatrixArray $array1
+     * @param MatrixArray $array2
+     * @param MatrixArray $answer
      * @return void
      * @throws InvalidArgumentException
      * @throws MatrixException
@@ -679,7 +681,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, array<int, array<int, int|float>>>>
+     * @return array<int, array<int, MatrixArray>>
      */
     public static function providerSubtract(): array
     {
@@ -736,9 +738,9 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array1
-     * @param array<int, array<int, int|float>> $array2
-     * @param array<int, array<int, int|float>> $answer
+     * @param MatrixArray $array1
+     * @param MatrixArray $array2
+     * @param MatrixArray $answer
      * @return void
      * @throws InvalidArgumentException
      * @throws MatrixException
@@ -765,7 +767,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, array<int, array<int, int|float>>>>
+     * @return array<int, array<int, MatrixArray>>
      */
     public static function providerMultiply(): array
     {
@@ -820,8 +822,8 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array1
-     * @param array<int, array<int, int|float>> $array2
+     * @param MatrixArray $array1
+     * @param MatrixArray $array2
      * @param string $method
      * @return void
      * @throws InvalidArgumentException
@@ -837,7 +839,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, string|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, string|MatrixArray>>
      */
     public static function providerArithmeticException(): array
     {
@@ -908,9 +910,9 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
+     * @param MatrixArray $array
      * @param int|float $multiplier
-     * @param array<int, array<int, int|float>> $answer
+     * @param MatrixArray $answer
      * @return void
      * @throws InvalidArgumentException
      */
@@ -924,7 +926,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, int|float|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, int|float|MatrixArray>>
      */
     public static function providerMultiplyByScalar(): array
     {
@@ -981,8 +983,8 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
-     * @param array<int, array<int, int|float>> $answer
+     * @param MatrixArray $array
+     * @param MatrixArray $answer
      * @return void
      * @throws InvalidArgumentException
      */
@@ -996,7 +998,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, array<int, array<int, int|float>>>>
+     * @return array<int, array<int, MatrixArray>>
      */
     public static function providerChangeSign(): array
     {
@@ -1045,8 +1047,8 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
-     * @param array<int, array<int, int|float>> $answer
+     * @param MatrixArray $array
+     * @param MatrixArray $answer
      * @return void
      * @throws InvalidArgumentException
      */
@@ -1069,7 +1071,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, array<int, array<int, int|float>>>>
+     * @return array<int, array<int, MatrixArray>>
      */
     public static function providerTranspose(): array
     {
@@ -1120,7 +1122,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
+     * @param MatrixArray $array
      * @param bool $expected
      * @return void
      * @throws InvalidArgumentException
@@ -1134,7 +1136,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, bool|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, bool|MatrixArray>>
      */
     public static function providerIsSquare(): array
     {
@@ -1168,7 +1170,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
+     * @param MatrixArray $array
      * @param string $answer
      * @return void
      * @throws InvalidArgumentException
@@ -1183,7 +1185,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, string|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, string|MatrixArray>>
      */
     public static function providerToString(): array
     {
@@ -1224,8 +1226,8 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array1
-     * @param array<int, array<int, int|float>> $array2
+     * @param MatrixArray $array1
+     * @param MatrixArray $array2
      * @param bool $expected
      * @param float|null $tolerance
      * @return void
@@ -1245,7 +1247,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, bool|null|float|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, bool|null|float|MatrixArray>>
      */
     public static function providerIsEqual(): array
     {
@@ -1331,8 +1333,8 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array1
-     * @param array<int, array<int, int|float>> $array2
+     * @param MatrixArray $array1
+     * @param MatrixArray $array2
      * @param bool $expected
      * @return void
      * @throws InvalidArgumentException
@@ -1347,7 +1349,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, bool|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, bool|MatrixArray>>
      */
     public static function providerIsEqualExactly(): array
     {
@@ -1419,7 +1421,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
+     * @param MatrixArray $array
      * @param int|float $expected
      * @param bool $exception
      * @return void
@@ -1438,7 +1440,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, bool|int|float|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, bool|int|float|MatrixArray>>
      */
     public static function providerTrace(): array
     {
@@ -1484,8 +1486,8 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @param array<int, array<int, int|float>> $array
-     * @param array<int, array<int, int|float>> $expected
+     * @param MatrixArray $array
+     * @param MatrixArray $expected
      * @param bool $doSwaps
      * @param int $swapsExpected
      * @return void
@@ -1502,7 +1504,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, bool|int|float|array<int, array<int, int|float>>>>
+     * @return array<int, array<int, bool|int|float|MatrixArray>>
      */
     public static function providerRef(): array
     {
