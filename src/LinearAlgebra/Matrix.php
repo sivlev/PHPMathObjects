@@ -539,22 +539,43 @@ class Matrix extends AbstractMatrix
             throw new MatrixException("The determinant is defined only for square matrices.");
         }
 
-        // If not, calculate the row echelon form and multiply elements on the main diagonal
-        // If DivisionByZero exception is triggered, then the matrix contain linearly dependent rows and its determinant is zero
-        try {
-            $swaps = 0;
-            $ref = $this->ref(false, $swaps);
-        } catch (DivisionByZeroException) {
-            // Store the value in cache
-            if ($this->cacheEnabled) {
-                $this->cacheDeterminant = 0;
-            }
-            return 0;
-        }
+        // Consider small matrices as special cases
+        switch ($this->rows) {
+            case 1:
+                $determinant = $this->matrix[0][0];
+                break;
+            case 2:
+                $determinant = $this->matrix[0][0] * $this->matrix[1][1] - $this->matrix[0][1] * $this->matrix[1][0];
+                break;
 
-        $determinant = (-1) ** $swaps;
-        for ($i = 0; $i < $this->rows; $i++) {
-            $determinant *= $ref->matrix[$i][$i];
+            case 3:
+                $determinant =
+                      $this->matrix[0][0] * $this->matrix[1][1] * $this->matrix[2][2]
+                    - $this->matrix[0][0] * $this->matrix[1][2] * $this->matrix[2][1]
+                    - $this->matrix[0][1] * $this->matrix[1][0] * $this->matrix[2][2]
+                    + $this->matrix[0][1] * $this->matrix[1][2] * $this->matrix[2][0]
+                    + $this->matrix[0][2] * $this->matrix[1][0] * $this->matrix[2][1]
+                    - $this->matrix[0][2] * $this->matrix[1][1] * $this->matrix[2][0];
+                break;
+
+            default:
+                // General case handled by calculating the row echelon form and multiplying elements on the main diagonal
+                // If DivisionByZero exception is triggered, then the matrix contain linearly dependent rows and its determinant is zero
+                try {
+                    $swaps = 0;
+                    $ref = $this->ref(false, $swaps);
+                } catch (DivisionByZeroException) {
+                    // Store the value in cache
+                    if ($this->cacheEnabled) {
+                        $this->cacheDeterminant = 0;
+                    }
+                    return 0;
+                }
+
+                $determinant = (-1) ** $swaps;
+                for ($i = 0; $i < $this->rows; $i++) {
+                    $determinant *= $ref->matrix[$i][$i];
+                }
         }
 
         // Store the value in cache
