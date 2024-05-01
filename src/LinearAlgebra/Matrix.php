@@ -447,9 +447,8 @@ class Matrix extends AbstractMatrix
                 $swaps++;
             }
 
-            // If all remaining elements in the current column are zeros, then go on
+            // If all remaining elements in the current column are zeros, then go to the next element in the current row
             if ($maxValue === 0) {
-                $rowIndex++;
                 $columnIndex++;
                 continue;
             }
@@ -469,6 +468,11 @@ class Matrix extends AbstractMatrix
                 // Go through the rest of the row
                 for ($j = $columnIndex + 1; $j < $this->columns; $j++) {
                     $this->matrix[$i][$j] -= $this->matrix[$rowIndex][$j] * $multiplier;
+
+                    // If the result is smaller than $zeroTolerance, then consider it equal zero
+                    if (abs($this->matrix[$i][$j]) < $zeroTolerance) {
+                        $this->matrix[$i][$j] = 0;
+                    }
                 }
             }
 

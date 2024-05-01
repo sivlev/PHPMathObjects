@@ -1515,16 +1515,16 @@ class MatrixTest extends TestCase
      */
     #[DataProvider('providerRef')]
     #[TestDox("ref() and mRef() methods return a row echelon form of the matrix")]
-    public function testRef(array $array, array $expected, bool $doSwaps, int $swapsExpected): void
+    public function testRef(array $array, array $expected, bool $doSwaps, int $swapsExpected, float $zeroTolerance = self::e): void
     {
         $m = new Matrix($array);
         $swaps = 0;
-        $this->assertEqualsWithDelta($expected, $m->mRef($doSwaps, $swaps)->toArray(), self::e);
+        $this->assertEqualsWithDelta($expected, $m->mRef($doSwaps, $swaps, $zeroTolerance)->toArray(), self::e);
         $this->assertEquals($swapsExpected, $swaps);
     }
 
     /**
-     * @return array<int, array<int, bool|int|MatrixArray>>
+     * @return array<int, array<int, bool|int|float|MatrixArray>>
      */
     public static function providerRef(): array
     {
@@ -1604,6 +1604,18 @@ class MatrixTest extends TestCase
                     [0, 0.875, 1.625],
                     [0, 0, 0],
                 ], true, 1,
+            ],
+            [
+                [
+                    [8, 9, 11],
+                    [8, 9, 11],
+                    [1, 2, 3],
+                ],
+                [
+                    [8, 9, 11],
+                    [0, 0, 1.625],
+                    [0, 0, 0],
+                ], true, 1, 1,
             ],
         ];
     }
