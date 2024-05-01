@@ -74,6 +74,13 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
     protected bool $isCachePresent = false;
 
     /**
+     * Controls caching of properties that may require heavy calculations (determinant, row echelon form, etc.)
+     *
+     * @var bool
+     */
+    protected bool $cacheEnabled = true;
+
+    /**
      * AbstractMatrix class constructor
      *
      * @param array<int, array<int, T>> $data
@@ -166,6 +173,27 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * @return void
      */
     abstract protected function clearCache(): void;
+
+    /**
+     * Enables or disables caching of some matrix properties
+     *
+     * @param bool $cacheEnabled
+     * @return void
+     */
+    public function setCacheEnabled(bool $cacheEnabled): void
+    {
+        $this->cacheEnabled = $cacheEnabled;
+    }
+
+    /**
+     * Returns true if caching is enabled and false otherwise
+     *
+     * @return bool
+     */
+    public function isCacheEnabled(): bool
+    {
+        return $this->cacheEnabled;
+    }
 
     /**
      * Returns the matrix as array

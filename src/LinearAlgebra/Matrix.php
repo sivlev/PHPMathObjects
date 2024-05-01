@@ -398,8 +398,11 @@ class Matrix extends AbstractMatrix
             $trace += $row[$index];
         }
 
-        // Set cache flag to true
-        $this->isCachePresent = true;
+        // Set cache
+        if ($this->cacheEnabled) {
+            $this->isCachePresent = true;
+            $this->cacheTrace = $trace;
+        }
 
         return $trace;
     }
@@ -471,6 +474,13 @@ class Matrix extends AbstractMatrix
 
             $rowIndex++;
             $columnIndex++;
+        }
+
+        // Set cache
+        if ($this->cacheEnabled) {
+            $this->isCachePresent = true;
+            $this->cacheRef = $this;
+            $this->cacheRefSwaps = $swaps;
         }
 
         return $this;

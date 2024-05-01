@@ -264,6 +264,24 @@ class MatrixTest extends TestCase
     }
 
     /**
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestDox("IsCacheEnabled() and setCacheEnabled() method work properly")]
+    public function testCacheEnabled(): void
+    {
+        $m = new Matrix([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+        ]);
+
+        $this->assertTrue($m->isCacheEnabled());
+        $m->setCacheEnabled(false);
+        $this->assertFalse($m->isCacheEnabled());
+    }
+
+    /**
      * @param MatrixArray $array
      * @throws InvalidArgumentException
      */
