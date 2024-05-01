@@ -290,7 +290,7 @@ class MatrixTest extends TestCase
     #[TestDox("ClearCache() method is called when the matrix is modified")]
     public function testClearCache(): void
     {
-        $m  = new Matrix([
+        $m = new Matrix([
             [1, 2, 3],
             [4, 5, 6],
             [7, 8, 9],
@@ -1695,6 +1695,83 @@ class MatrixTest extends TestCase
                     [-9.9, -6.66, -1.1],
                     [5.5, 6.6, 7.7],
                 ], "ref",
+            ],
+        ];
+    }
+
+    /**
+     * @param MatrixArray $array
+     * @param int|float $expected
+     * @param bool $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     */
+    #[DataProvider('providerDeterminant')]
+    #[TestDox("determinant() method returns either the expected value or throws an exception")]
+    public function testDeterminant(array $array, int|float $expected, bool $exception = false): void
+    {
+        if ($exception) {
+            $this->expectException(MatrixException::class);
+        }
+
+        $m = new Matrix($array);
+        $this->assertEqualsWithDelta($expected, $m->determinant(), self::e);
+        // Do it twice to check the cached value too
+        $this->assertEqualsWithDelta($expected, $m->determinant(), self::e);
+    }
+
+    /**
+     * @return array<int, array<int, bool|int|float|MatrixArray>>
+     */
+    public static function providerDeterminant(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                ], 0, true,
+            ],
+            [
+                [
+                    [1, 2],
+                    [4, 5],
+                    [7, 8],
+                ], 0, true,
+            ],
+            [
+                [
+                    [-1.6],
+                ], -1.6,
+            ],
+            [
+                [
+                    [11.5, -20.6],
+                    [-7.693, 8],
+                ], -66.4758,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 0,
+            ],
+            [
+                [
+                    [1, 1, 1],
+                    [1, 1, 1],
+                    [1, 1, 9],
+                ], 0,
+            ],
+            [
+                [
+                    [5.7, 9.8, 2.5, 9.1],
+                    [-1102.44, -1942.556, 292.2184, -283.22],
+                    [1.53, 2.28, 3.48, 4.285],
+                    [-0.1, -0.2, -0.3, -0.4],
+                ], 872.9118664,
             ],
         ];
     }

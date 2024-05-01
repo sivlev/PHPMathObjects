@@ -39,11 +39,18 @@ class Matrix extends AbstractMatrix
     protected const DEFAULT_TOLERANCE = 1e-8;
 
     /**
-     * Cached value of the trace of a matrix
+     * Cached value of the trace of the matrix
      *
      * @var int|float|null
      */
     protected int|float|null $cacheTrace = null;
+
+    /**
+     * Cached value of the determinant of the matrix
+     *
+     * @var int|float|null
+     */
+    protected int|float|null $cacheDeterminant = null;
 
     /**
      * Cached value of the row echelon form
@@ -122,6 +129,7 @@ class Matrix extends AbstractMatrix
         $this->cacheTrace = null;
         $this->cacheRef = null;
         $this->cacheRefSwaps = null;
+        $this->cacheDeterminant = null;
 
         // Set the cache flag to false
         $this->cachePresent = false;
@@ -510,5 +518,50 @@ class Matrix extends AbstractMatrix
         $this->clearCache();
 
         return $this;
+    }
+
+    /**
+     * Calculated the determinant of the matrix
+     *
+     * @return int|float
+     * @throws InvalidArgumentException (not expected)
+     * @throws MatrixException if the matrix is not square
+     * @internal May return a cached property
+     */
+    public function determinant(): int|float
+    {
+        // Check if the value already present in cache
+        if (isset($this->cacheDeterminant)) {
+            return $this->cacheDeterminant;
+        }
+
+        if (!$this->isSquare()) {
+            throw new MatrixException("The determinant is defined only for square matrices.");
+        }
+
+        // If not, calculate the row echelon form and multiply elements on the main diagonal
+        // If DivisionByZero exception is triggered, then the matrix contain linearly dependent rows and its determinant is zero
+        try {
+            $swaps = 0;
+            $ref = $this->ref(false, $swaps);
+        } catch (DivisionByZeroException) {
+            // Store the value in cache
+            if ($this->cacheEnabled) {
+                $this->cacheDeterminant = 0;
+            }
+            return 0;
+        }
+
+        $determinant = (-1) ** $swaps;
+        for ($i = 0; $i < $this->rows; $i++) {
+            $determinant *= $ref->matrix[$i][$i];
+        }
+
+        // Store the value in cache
+        if ($this->cacheEnabled) {
+            $this->cacheDeterminant = $determinant;
+        }
+
+        return $determinant;
     }
 }

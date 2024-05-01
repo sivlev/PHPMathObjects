@@ -75,6 +75,7 @@ $doesElementExist = isset($matrix[[1, 2]]);
 $transpose = $matrix->transpose();
 $matrix->mTranspose();
 $trace = $matrix->trace();
+$determinant = $matrix->determinant();
 
 // Matrix arithmetics
 $sum = $matrix->add($anotherMatrix);
