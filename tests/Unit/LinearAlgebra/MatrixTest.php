@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace PHPMathObjects\Tests\Unit\LinearAlgebra;
 
+use PHPMathObjects\Exception\DivisionByZeroException;
 use PHPMathObjects\Exception\InvalidArgumentException;
 use PHPMathObjects\Exception\MathObjectsException;
 use PHPMathObjects\Exception\MatrixException;
@@ -1492,6 +1493,7 @@ class MatrixTest extends TestCase
      * @param int $swapsExpected
      * @return void
      * @throws InvalidArgumentException
+     * @throws DivisionByZeroException
      */
     #[DataProvider('providerRef')]
     #[TestDox("ref() and mRef() methods return a row echelon form of the matrix")]
@@ -1504,7 +1506,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, bool|int|float|MatrixArray>>
+     * @return array<int, array<int, bool|int|MatrixArray>>
      */
     public static function providerRef(): array
     {
@@ -1575,17 +1577,47 @@ class MatrixTest extends TestCase
             ],
             [
                 [
-                    [2, 3, 4],
-                    [8, 11, 19],
-                    [8, 11, 19],
-                    [9, 15, 2],
+                    [8, 9, 11],
+                    [8, 9, 11],
+                    [1, 2, 3],
                 ],
                 [
-                    [2, 3, 4],
-                    [0, -1, 3],
-                    [0, 0, -11.5],
+                    [8, 9, 11],
+                    [0, 0.875, 1.625],
                     [0, 0, 0],
-                ], true, 0,
+                ], true, 1,
+            ],
+        ];
+    }
+
+    /**
+     * @param MatrixArray $array
+     * @param class-string $method
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws DivisionByZeroException
+     */
+    #[DataProvider('providerRefException')]
+    #[TestDox("ref() and mRef() methods throw an DivisionByZero exception if no swaps are allowed but the matrix is linearly dependent")]
+    public function testRefException(array $array, string $method): void
+    {
+        $this->expectException(DivisionByZeroException::class);
+        $m = new Matrix($array);
+        $m->{$method}(false);
+    }
+
+    /**
+     * @return array<int, array<int, string|MatrixArray>>
+     */
+    public static function providerRefException(): array
+    {
+        return [
+            [
+                [
+                    [8, 9, 11],
+                    [8, 9, 11],
+                    [1, 2, 3],
+                ], "mRef",
             ],
         ];
     }

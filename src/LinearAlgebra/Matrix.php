@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace PHPMathObjects\LinearAlgebra;
 
+use PHPMathObjects\Exception\DivisionByZeroException;
 use PHPMathObjects\Exception\InvalidArgumentException;
 use PHPMathObjects\Exception\MatrixException;
 
@@ -403,7 +404,16 @@ class Matrix extends AbstractMatrix
         return $trace;
     }
 
-    public function mRef(bool $doSwaps = false, int &$swaps = 0, float $zeroTolerance = self::DEFAULT_TOLERANCE): self
+    /**
+     * Row echelon form. Mutating method (the initial matrix will be overwritten)
+     *
+     * @param bool $doSwaps If true, the method will swap the rows so that the maximal element of the column will be moved to top
+     * @param int &$swaps Returns number of swaps done
+     * @param float $zeroTolerance If the resulting value after subtraction is less than $zeroTolerance, it will be made equal to zero
+     * @return $this|self
+     * @throws DivisionByZeroException if $doSwaps = false and some of the rows are linearly dependent
+     */
+    public function mRef(bool $doSwaps = true, int &$swaps = 0, float $zeroTolerance = self::DEFAULT_TOLERANCE): self
     {
         // Check if the values are already once calculated
         if (isset($this->cacheRef) && isset($this->cacheRefSwaps)) {
@@ -439,6 +449,10 @@ class Matrix extends AbstractMatrix
                 $rowIndex++;
                 $columnIndex++;
                 continue;
+            }
+
+            if ($this->matrix[$rowIndex][$columnIndex] === 0) {
+                throw new DivisionByZeroException("Row echelon form requires division by zero. Call ref() or mRef() method with $doSwaps = true.");
             }
 
             // Go through the remaining rows

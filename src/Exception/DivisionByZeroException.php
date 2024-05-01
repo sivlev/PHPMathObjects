@@ -18,7 +18,7 @@ namespace PHPMathObjects\Exception;
 /**
  * Exception thrown if division by zero is requested
  */
-class DivisionByZeroException
+class DivisionByZeroException extends MathObjectsException
 {
     //
 }
