@@ -208,6 +208,44 @@ class MatrixTest extends TestCase
     }
 
     /**
+     * @param int $rows
+     * @param int $columns
+     * @param int|float $min
+     * @param int|float $max
+     * @param string $exceptionMessage
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([5, 4])]
+    #[TestWith([3, 3, -1, 0])]
+    #[TestWith([6, 2, -10.15, -10.10])]
+    #[TestWith([2, 2, 4.5, 4.5])]
+    #[TestWith([-3, 4, 0, 1, "Matrix dimensions must be greater than zero. Rows -3 and columns 4 are given"])]
+    #[TestWith([8, -1, 0, 1, "Matrix dimensions must be greater than zero. Rows 8 and columns -1 are given"])]
+    #[TestWith([3, 3, 2.5, 1.2, "The maximum value 1.2 cannot be less than the minimum value 2.5"])]
+    #[TestDox("Random() factory creates a matrix of the given size and filled with float values within the given range")]
+    public function testRandom(int $rows, int $columns, int|float $min = 0.0, int|float $max = 1.0, string $exceptionMessage = ""): void
+    {
+        if (!empty($exceptionMessage)) {
+            $this->expectException(OutOfBoundsException::class);
+            $this->expectExceptionMessage($exceptionMessage);
+        }
+        $m = Matrix::random($rows, $columns, $min, $max);
+        foreach ($m->toArray() as $row) {
+            foreach ($row as $element) {
+                $this->assertThat(
+                    $element,
+                    $this->logicalAnd(
+                        $this->greaterThanOrEqual($min),
+                        $this->lessThanOrEqual($max)
+                    )
+                );
+            }
+        }
+    }
+
+    /**
      * @param MatrixArray $matrix
      * @param string $exceptionMessage
      * @return void

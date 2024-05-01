@@ -25,6 +25,8 @@ use function is_int;
 use function is_float;
 use function array_fill;
 use function abs;
+use function rand;
+use function getrandmax;
 
 /**
  * Implementation of the AbstractMatrix class to manipulate numeric matrices
@@ -89,6 +91,42 @@ class Matrix extends AbstractMatrix
         }
 
         return new self($array, false);
+    }
+
+    /**
+     * Factory method to create a matrix filled with random float numbers between the given limits
+     *
+     * TODO: Replace with getFloat() when migrating to PHP 8.3
+     *
+     * @param int $rows
+     * @param int $columns
+     * @param int|float $min
+     * @param int|float $max
+     * @return self
+     * @throws InvalidArgumentException (not expected)
+     * @throws OutOfBoundsException if the rows or columns are non-positive, or if $min > $max
+     */
+    public static function random(int $rows, int $columns, int|float $min = 0.0, int|float $max = 1.0): self
+    {
+        // Check if the dimensions are correct
+        if ($rows <= 0 || $columns <= 0) {
+            throw new OutOfBoundsException("Matrix dimensions must be greater than zero. Rows $rows and columns $columns are given");
+        }
+
+        if ($min > $max) {
+            throw new OutOfBoundsException("The maximum value $max cannot be less than the minimum value $min");
+        }
+
+        $array = [];
+        $row = [];
+        for ($i = 0; $i < $rows; $i++) {
+            for ($j = 0; $j < $columns; $j++) {
+                $row[] = rand() / getrandmax() * ($max - $min) + $min;
+            }
+            $array[] = $row;
+        }
+
+        return new Matrix($array, false);
     }
 
     /**
@@ -521,7 +559,7 @@ class Matrix extends AbstractMatrix
     }
 
     /**
-     * Calculated the determinant of the matrix
+     * Calculates the determinant of the matrix
      *
      * @return int|float
      * @throws InvalidArgumentException (not expected)
