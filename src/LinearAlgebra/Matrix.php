@@ -435,7 +435,7 @@ class Matrix extends AbstractMatrix
             }
 
             // If all remaining elements in the current column are zeros, then go on
-            if ($maxValue == 0) {
+            if ($maxValue === 0) {
                 $rowIndex++;
                 $columnIndex++;
                 continue;
