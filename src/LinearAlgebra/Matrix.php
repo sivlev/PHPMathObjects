@@ -118,10 +118,11 @@ class Matrix extends AbstractMatrix
         }
 
         $array = [];
-        $row = [];
+        $maxNumber = getrandmax();
         for ($i = 0; $i < $rows; $i++) {
+            $row = [];
             for ($j = 0; $j < $columns; $j++) {
-                $row[] = rand() / getrandmax() * ($max - $min) + $min;
+                $row[] = rand() / $maxNumber * ($max - $min) + $min;
             }
             $array[] = $row;
         }
