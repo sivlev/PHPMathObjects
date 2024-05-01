@@ -36,7 +36,7 @@ class Matrix extends AbstractMatrix
     /**
      * This constant is used as the default tolerance: If a float point number is below the tolerance, then it is considered being equal to zero.
      */
-    protected const DEFAULT_TOLERANCE = 1e-6;
+    protected const DEFAULT_TOLERANCE = 1e-8;
 
     /**
      * Cached value of the trace of a matrix

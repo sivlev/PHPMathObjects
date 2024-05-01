@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
 class MatrixTest extends TestCase
 {
     // Tolerance used to compare two floats
-    protected const e = 1e-6;
+    protected const e = 1e-8;
 
     /**
      * @throws InvalidArgumentException
