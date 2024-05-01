@@ -14,7 +14,7 @@ composer require sivlev/phpmathobjects
 ```
 or include the following line to your `composer.json` file:
 ```json
-"sivlev/phpmathobjects": "^0.1.0"
+"sivlev/phpmathobjects": "*"
 ```
 
 ### Requirements
