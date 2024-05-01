@@ -71,7 +71,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * @see self::clearCache()
      * @var bool
      */
-    protected bool $isCachePresent = false;
+    protected bool $cachePresent = false;
 
     /**
      * Controls caching of properties that may require heavy calculations (determinant, row echelon form, etc.)

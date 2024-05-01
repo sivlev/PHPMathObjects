@@ -114,7 +114,7 @@ class Matrix extends AbstractMatrix
     protected function clearCache(): void
     {
         // If cache flag is not set, then nothing to clear
-        if ($this->isCachePresent === false) {
+        if ($this->cachePresent === false) {
             return;
         }
 
@@ -124,7 +124,7 @@ class Matrix extends AbstractMatrix
         $this->cacheRefSwaps = null;
 
         // Set the cache flag to false
-        $this->isCachePresent = false;
+        $this->cachePresent = false;
     }
 
     /**
@@ -380,6 +380,7 @@ class Matrix extends AbstractMatrix
      *
      * @return int|float
      * @throws MatrixException if the matrix is not square
+     * @internal May return a cached property
      */
     public function trace(): int|float
     {
@@ -400,11 +401,41 @@ class Matrix extends AbstractMatrix
 
         // Set cache
         if ($this->cacheEnabled) {
-            $this->isCachePresent = true;
+            $this->cachePresent = true;
             $this->cacheTrace = $trace;
         }
 
         return $trace;
+    }
+
+    /**
+     * Returns row echelon form of the matrix
+     *
+     * @param bool $doSwaps If true, the method will swap the rows so that the maximal element of the column will be moved to top
+     * @param int &$swaps Returns number of swaps done
+     * @param float $zeroTolerance If the resulting value after subtraction is less than $zeroTolerance, it will be made equal to zero
+     * @return self
+     * @throws DivisionByZeroException if $doSwaps = false and some of the rows are linearly dependent
+     * @throws InvalidArgumentException (not expected)
+     * @internal May return a cached property
+     */
+    public function ref(bool $doSwaps = true, int &$swaps = 0, float $zeroTolerance = self::DEFAULT_TOLERANCE): self
+    {
+        // Check if the row echelon form is cached
+        if (isset($this->cacheRef) && isset($this->cacheRefSwaps)) {
+            $swaps = $this->cacheRefSwaps;
+            return $this->cacheRef;
+        }
+
+        $ref = (new Matrix($this->matrix, false))->mRef($doSwaps, $swaps, $zeroTolerance);
+
+        // Set cache
+        if ($this->cacheEnabled) {
+            $this->cacheRef = $ref;
+            $this->cacheRefSwaps = $swaps;
+            $this->cachePresent = true;
+        }
+        return $ref;
     }
 
     /**
@@ -415,15 +446,10 @@ class Matrix extends AbstractMatrix
      * @param float $zeroTolerance If the resulting value after subtraction is less than $zeroTolerance, it will be made equal to zero
      * @return $this|self
      * @throws DivisionByZeroException if $doSwaps = false and some of the rows are linearly dependent
+     * @internal Mutating method
      */
     public function mRef(bool $doSwaps = true, int &$swaps = 0, float $zeroTolerance = self::DEFAULT_TOLERANCE): self
     {
-        // Check if the values are already once calculated
-        if (isset($this->cacheRef) && isset($this->cacheRefSwaps)) {
-            $swaps = $this->cacheRefSwaps;
-            return $this->cacheRef;
-        }
-
         // Calculate the row echelon form by Gaussian elimination
         $rowIndex = $columnIndex = 0;
         $maxRowIndex = $this->rows - 1;
@@ -480,12 +506,8 @@ class Matrix extends AbstractMatrix
             $columnIndex++;
         }
 
-        // Set cache
-        if ($this->cacheEnabled) {
-            $this->isCachePresent = true;
-            $this->cacheRef = $this;
-            $this->cacheRefSwaps = $swaps;
-        }
+        // Clear cache before return
+        $this->clearCache();
 
         return $this;
     }

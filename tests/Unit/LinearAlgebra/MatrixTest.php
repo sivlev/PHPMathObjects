@@ -1455,6 +1455,9 @@ class MatrixTest extends TestCase
             $this->expectException(MatrixException::class);
         }
         $m = new Matrix($array);
+
+        // Do assert twice to check that the cached value (second call) is correct
+        $this->assertEqualsWithDelta($expected, $m->trace(), self::e);
         $this->assertEqualsWithDelta($expected, $m->trace(), self::e);
     }
 
@@ -1509,17 +1512,28 @@ class MatrixTest extends TestCase
      * @param MatrixArray $expected
      * @param bool $doSwaps
      * @param int $swapsExpected
+     * @param float $zeroTolerance
      * @return void
-     * @throws InvalidArgumentException
      * @throws DivisionByZeroException
+     * @throws InvalidArgumentException
      */
     #[DataProvider('providerRef')]
     #[TestDox("ref() and mRef() methods return a row echelon form of the matrix")]
     public function testRef(array $array, array $expected, bool $doSwaps, int $swapsExpected, float $zeroTolerance = self::e): void
     {
+        // Test mRef()
         $m = new Matrix($array);
         $swaps = 0;
         $this->assertEqualsWithDelta($expected, $m->mRef($doSwaps, $swaps, $zeroTolerance)->toArray(), self::e);
+        $this->assertEquals($swapsExpected, $swaps);
+
+        // Test ref()
+        $m = new Matrix($array);
+        $swaps = 0;
+
+        // Do assert twice to check that the cached value (second call) is correct
+        $this->assertEqualsWithDelta($expected, $m->ref($doSwaps, $swaps, $zeroTolerance)->toArray(), self::e);
+        $this->assertEqualsWithDelta($expected, $m->ref($doSwaps, $swaps, $zeroTolerance)->toArray(), self::e);
         $this->assertEquals($swapsExpected, $swaps);
     }
 
@@ -1648,6 +1662,13 @@ class MatrixTest extends TestCase
                     [8, 9, 11],
                     [1, 2, 3],
                 ], "mRef",
+            ],
+            [
+                [
+                    [-9.9, -6.66, -1.1],
+                    [-9.9, -6.66, -1.1],
+                    [5.5, 6.6, 7.7],
+                ], "ref",
             ],
         ];
     }
