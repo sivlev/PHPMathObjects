@@ -295,7 +295,9 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
             throw new InvalidArgumentException("The type '" . gettype($value) . "' is incompatible with the given Matrix instance.");
         }
 
+        // Flush cache before return
         $this->matrix[$row][$column] = $value;
+        $this->clearCache();
         return $this;
     }
 

@@ -282,6 +282,32 @@ class MatrixTest extends TestCase
     }
 
     /**
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     * @throws OutOfBoundsException
+     */
+    #[TestDox("ClearCache() method is called when the matrix is modified")]
+    public function testClearCache(): void
+    {
+        $m  = new Matrix([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+        ]);
+
+        // First trace() call
+        $this->assertEquals(15, $m->trace());
+
+        // Second method call returns cached property
+        $this->assertEquals(15, $m->trace());
+
+        // Now modify the matrix to trigger protected clearCache() method
+        $m->set(1, 1, 4);
+        $this->assertEquals(14, $m->trace());
+    }
+
+    /**
      * @param MatrixArray $array
      * @throws InvalidArgumentException
      */
