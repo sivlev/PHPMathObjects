@@ -23,6 +23,9 @@ The library requires PHP 8.2 or above. No other external dependencies are requir
 
 ## How to use
 
+This section contains simplified lists of PHPMathObjects API methods. Some parameters with default values are omitted for clarity.
+For full API reference please refer to ```docs```.
+
 ### Contents
 
  * Linear Algebra
@@ -34,7 +37,7 @@ The library requires PHP 8.2 or above. No other external dependencies are requir
 
 Many matrix methods in PHPMathObjects are implemented in two versions: non-mutating (return a new matrix object) and mutating (change the existing matrix).
 The latter method names have a letter "m" in the beginning, e.g. add() and mAdd(), transpose() and mTranspose(), etc.
-You can decide which method is more suitable for a particular task. Usually the mutating methods are slightly faster than non-mutating ones because the no new object instantiation is needed.
+You can decide which method is more suitable for a particular task. Usually the mutating methods are slightly faster than non-mutating ones because no new object instantiation is needed.
 
 ```php
 // Create a new matrix object using class constructor
