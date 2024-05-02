@@ -100,10 +100,12 @@ $transpose = $matrix->transpose();
 $trace = $matrix->trace();
 $determinant = $matrix->determinant();
 $rowEchelonForm = $matrix->ref();
+$reducedRowEchelonForm = $matrix->rref();
 
 // Matrix unary operations (mutating methods)
 $matrix->mTranspose();
 $matrix->mRef();            //Row echelon form
+$matrix->mRref();            //Reduced row echelon form
 
 // Conversion to a string representation
 $string = $matrix->toString();

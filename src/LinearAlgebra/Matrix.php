@@ -21,6 +21,7 @@ use PHPMathObjects\Exception\MatrixException;
 
 use PHPMathObjects\Exception\OutOfBoundsException;
 
+use PHPUnit\Event\Runtime\PHP;
 use Random\Randomizer;
 
 use function is_int;
@@ -69,6 +70,13 @@ class Matrix extends AbstractMatrix
      * @var int|null
      */
     protected ?int $cacheRefSwaps = null;
+
+    /**
+     * Cached value of the reduced row echelon form
+     *
+     * @var Matrix|null
+     */
+    protected self|null $cacheRref = null;
 
     /**
      * Factory method to create an identity matrix with dimensions of size x size
@@ -205,6 +213,7 @@ class Matrix extends AbstractMatrix
         $this->cacheTrace = null;
         $this->cacheRef = null;
         $this->cacheRefSwaps = null;
+        $this->cacheRref = null;
         $this->cacheDeterminant = null;
 
         // Set the cache flag to false
@@ -527,8 +536,8 @@ class Matrix extends AbstractMatrix
      *
      * @param bool $doSwaps If true, the method will swap the rows so that the maximal element of the column will be moved to top
      * @param int &$swaps Returns number of swaps done
-     * @param float $zeroTolerance If the resulting value after subtraction is less than $zeroTolerance, it will be made equal to zero
-     * @return $this|self
+     * @param float $zeroTolerance If a resulting value after subtraction is less than $zeroTolerance, it will be made equal to zero
+     * @return $this
      * @throws DivisionByZeroException if $doSwaps = false and some of the rows are linearly dependent
      * @internal Mutating method
      */
@@ -597,6 +606,91 @@ class Matrix extends AbstractMatrix
     }
 
     /**
+     * Reduced row echelon form
+     *
+     * @param float $zeroTolerance If a resulting value during subtraction is less than $zeroTolerance, it will be made equal to zero
+     * @return self
+     * @throws DivisionByZeroException (not expected)
+     * @throws InvalidArgumentException (not expected)
+     */
+    public function rref(float $zeroTolerance): self
+    {
+        // Check if the reduced row echelon form is cached
+        if (isset($this->cacheRref)) {
+            return $this->cacheRref;
+        }
+
+        $rref = (new Matrix($this->matrix, false))->mRref($zeroTolerance);
+
+        // Set cache
+        if ($this->cacheEnabled) {
+            $this->cacheRef = $rref;
+            $this->cachePresent = true;
+        }
+        return $rref;
+    }
+
+    /**
+     * Reduced row echelon form. Mutating method (the initial matrix will be overwritten)
+     *
+     * @param float $zeroTolerance If a resulting value after subtraction is less than $zeroTolerance, it will be made equal to zero
+     * @return $this
+     * @throws DivisionByZeroException (not expected)
+     * @internal Mutating method
+     */
+    public function mRref(float $zeroTolerance = self::DEFAULT_TOLERANCE): self
+    {
+        // Check if we have a row echelon form in cache. If not, calculate it
+        if (isset($this->cacheRef)) {
+            $refArray = $this->cacheRef->matrix;
+        } else {
+            $swaps = 0;
+            $refArray = $this->mRef(true, $swaps, $zeroTolerance)->matrix;
+        }
+
+        // Calculate the reduced row echelon form by scaling the pivot row and subtracting the row from all rows above to make the elements above the pivot being equal to zero
+        $rowIndex = $columnIndex = 0;
+        $maxRowIndex = $this->rows;
+        $maxColumnIndex = $this->columns;
+
+        while ($rowIndex < $maxRowIndex && $columnIndex < $maxColumnIndex) {
+            if ($refArray[$rowIndex][$columnIndex] === 0) {
+                $columnIndex++;
+                continue;
+            }
+
+            $pivot = $refArray[$rowIndex][$columnIndex];
+            if ($pivot !== 1) {
+                // Scale the pivot row
+                $refArray[$rowIndex][$columnIndex] = 1;
+                for ($i = $columnIndex + 1; $i < $maxColumnIndex; $i++) {
+                    $refArray[$rowIndex][$i] /= $pivot;
+                }
+            }
+
+            // Now reduce all elements above the pivot
+            for ($i = 0; $i < $rowIndex; $i++) {
+                if ($refArray[$i][$columnIndex] === 0) {
+                    continue;
+                }
+                $coefficient = $refArray[$i][$columnIndex];
+                $refArray[$i][$columnIndex] = 0;
+                for ($j = $columnIndex + 1; $j < $maxColumnIndex; $j++) {
+                    $refArray[$i][$j] -= $refArray[$rowIndex][$j] * $coefficient;
+                }
+            }
+
+            $rowIndex++;
+            $columnIndex++;
+        }
+
+        // Clear cache before return
+        $this->clearCache();
+        $this->matrix = $refArray;
+        return $this;
+    }
+
+    /**
      * Calculates the determinant of the matrix
      *
      * @return int|float
@@ -626,7 +720,7 @@ class Matrix extends AbstractMatrix
 
             case 3:
                 $determinant =
-                      $this->matrix[0][0] * $this->matrix[1][1] * $this->matrix[2][2]
+                    $this->matrix[0][0] * $this->matrix[1][1] * $this->matrix[2][2]
                     - $this->matrix[0][0] * $this->matrix[1][2] * $this->matrix[2][1]
                     - $this->matrix[0][1] * $this->matrix[1][0] * $this->matrix[2][2]
                     + $this->matrix[0][1] * $this->matrix[1][2] * $this->matrix[2][0]

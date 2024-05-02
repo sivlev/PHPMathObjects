@@ -1702,6 +1702,28 @@ class MatrixTest extends TestCase
                     [0, 0, 0],
                 ], true, 1, 1,
             ],
+            [
+                [
+                    [1, 5, 1],
+                    [2, 11, 5],
+                ],
+                [
+                    [1, 5, 1],
+                    [0, 1, 3],
+                ], false, 0,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9.000001],
+                ],
+                [
+                    [1, 2, 3],
+                    [0, -3, -6],
+                    [0, 0, 0],
+                ], false, 0, 1e-5,
+            ],
         ];
     }
 
@@ -1740,6 +1762,131 @@ class MatrixTest extends TestCase
                     [-9.9, -6.66, -1.1],
                     [5.5, 6.6, 7.7],
                 ], "ref",
+            ],
+        ];
+    }
+
+    /**
+     * @param MatrixArray $array
+     * @param MatrixArray $expected
+     * @param float $zeroTolerance
+     * @return void
+     * @throws DivisionByZeroException
+     * @throws InvalidArgumentException
+     */
+    #[DataProvider('providerRref')]
+    #[TestDox("rref() and mRref() methods return the reduced row echelon form of the matrix")]
+    public function testRref(array $array, array $expected, float $zeroTolerance = self::e): void
+    {
+        // Test mRef()
+        $m = new Matrix($array);
+        $this->assertEqualsWithDelta($expected, $m->mRref($zeroTolerance)->toArray(), $zeroTolerance);
+
+        // Test rref() twice to check the cached value too
+        $m = new Matrix($array);
+        $this->assertEqualsWithDelta($expected, $m->rref($zeroTolerance)->toArray(), $zeroTolerance);
+        $this->assertEqualsWithDelta($expected, $m->rref($zeroTolerance)->toArray(), $zeroTolerance);
+    }
+
+    /**
+     * @return array<int, array<int, float|MatrixArray>>
+     */
+    public static function providerRref(): array
+    {
+        return [
+            [
+                [
+                    [-9.8],
+                ],
+                [
+                    [1],
+                ],
+            ],
+            [
+                [
+                    [1, 2, 1, 9],
+                    [2, 4, 1, 18],
+                    [3, 5, 1, 24],
+                ],
+                [
+                    [1, 0, 0, 3],
+                    [0, 1, 0, 3],
+                    [0, 0, 1, 0],
+                ],
+            ],
+            [
+                [
+                    [1, 5, 1],
+                    [2, 11, 5],
+                ],
+                [
+                    [1, 0, -14],
+                    [0, 1, 3],
+                ],
+            ],
+            [
+                [
+                    [1.2, -4.2, 4.5, 0.1, 6.6],
+                    [8.1, -12.4, 5.38, 5.282, -33.5],
+                    [0.1, -0.4873, 15.2, 84.3, -12.3],
+                ],
+                [
+                    [1, 0, 0, 11.10791331, -13.23256777],
+                    [0, 1, 0, 9.33441007, -6.34380309],
+                    [0, 0, 1, 5.77222807, -0.92553147],
+                ],
+            ],
+            [
+                [
+                    [1.2, -4.2, 4.5, 0.1, 6.6],
+                    [8.1, -12.4, 5.38, 5.282, -33.5],
+                    [0.1, -0.4873, 15.2, 84.3, -12.3],
+                ],
+                [
+                    [1, 0, 0, 11.10791331, -13.23256777],
+                    [0, 1, 0, 9.33441007, -6.34380309],
+                    [0, 0, 1, 5.77222807, -0.92553147],
+                ],
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9.000001],
+                ],
+                [
+                    [1, 0, 0],
+                    [0, 1, 0],
+                    [0, 0, 1],
+                ],
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9.000001],
+                ],
+                [
+                    [1, 0, -1],
+                    [0, 1, 2],
+                    [0, 0, 0],
+                ], 1e-5,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                    [10, 11, 12],
+                    [13, 14, 15],
+                ],
+                [
+                    [1, 0, -1],
+                    [0, 1, 2],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                ],
             ],
         ];
     }
@@ -1807,8 +1954,8 @@ class MatrixTest extends TestCase
                 [
                     [1, 1, 1, 1],
                     [1, 1, 1, 1],
-                    [1, 1, 1,1],
-                    [1, 1, 1,9],
+                    [1, 1, 1, 1],
+                    [1, 1, 1, 9],
                 ], 0,
             ],
             [
