@@ -28,8 +28,31 @@ For full API reference please refer to ```docs```.
 
 ### Contents
 
+ * General mathematics
+   - [Math](#math)
+   
  * Linear Algebra
    - [Matrix](#matrix)
+
+### General mathematics
+
+#### Math
+
+```Math``` class contains common math functions that may be needed in various areas. The functions are implemented as static methods.
+
+```php
+// Check if the number equals zero within the given tolerance
+$isZero = Math::isZero(0.000002);                       // Returns false
+$isZero = Math::isZero(0.000002, 1e-3);                 // Returns true
+
+// Check if the number does not equal zero within the given tolerance
+$isNotZero = Math::isNotZero(0.000002);                 // Returns true
+$isNotZero = Math::isNotZero(0.000002, 1e-3);           // Returns false
+
+// Check if two numbers are equal within the given tolerance
+$areEqual = Math::areEqual(0.000002, 0.000003);         // Returns false
+$areEqual = Math::areEqual(0.000002, 0.000003, 1e-3);   // Returns true
+```
 
 ### Linear Algebra
 
@@ -57,7 +80,7 @@ $matrix = Matrix::randomInt(3, 3, 1, 10)    // Make a 3x3 matrix filled with ran
 $rows = $matrix->rows();
 $columns = $matrix->columns();
 $numberOfElements = $matrix->size(); 
-$numberOfElements = count($matrix); // Alternative way as Matrix implements "Countable" interface
+$numberOfElements = count($matrix);         // Alternative way as Matrix implements "Countable" interface
 
 // Get matrix as array
 $array = $matrix->toArray(); 
@@ -104,7 +127,7 @@ $reducedRowEchelonForm = $matrix->rref();
 
 // Matrix unary operations (mutating methods)
 $matrix->mTranspose();
-$matrix->mRef();            //Row echelon form
+$matrix->mRef();             //Row echelon form
 $matrix->mRref();            //Reduced row echelon form
 
 // Conversion to a string representation
