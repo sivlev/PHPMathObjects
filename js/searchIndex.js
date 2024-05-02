@@ -6,6 +6,11 @@ Search.appendIndex(
             "summary": "Exception\u0020thrown\u0020if\u0020a\u0020method\u0020is\u0020not\u0020implemented\u0020or\u0020is\u0020undefined",
             "url": "classes/PHPMathObjects-Exception-BadMethodCallException.html"
         },                {
+            "fqsen": "\\PHPMathObjects\\Exception\\DivisionByZeroException",
+            "name": "DivisionByZeroException",
+            "summary": "Exception\u0020thrown\u0020if\u0020division\u0020by\u0020zero\u0020is\u0020requested",
+            "url": "classes/PHPMathObjects-Exception-DivisionByZeroException.html"
+        },                {
             "fqsen": "\\PHPMathObjects\\Exception\\InvalidArgumentException",
             "name": "InvalidArgumentException",
             "summary": "Exception\u0020thrown\u0020if\u0020a\u0020value\u0020is\u0020not\u0020of\u0020the\u0020expected\u0020type",
@@ -55,6 +60,16 @@ Search.appendIndex(
             "name": "clearCache",
             "summary": "Abstract\u0020method\u0020for\u0020flushing\u0020cached\u0020properties,\u0020such\u0020as\u0020determinants\u0020etc.",
             "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_clearCache"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003AsetCacheEnabled\u0028\u0029",
+            "name": "setCacheEnabled",
+            "summary": "Enables\u0020or\u0020disables\u0020caching\u0020of\u0020some\u0020matrix\u0020properties",
+            "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_setCacheEnabled"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003AisCacheEnabled\u0028\u0029",
+            "name": "isCacheEnabled",
+            "summary": "Returns\u0020true\u0020if\u0020caching\u0020is\u0020enabled\u0020and\u0020false\u0020otherwise",
+            "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_isCacheEnabled"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003AtoArray\u0028\u0029",
             "name": "toArray",
@@ -131,10 +146,15 @@ Search.appendIndex(
             "summary": "Two\u002Ddimensional\u0020array\u0020to\u0020store\u0020the\u0020matrix\u0020data",
             "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#property_matrix"
         },                {
-            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003A\u0024isCachePresent",
-            "name": "isCachePresent",
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003A\u0024cachePresent",
+            "name": "cachePresent",
             "summary": "If\u0020true,\u0020then\u0020at\u0020least\u0020one\u0020cacheable\u0020property\u0020is\u0020cached,\u0020and\u0020the\u0020cache\u0020must\u0020be\u0020cleared\u0020by\u0020any\u0020mutation\u0020of\u0020the\u0020matrix",
-            "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#property_isCachePresent"
+            "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#property_cachePresent"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003A\u0024cacheEnabled",
+            "name": "cacheEnabled",
+            "summary": "Controls\u0020caching\u0020of\u0020properties\u0020that\u0020may\u0020require\u0020heavy\u0020calculations\u0020\u0028determinant,\u0020row\u0020echelon\u0020form,\u0020etc.\u0029",
+            "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#property_cacheEnabled"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix",
             "name": "Matrix",
@@ -145,6 +165,16 @@ Search.appendIndex(
             "name": "identity",
             "summary": "Factory\u0020method\u0020to\u0020create\u0020an\u0020identity\u0020matrix\u0020with\u0020dimensions\u0020of\u0020size\u0020x\u0020size",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_identity"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003Arandom\u0028\u0029",
+            "name": "random",
+            "summary": "Factory\u0020method\u0020to\u0020create\u0020a\u0020matrix\u0020filled\u0020with\u0020random\u0020float\u0020numbers\u0020between\u0020the\u0020given\u0020limits",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_random"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003ArandomInt\u0028\u0029",
+            "name": "randomInt",
+            "summary": "Factory\u0020method\u0020to\u0020create\u0020a\u0020matrix\u0020filled\u0020with\u0020random\u0020integer\u0020numbers\u0020between\u0020the\u0020given\u0020limits",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_randomInt"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AvalidateDataClassSpecific\u0028\u0029",
             "name": "validateDataClassSpecific",
@@ -191,16 +221,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isEqualExactly"
         },                {
-            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003Atrace\u0028\u0029",
-            "name": "trace",
-            "summary": "Calculation\u0020of\u0020the\u0020trace\u0020of\u0020a\u0020matrix\u0020\u0028defined\u0020for\u0020square\u0020matrices\u0020only\u0029",
-            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_trace"
-        },                {
-            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AmRef\u0028\u0029",
-            "name": "mRef",
-            "summary": "",
-            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_mRef"
-        },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003ADEFAULT_TOLERANCE",
             "name": "DEFAULT_TOLERANCE",
             "summary": "This\u0020constant\u0020is\u0020used\u0020as\u0020the\u0020default\u0020tolerance\u003A\u0020If\u0020a\u0020float\u0020point\u0020number\u0020is\u0020below\u0020the\u0020tolerance,\u0020then\u0020it\u0020is\u0020considered\u0020being\u0020equal\u0020to\u0020zero.",
@@ -208,8 +228,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003A\u0024cacheTrace",
             "name": "cacheTrace",
-            "summary": "Cached\u0020value\u0020of\u0020the\u0020trace\u0020of\u0020a\u0020matrix",
+            "summary": "Cached\u0020value\u0020of\u0020the\u0020trace\u0020of\u0020the\u0020matrix",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheTrace"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003A\u0024cacheDeterminant",
+            "name": "cacheDeterminant",
+            "summary": "Cached\u0020value\u0020of\u0020the\u0020determinant\u0020of\u0020the\u0020matrix",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheDeterminant"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003A\u0024cacheRef",
             "name": "cacheRef",
