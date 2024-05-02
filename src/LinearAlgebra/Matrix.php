@@ -624,7 +624,7 @@ class Matrix extends AbstractMatrix
 
         // Set cache
         if ($this->cacheEnabled) {
-            $this->cacheRef = $rref;
+            $this->cacheRref = $rref;
             $this->cachePresent = true;
         }
         return $rref;

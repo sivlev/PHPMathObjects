@@ -1782,6 +1782,10 @@ class MatrixTest extends TestCase
         $m = new Matrix($array);
         $this->assertEqualsWithDelta($expected, $m->mRref($zeroTolerance)->toArray(), $zeroTolerance);
 
+        // Second mRref() test to see if the ref() value can be taken from cacheRef()
+        $m->ref();
+        $this->assertEqualsWithDelta($expected, $m->mRref($zeroTolerance)->toArray(), $zeroTolerance);
+
         // Test rref() twice to check the cached value too
         $m = new Matrix($array);
         $this->assertEqualsWithDelta($expected, $m->rref($zeroTolerance)->toArray(), $zeroTolerance);
