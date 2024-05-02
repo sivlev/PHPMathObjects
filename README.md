@@ -28,7 +28,7 @@ For full API reference please refer to ```docs```.
 
 ### Contents
 
- * General mathematics
+ * General Mathematics
    - [Math](#math)
    
  * Linear Algebra
