@@ -20,6 +20,7 @@ use PHPMathObjects\Exception\OutOfBoundsException;
 use PHPMathObjects\LinearAlgebra\AbstractMatrix;
 use PHPMathObjects\LinearAlgebra\Matrix;
 use PHPMathObjects\LinearAlgebra\Vector;
+use PHPMathObjects\LinearAlgebra\VectorEnum;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
@@ -66,5 +67,32 @@ class VectorTest extends TestCase
             [1, 2],
             [3, 4],
         ]);
+    }
+
+    /**
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestDox("VectorType() method returns the orientation of the vector")]
+    public function testVectorType(): void
+    {
+        $v = new Vector([
+            [1],
+            [2],
+            [3],
+        ]);
+        $this->assertEquals(VectorEnum::Column, $v->vectorType());
+
+        $v = new Vector([
+            [1, 2, 3],
+        ]);
+        $this->assertEquals(VectorEnum::Row, $v->vectorType());
+
+        // Vector with a single element is by default a column vector
+        $v = new Vector([
+            [1],
+        ]);
+        $this->assertEquals(VectorEnum::Column, $v->vectorType());
     }
 }

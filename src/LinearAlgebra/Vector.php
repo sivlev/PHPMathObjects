@@ -44,4 +44,14 @@ class Vector extends Matrix
             throw new OutOfBoundsException("Improper vector dimensions. Either m x 1 or 1 x n are allowed.");
         }
     }
+
+    /**
+     * Returns VectorEnum::Row or VectorEnum::Column depending on the orientation of the vector
+     *
+     * @return VectorEnum
+     */
+    public function vectorType(): VectorEnum
+    {
+        return $this->vectorType;
+    }
 }
