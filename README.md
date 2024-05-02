@@ -130,6 +130,14 @@ $matrix->mTranspose();
 $matrix->mRef();             //Row echelon form
 $matrix->mRref();            //Reduced row echelon form
 
+// Matrix resizing and concatenation
+$joinRight = $matrix->joinRight($anotherMatrix);
+$joinBottom = $matrix->joinBottom($anotherMatrix);
+
+// Matrix resizing and concatenation (mutating methods)
+$matrix->mJoinRight($anotherMatrix);
+$matrix->mJoinBottom($anotherMatrix);
+
 // Conversion to a string representation
 $string = $matrix->toString();
 $string = (string) $matrix;
