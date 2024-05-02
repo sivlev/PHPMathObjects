@@ -29,8 +29,16 @@ jobs:
       - name: Execute static analysis
         run: composer analyze
 
-      - name: Run tests
-        run: composer test
-
       - name: Check coding standards
         run: composer check
+        
+      - name: Run tests
+        run: |
+          mkdir -p build/logs
+          composer test -- --coverage-clover build/logs/clover.xml
+
+      - name: Upload coverage results to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          php vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
