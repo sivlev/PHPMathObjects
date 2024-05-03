@@ -221,6 +221,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isEqualExactly"
         },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003Arref\u0028\u0029",
+            "name": "rref",
+            "summary": "Reduced\u0020row\u0020echelon\u0020form",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_rref"
+        },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003ADEFAULT_TOLERANCE",
             "name": "DEFAULT_TOLERANCE",
             "summary": "This\u0020constant\u0020is\u0020used\u0020as\u0020the\u0020default\u0020tolerance\u003A\u0020If\u0020a\u0020float\u0020point\u0020number\u0020is\u0020below\u0020the\u0020tolerance,\u0020then\u0020it\u0020is\u0020considered\u0020being\u0020equal\u0020to\u0020zero.",
@@ -246,6 +251,36 @@ Search.appendIndex(
             "summary": "Cached\u0020value\u0020of\u0020number\u0020of\u0020swaps\u0020used\u0020to\u0020make\u0020the\u0020row\u0020echelon\u0020form",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheRefSwaps"
         },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003A\u0024cacheRref",
+            "name": "cacheRref",
+            "summary": "Cached\u0020value\u0020of\u0020the\u0020reduced\u0020row\u0020echelon\u0020form",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheRref"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Math\\Math",
+            "name": "Math",
+            "summary": "Class\u0020implementing\u0020some\u0020common\u0020math\u0020functions\u0020as\u0020static\u0020methods",
+            "url": "classes/PHPMathObjects-Math-Math.html"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Math\\Math\u003A\u003AisZero\u0028\u0029",
+            "name": "isZero",
+            "summary": "Returns\u0020true\u0020if\u0020the\u0020number\u0020equals\u0020zero\u0020within\u0020the\u0020given\u0020tolerance",
+            "url": "classes/PHPMathObjects-Math-Math.html#method_isZero"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Math\\Math\u003A\u003AisNotZero\u0028\u0029",
+            "name": "isNotZero",
+            "summary": "Returns\u0020true\u0020if\u0020the\u0020number\u0020does\u0020not\u0020equal\u0020zero\u0020within\u0020the\u0020given\u0020tolerance",
+            "url": "classes/PHPMathObjects-Math-Math.html#method_isNotZero"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Math\\Math\u003A\u003AareEqual\u0028\u0029",
+            "name": "areEqual",
+            "summary": "Returns\u0020true\u0020if\u0020the\u0020two\u0020numbers\u0020are\u0020equal\u0020with\u0020the\u0020given\u0020tolerance",
+            "url": "classes/PHPMathObjects-Math-Math.html#method_areEqual"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Math\\Math\u003A\u003ADEFAULT_TOLERANCE",
+            "name": "DEFAULT_TOLERANCE",
+            "summary": "This\u0020constant\u0020is\u0020used\u0020as\u0020the\u0020default\u0020tolerance\u003A\u0020If\u0020a\u0020float\u0020point\u0020number\u0020is\u0020below\u0020the\u0020tolerance,\u0020then\u0020it\u0020is\u0020considered\u0020being\u0020equal\u0020to\u0020zero.",
+            "url": "classes/PHPMathObjects-Math-Math.html#constant_DEFAULT_TOLERANCE"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
@@ -265,5 +300,10 @@ Search.appendIndex(
             "name": "LinearAlgebra",
             "summary": "",
             "url": "namespaces/phpmathobjects-linearalgebra.html"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Math",
+            "name": "Math",
+            "summary": "",
+            "url": "namespaces/phpmathobjects-math.html"
         }            ]
 );
