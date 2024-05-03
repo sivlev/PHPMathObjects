@@ -149,3 +149,35 @@ $string = (string) $matrix;
 // [4, 5, 6]
 // [7, 8, 9]
 ```
+
+#### Vector
+
+Vector class extends the Matrix class so all Matrix methods are available too. Some of them have additional wrappers for more convenient usage, e.g. fill() vs. vectorFill().
+
+```php
+// Create a new vector using the class constructor
+$rowVector = new Vector([[1, 2, 3]]);
+$columnVector = new Vector([
+    [1],
+    [2],
+    [3],
+]);
+
+// Or use a suitable factory method
+$vector = Vector::vectorFill(5, 1.1, VectorEnum::Row);      // Creates a [1.1, 1.1, 1.1, 1.1, 1.1] row vector
+
+// Get the vector type (orientation)
+$rowVector->vectorType();                 // Returns VectorEnum::Row
+$columnVector->vectorType();              // Returns VectorEnum::Column
+
+// Get vector as an array
+$columnVector->toArray();
+/* Returns the 2D column array:
+ * [
+ *  [1],
+ *  [2],
+ *  [3],
+ * ]
+ */
+$columnVector->toPlainArray();      // Returns a 1D array [1, 2, 3]
+```
