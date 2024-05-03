@@ -80,11 +80,11 @@ class Matrix extends AbstractMatrix
      * Factory method to create an identity matrix with dimensions of size x size
      *
      * @param int $size
-     * @return self
+     * @return static
      * @throws OutOfBoundsException if the given size is non-positive
      * @throws InvalidArgumentException (not expected)
      */
-    public static function identity(int $size): self
+    public static function identity(int $size): static
     {
         if ($size <= 0) {
             throw new OutOfBoundsException("Size of identity matrix must greater than zero. Size $size is given.");
@@ -98,7 +98,7 @@ class Matrix extends AbstractMatrix
             $array[$i][$i] = 1;
         }
 
-        return new self($array, false);
+        return new static($array, false);
     }
 
     /**

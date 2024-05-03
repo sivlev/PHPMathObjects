@@ -95,7 +95,7 @@ class VectorTest extends TestCase
      * @param mixed $value
      * @param VectorEnum $vectorType
      * @param MatrixArray $expected
-     * @param class-string $exception
+     * @param class-string<Throwable>|null $exception
      * @return void
      * @throws InvalidArgumentException
      * @throws OutOfBoundsException
@@ -112,6 +112,32 @@ class VectorTest extends TestCase
         }
 
         $v = Vector::vectorFill($size, $value, $vectorType);
+        $this->assertInstanceOf(Vector::class, $v);
+        $this->assertEquals($expected, $v->toArray());
+        $this->assertEquals($vectorType, $v->vectorType());
+        $this->assertEquals($size, $v->size());
+    }
+
+    /**
+     * @param int $size
+     * @param MatrixArray $expected
+     * @param class-string<Throwable>|null $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([1, [[1]]])]
+    #[TestWith([2, [[1]], "PHPMathObjects\Exception\OutOfBoundsException"])]
+    #[TestWith([0, [[1]], "PHPMathObjects\Exception\OutOfBoundsException"])]
+    #[TestDox("Vector::identity() method returns a [1] vector or throws an exception")]
+    public function testIdentity(int $size, array $expected, ?string $exception = null): void
+    {
+        if ($exception) {
+            $this->expectException($exception);
+        }
+
+        $v = Vector::identity($size);
+        $this->assertInstanceOf(Vector::class, $v);
         $this->assertEquals($expected, $v->toArray());
     }
 
@@ -140,5 +166,36 @@ class VectorTest extends TestCase
             [1],
         ]);
         $this->assertEquals(VectorEnum::Column, $v->vectorType());
+    }
+
+    /**
+     * @param MatrixArray $array
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[[1, 2, 3]]])]
+    #[TestWith([[[1], [2], [3]]])]
+    #[TestDox("ToArray() method returns the vector as 2D array")]
+    public function testToArray(array $array): void
+    {
+        $v = new Vector($array);
+        $this->assertEquals($array, $v->toArray());
+    }
+
+    /**
+     * @param MatrixArray $array
+     * @param array<int, int|float> $expected
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[[1, 2, 3]], [1, 2, 3]])]
+    #[TestWith([[[1], [2], [3]], [1, 2, 3]])]
+    #[TestDox("ToPlainArray() method returns the vector as 1D array")]
+    public function testToPlainArray(array $array, array $expected): void
+    {
+        $v = new Vector($array);
+        $this->assertEquals($expected, $v->toPlainArray());
     }
 }

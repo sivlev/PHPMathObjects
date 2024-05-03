@@ -71,4 +71,15 @@ class Vector extends Matrix
     {
         return $this->vectorType;
     }
+
+    /**
+     * Returns the vector as a plain 1D array independent of its type
+     *
+     * @return array<int, int|float>
+     * @throws InvalidArgumentException (not expected)
+     */
+    public function toPlainArray(): array
+    {
+        return $this->vectorType === VectorEnum::Column ? $this->transpose()->toArray()[0] : $this->toArray()[0];
+    }
 }
