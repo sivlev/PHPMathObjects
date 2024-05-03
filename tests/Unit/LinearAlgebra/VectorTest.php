@@ -64,9 +64,9 @@ class VectorTest extends TestCase
      * @throws InvalidArgumentException
      * @throws OutOfBoundsException
      */
-    #[TestWith([[[1,2], [3,4]], "PHPMathObjects\Exception\OutOfBoundsException"])]
-    #[TestWith([[["1",2]], "PHPMathObjects\Exception\InvalidArgumentException"])]
-    #[TestWith([[[1,2], [3]], "PHPMathObjects\Exception\InvalidArgumentException"])]
+    #[TestWith([[[1, 2], [3, 4]], "PHPMathObjects\Exception\OutOfBoundsException"])]
+    #[TestWith([[["1", 2]], "PHPMathObjects\Exception\InvalidArgumentException"])]
+    #[TestWith([[[1, 2], [3]], "PHPMathObjects\Exception\InvalidArgumentException"])]
     #[TestDox("Vector class constructor throws an exception if the dimensions are incompatible or if the data are in wrong format")]
     public function testConstructException(array $array, string $exception): void
     {
@@ -326,6 +326,39 @@ class VectorTest extends TestCase
         $this->assertInstanceOf(Vector::class, $v);
         $this->assertEquals($expected, $v->toArray());
         $v1->mAdd($v2);
+        $this->assertInstanceOf(Vector::class, $v1);
         $this->assertEquals($expected, $v1->toArray());
+    }
+
+    /**
+     * @param VectorArray $array1
+     * @param VectorEnum $vectorType1
+     * @param VectorArray $array2
+     * @param VectorEnum $vectorType2
+     * @param VectorArray $expected
+     * @param class-string<Throwable>|null $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     * @throws MatrixException
+     */
+    #[TestWith([[10, 20, 30, 40, 50, 60], VectorEnum::Row, [10, 10, 10, 10, 10, 10], VectorEnum::Row, [[0, 10, 20, 30, 40, 50]]])]
+    #[TestWith([[1.1, 1.2, 1.3], VectorEnum::Column, [-1.1, 1.2, -1.3], VectorEnum::Column, [[2.2], [0], [2.6]]])]
+    #[TestWith([[5.5], VectorEnum::Column, [4.4], VectorEnum::Column, [[1.1]]])]
+    #[TestWith([[5.5, 6.6], VectorEnum::Column, [4.4], VectorEnum::Column, [[1.1]], "PHPMathObjects\Exception\MatrixException"])]
+    #[TestDox("Subtract() and mSubtract() methods subtract one vector from another")]
+    public function testVectorSubtract(array $array1, VectorEnum $vectorType1, array $array2, VectorEnum $vectorType2, array $expected, ?string $exception = null): void
+    {
+        if (isset($exception)) {
+            $this->expectException($exception);
+        }
+        $v1 = Vector::fromArray($array1, $vectorType1);
+        $v2 = Vector::fromArray($array2, $vectorType2);
+        $v = $v1->subtract($v2);
+        $this->assertInstanceOf(Vector::class, $v);
+        $this->assertEqualsWithDelta($expected, $v->toArray(), self::e);
+        $v1->mSubtract($v2);
+        $this->assertInstanceOf(Vector::class, $v1);
+        $this->assertEqualsWithDelta($expected, $v1->toArray(), self::e);
     }
 }
