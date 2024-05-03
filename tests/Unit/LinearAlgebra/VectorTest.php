@@ -304,16 +304,22 @@ class VectorTest extends TestCase
      * @param VectorArray $array2
      * @param VectorEnum $vectorType2
      * @param VectorArray $expected
-     * @param class-string|null $exception
+     * @param class-string<Throwable>|null $exception
      * @return void
      * @throws InvalidArgumentException
      * @throws OutOfBoundsException
      * @throws MatrixException
      */
-    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Row, [6, 7, 8, 9, 10], VectorEnum::Row, [7, 9, 11, 13, 15]])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Row, [6, 7, 8, 9, 10], VectorEnum::Row, [[7, 9, 11, 13, 15]]])]
+    #[TestWith([[0.1, 0.2, 0.3], VectorEnum::Column, [-0.1, -0.2, -0.3], VectorEnum::Column, [[0], [0], [0]]])]
+    #[TestWith([[100], VectorEnum::Column, [-1000], VectorEnum::Column, [[-900]]])]
+    #[TestWith([[100], VectorEnum::Column, [-1000, 100], VectorEnum::Column, [[-900]], "PHPMathObjects\Exception\MatrixException"])]
     #[TestDox("Add() and mAdd() methods add one vector to another")]
     public function testVectorAdd(array $array1, VectorEnum $vectorType1, array $array2, VectorEnum $vectorType2, array $expected, ?string $exception = null): void
     {
+        if (isset($exception)) {
+            $this->expectException($exception);
+        }
         $v1 = Vector::fromArray($array1, $vectorType1);
         $v2 = Vector::fromArray($array2, $vectorType2);
         $v = $v1->add($v2);
