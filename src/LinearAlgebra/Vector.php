@@ -46,6 +46,26 @@ class Vector extends Matrix
     }
 
     /**
+     * Factory method to create a vector from a plain array
+     *
+     * @param array<int, int|float> $data
+     * @param VectorEnum $vectorType Defines whether the vector is a row vector or a column vector
+     * @return self
+     * @throws InvalidArgumentException if the array contains elements of incompatible data types
+     * @throws OutOfBoundsException (not expected)
+     */
+    public static function fromArray(array $data, VectorEnum $vectorType = VectorEnum::Column): self
+    {
+        if ($vectorType === VectorEnum::Column) {
+            $data = array_map(fn($value) => [$value], $data);
+        } else {
+            $data = [$data];
+        }
+
+        return new self($data, true);
+    }
+
+    /**
      * Factory method to create a vector with the given size and filled with the given value (a wrapper for AbstractMatrix::fill)
      *
      * @param int $size

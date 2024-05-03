@@ -91,6 +91,32 @@ class VectorTest extends TestCase
     }
 
     /**
+     * @param array<int, mixed> $array
+     * @param VectorEnum $vectorType
+     * @param MatrixArray $expected
+     * @param class-string<Throwable>|null $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[1, 2, 3], VectorEnum::Column, [[1], [2], [3]]])]
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [[1, 2, 3]]])]
+    #[TestWith([[1], VectorEnum::Row, [[1]]])]
+    #[TestWith([[1], VectorEnum::Column, [[1]]])]
+    #[TestWith([[], VectorEnum::Row, [[1]], "PHPMathObjects\Exception\InvalidArgumentException"])]
+    #[TestWith([["1"], VectorEnum::Row, [[1]], "PHPMathObjects\Exception\InvalidArgumentException"])]
+    #[TestDox("FromArray() factory method creates a vector from a given plain array")]
+    public function testFromArray(array $array, VectorEnum $vectorType, array $expected, ?string $exception = null): void
+    {
+        if ($exception) {
+            $this->expectException($exception);
+        }
+
+        $v = Vector::fromArray($array, $vectorType);
+        $this->assertEquals($expected, $v->toArray());
+    }
+
+    /**
      * @param int $size
      * @param mixed $value
      * @param VectorEnum $vectorType
