@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace LinearAlgebra;
 
 use PHPMathObjects\Exception\InvalidArgumentException;
+use PHPMathObjects\Exception\MatrixException;
 use PHPMathObjects\Exception\OutOfBoundsException;
 use PHPMathObjects\LinearAlgebra\AbstractMatrix;
 use PHPMathObjects\LinearAlgebra\Matrix;
@@ -295,5 +296,30 @@ class VectorTest extends TestCase
         $this->assertFalse(isset($v[$v->size()]));
         $v[$v->size() - 1] = $valueToSet + 1;
         $this->assertEquals($valueToSet + 1, $v[$v->size() - 1]);
+    }
+
+    /**
+     * @param VectorArray $array1
+     * @param VectorEnum $vectorType1
+     * @param VectorArray $array2
+     * @param VectorEnum $vectorType2
+     * @param VectorArray $expected
+     * @param class-string|null $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     * @throws MatrixException
+     */
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Row, [6, 7, 8, 9, 10], VectorEnum::Row, [7, 9, 11, 13, 15]])]
+    #[TestDox("Add() and mAdd() methods add one vector to another")]
+    public function testVectorAdd(array $array1, VectorEnum $vectorType1, array $array2, VectorEnum $vectorType2, array $expected, ?string $exception = null): void
+    {
+        $v1 = Vector::fromArray($array1, $vectorType1);
+        $v2 = Vector::fromArray($array2, $vectorType2);
+        $v = $v1->add($v2);
+        $this->assertInstanceOf(Vector::class, $v);
+        $this->assertEquals($expected, $v->toArray());
+        $v1->mAdd($v2);
+        $this->assertEquals($expected, $v1->toArray());
     }
 }
