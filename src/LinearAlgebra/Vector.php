@@ -20,6 +20,11 @@ use PHPMathObjects\Exception\OutOfBoundsException;
 
 class Vector extends Matrix
 {
+    /**
+     * Vector type (orientation): row vector or column vector
+     *
+     * @var VectorEnum
+     */
     protected VectorEnum $vectorType;
 
     /**
@@ -101,5 +106,98 @@ class Vector extends Matrix
     public function toPlainArray(): array
     {
         return $this->vectorType === VectorEnum::Column ? $this->transpose()->toArray()[0] : $this->toArray()[0];
+    }
+
+    /**
+     * Wrapper for isSet() method
+     *
+     * @param int $index
+     * @return bool
+     * @see AbstractMatrix::isSet()
+     */
+    public function vIsSet(int $index): bool
+    {
+        [$row, $column] = $this->vectorType === VectorEnum::Column ? [$index, 0] : [0, $index];
+        return parent::isSet($row, $column);
+    }
+
+    /**
+     * Wrapper for get() method
+     *
+     * @param int $index
+     * @return int|float
+     * @throws OutOfBoundsException
+     * @see AbstractMatrix::get()
+     */
+    public function vGet(int $index): int|float
+    {
+        [$row, $column] = $this->vectorType === VectorEnum::Column ? [$index, 0] : [0, $index];
+        return parent::get($row, $column);
+    }
+
+    /**
+     * Wrapper for set() method
+     *
+     * @param int $index
+     * @param int|float $value
+     * @return self
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     * @see AbstractMatrix::set()
+     * @internal Mutating method
+     */
+    public function vSet(int $index, int|float $value): self
+    {
+        [$row, $column] = $this->vectorType === VectorEnum::Column ? [$index, 0] : [0, $index];
+        return parent::set($row, $column, $value);
+    }
+
+    /**
+     * Wrapper for offsetExists() method
+     *
+     * @param int $offset
+     * @return bool
+     * @throws InvalidArgumentException
+     * @see AbstractMatrix::offsetExists()
+     * @phpstan-ignore-next-line
+     */
+    public function offsetExists(mixed $offset): bool
+    {
+        $arrayRowColumn = $this->vectorType === VectorEnum::Column ? [$offset, 0] : [0, $offset];
+        return parent::offsetExists($arrayRowColumn);
+    }
+
+    /**
+     * Wrapper for offsetGet() method
+     *
+     * @param int $offset
+     * @return int|float
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     * @see AbstractMatrix::offsetGet()
+     * @phpstan-ignore-next-line
+     */
+    public function offsetGet(mixed $offset): int|float
+    {
+        $arrayRowColumn = $this->vectorType === VectorEnum::Column ? [$offset, 0] : [0, $offset];
+        return parent::offsetGet($arrayRowColumn);
+    }
+
+    /**
+     * Wrapper for offsetSet() method
+     *
+     * @param int $offset
+     * @param int|float $value
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     * @see AbstractMatrix::offsetSet()
+     * @internal Mutating method
+     * @phpstan-ignore-next-line
+     */
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $arrayRowColumn = $this->vectorType === VectorEnum::Column ? [$offset, 0] : [0, $offset];
+        parent::offsetSet($arrayRowColumn, $value);
     }
 }

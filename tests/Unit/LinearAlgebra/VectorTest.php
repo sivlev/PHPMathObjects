@@ -265,4 +265,35 @@ class VectorTest extends TestCase
         $this->assertEquals($expected, $v->toString());
         $this->assertEquals($expected, (string) $v);
     }
+
+    /**
+     * @param VectorArray $array
+     * @param VectorEnum $vectorType
+     * @param int $index
+     * @param float|int $valueToSet
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Row, 2, -5.5])]
+    #[TestWith([[10, 9.3, 8], VectorEnum::Column, 1, 0])]
+    #[TestWith([[0], VectorEnum::Column, 0, 1.1])]
+    #[TestDox("Methods vSet(), vGet(), vIsSet() and corresponding ArrayAccess interface methods properly operate on Vector class")]
+    public function testIsSetGetSet(array $array, VectorEnum $vectorType, int $index, float|int $valueToSet): void
+    {
+        $v = Vector::fromArray($array, $vectorType);
+        $this->assertEquals($array[$index], $v->vGet($index));
+        $this->assertEquals($array[$index], $v[$index]);
+        $v->vSet($index, $valueToSet);
+        $this->assertEquals($valueToSet, $v->vGet($index));
+        $this->assertEquals($valueToSet, $v[$index]);
+        $this->assertTrue($v->vIsSet($index));
+        $this->assertFalse($v->vIsSet($v->size()));
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
+        $this->assertTrue(isset($v[$index]));
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
+        $this->assertFalse(isset($v[$v->size()]));
+        $v[$v->size() - 1] = $valueToSet + 1;
+        $this->assertEquals($valueToSet + 1, $v[$v->size() - 1]);
+    }
 }
