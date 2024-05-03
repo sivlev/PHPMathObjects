@@ -164,7 +164,8 @@ $columnVector = new Vector([
 ]);
 
 // Or use a suitable factory method
-$vector = Vector::vectorFill(5, 1.1, VectorEnum::Row);      // Creates a [1.1, 1.1, 1.1, 1.1, 1.1] row vector
+$vector = Vector::vectorFill(5, 1.1, VectorEnum::Row);         // Creates a [[1.1, 1.1, 1.1, 1.1, 1.1]] row vector
+$vector = Vector::fromArray([1, 2, 3], VectorEnum::Column);   // Creates a [[1], [2], [3]] column vector
 
 // Get the vector type (orientation)
 $rowVector->vectorType();                 // Returns VectorEnum::Row
