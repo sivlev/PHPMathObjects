@@ -30,6 +30,7 @@ use Throwable;
  * Test case for the Vector class
  *
  * @phpstan-type MatrixArray array<int, array<int, int|float>>
+ * @phpstan-type VectorArray array<int, int|float>
  */
 class VectorTest extends TestCase
 {
@@ -195,6 +196,29 @@ class VectorTest extends TestCase
     }
 
     /**
+     * @param VectorArray $array
+     * @param VectorEnum $vectorType
+     * @param int $expectedRows
+     * @param int $expectedColumns
+     * @param int $expectedSize
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, 5, 1, 5])]
+    #[TestWith([[0.1, -0.2, 0.3, -0.4], VectorEnum::Row, 1, 4, 4])]
+    #[TestWith([[0], VectorEnum::Row, 1, 1, 1])]
+    #[TestDox("Rows(), columns(), size() and count() methods return correct values for Vector object")]
+    public function testDimensions(array $array, VectorEnum $vectorType, int $expectedRows, int $expectedColumns, int $expectedSize): void
+    {
+        $v = Vector::fromArray($array, $vectorType);
+        $this->assertEquals($expectedRows, $v->rows());
+        $this->assertEquals($expectedColumns, $v->columns());
+        $this->assertEquals($expectedSize, $v->size());
+        $this->assertCount($expectedSize, $v);
+    }
+
+    /**
      * @param MatrixArray $array
      * @return void
      * @throws InvalidArgumentException
@@ -211,7 +235,7 @@ class VectorTest extends TestCase
 
     /**
      * @param MatrixArray $array
-     * @param array<int, int|float> $expected
+     * @param VectorArray $expected
      * @return void
      * @throws InvalidArgumentException
      * @throws OutOfBoundsException
