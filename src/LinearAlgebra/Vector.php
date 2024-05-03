@@ -33,7 +33,7 @@ class Vector extends Matrix
      */
     public function __construct(array $data, bool $validateData = true)
     {
-        parent::__construct($data, $validateData = true);
+        parent::__construct($data, $validateData);
 
         // Check afterward if the vector has proper dimensions
         if ($this->columns === 1) {
@@ -43,6 +43,23 @@ class Vector extends Matrix
         } else {
             throw new OutOfBoundsException("Improper vector dimensions. Either m x 1 or 1 x n are allowed.");
         }
+    }
+
+    /**
+     * Factory method to create a vector with the given size and filled with the given value (a wrapper for AbstractMatrix::fill)
+     *
+     * @param int $size
+     * @param int|float $value
+     * @param VectorEnum $vectorType Defines whether the vector is a row vector or a column vector
+     * @return self
+     * @throws InvalidArgumentException (not expected)
+     * @throws OutOfBoundsException if the given size is non-positive
+     * @see AbstractMatrix::fill()
+     */
+    public static function vectorFill(int $size, int|float $value, VectorEnum $vectorType = VectorEnum::Column): self
+    {
+        [$rows, $columns] = $vectorType === VectorEnum::Column ? [$size, 1] : [1, $size];
+        return self::fill($rows, $columns, $value);
     }
 
     /**

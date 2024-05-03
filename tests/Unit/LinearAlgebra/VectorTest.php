@@ -24,6 +24,7 @@ use PHPMathObjects\LinearAlgebra\VectorEnum;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 /**
  * Test case for the Vector class
@@ -55,18 +56,63 @@ class VectorTest extends TestCase
     }
 
     /**
+     * @param MatrixArray $array
+     * @param class-string<Throwable> $exception
      * @return void
      * @throws InvalidArgumentException
      * @throws OutOfBoundsException
      */
-    #[TestDox("Vector class constructor throws an exception if the dimensions are incompatible")]
-    public function testConstructException(): void
+    #[TestWith([[[1,2], [3,4]], "PHPMathObjects\Exception\OutOfBoundsException"])]
+    #[TestWith([[["1",2]], "PHPMathObjects\Exception\InvalidArgumentException"])]
+    #[TestWith([[[1,2], [3]], "PHPMathObjects\Exception\InvalidArgumentException"])]
+    #[TestDox("Vector class constructor throws an exception if the dimensions are incompatible or if the data are in wrong format")]
+    public function testConstructException(array $array, string $exception): void
     {
-        $this->expectException(OutOfBoundsException::class);
-        new Vector([
-            [1, 2],
-            [3, 4],
-        ]);
+        $this->expectException($exception);
+        new Vector($array);
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestDox("Strange objects can be created if data validation is avoided")]
+    public function testConstructorWithoutValidation(): void
+    {
+        /* @phpstan-ignore-next-line */
+        $v = new Vector([
+            [1],
+            ["1"],
+            [[1, 2, 3]],
+        ], false);
+        $this->assertInstanceOf(Vector::class, $v);
+        $this->assertInstanceOf(Matrix::class, $v);
+        $this->assertInstanceOf(AbstractMatrix::class, $v);
+    }
+
+    /**
+     * @param int $size
+     * @param mixed $value
+     * @param VectorEnum $vectorType
+     * @param MatrixArray $expected
+     * @param class-string $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([5, -2.3, VectorEnum::Row, [[-2.3, -2.3, -2.3, -2.3, -2.3]]])]
+    #[TestWith([3, 15, VectorEnum::Column, [[15], [15], [15]]])]
+    #[TestWith([-1, 15, VectorEnum::Column, [[15], [15], [15]], "PHPMathObjects\Exception\OutOfBoundsException"])]
+    #[TestWith([0, 15, VectorEnum::Column, [[15], [15], [15]], "PHPMathObjects\Exception\OutOfBoundsException"])]
+    #[TestDox("VectorFill() factory method creates a vector of a given size and type, filled with the given value")]
+    public function testVectorFill(int $size, mixed $value, VectorEnum $vectorType, array $expected, ?string $exception = null): void
+    {
+        if ($exception) {
+            $this->expectException($exception);
+        }
+
+        $v = Vector::vectorFill($size, $value, $vectorType);
+        $this->assertEquals($expected, $v->toArray());
     }
 
     /**
