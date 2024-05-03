@@ -198,4 +198,21 @@ class VectorTest extends TestCase
         $v = new Vector($array);
         $this->assertEquals($expected, $v->toPlainArray());
     }
+
+    /**
+     * @param MatrixArray $array
+     * @param string $expected
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[[1.2, 2.3, -3.5]], "[1.2, 2.3, -3.5]"])]
+    #[TestWith([[[1], [2], [3]], "[1]" . PHP_EOL . "[2]" . PHP_EOL . "[3]"])]
+    #[TestDox("ToString() method returns the vector as a string")]
+    public function testToString(array $array, string $expected): void
+    {
+        $v = new Vector($array);
+        $this->assertEquals($expected, $v->toString());
+        $this->assertEquals($expected, (string) $v);
+    }
 }
