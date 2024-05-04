@@ -150,6 +150,49 @@ class VectorTest extends TestCase
     }
 
     /**
+     * @param class-string $method
+     * @param int $size
+     * @param VectorEnum $vectorType
+     * @param int|float $min
+     * @param int|float $max
+     * @param string $exceptionMessage
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith(["vectorRandom", 5, VectorEnum::Column, 0.0, 1.0])]
+    #[TestWith(["vectorRandom", 3, VectorEnum::Row, -1, 0])]
+    #[TestWith(["vectorRandom", 6, VectorEnum::Column, -10.15, -10.10])]
+    #[TestWith(["vectorRandom", 2, VectorEnum::Row, 4.5, 4.5])]
+    #[TestWith(["vectorRandom", -3, VectorEnum::Column, 0, 1, "Matrix dimensions must be greater than zero. Rows -3 and columns 1 are given"])]
+    #[TestWith(["vectorRandom", 3, VectorEnum::Column, 2.5, 1.2, "The maximum value 1.2 cannot be less than the minimum value 2.5"])]
+    #[TestWith(["vectorRandomInt", 1, VectorEnum::Column, 0, 100])]
+    #[TestWith(["vectorRandomInt", 5, VectorEnum::Row, -10, -6])]
+    #[TestWith(["vectorRandomInt", 2, VectorEnum::Column, -100, 100])]
+    #[TestWith(["vectorRandomInt", -10, VectorEnum::Row, 0, 1, "Matrix dimensions must be greater than zero. Rows 1 and columns -10 are given"])]
+    #[TestWith(["vectorRandomInt", 10, VectorEnum::Column, 100, 50, "The maximum value 50 cannot be less than the minimum value 100"])]
+    #[TestDox("Random() and randomInt() factories create a matrix of the given size and filled with float or integer values within the given range")]
+    public function testRandom(string $method, int $size, VectorEnum $vectorType, int|float $min, int|float $max, string $exceptionMessage = ""): void
+    {
+        if (!empty($exceptionMessage)) {
+            $this->expectException(OutOfBoundsException::class);
+            $this->expectExceptionMessage($exceptionMessage);
+        }
+        $m = Vector::$method($size, $min, $max, $vectorType);
+        foreach ($m->toArray() as $row) {
+            foreach ($row as $element) {
+                $this->assertThat(
+                    $element,
+                    $this->logicalAnd(
+                        $this->greaterThanOrEqual($min),
+                        $this->lessThanOrEqual($max)
+                    )
+                );
+            }
+        }
+    }
+
+    /**
      * @param int $size
      * @param MatrixArray $expected
      * @param class-string<Throwable>|null $exception

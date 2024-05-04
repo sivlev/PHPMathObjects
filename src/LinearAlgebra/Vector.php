@@ -89,6 +89,42 @@ class Vector extends Matrix
     }
 
     /**
+     * Wrapper for Matrix::random() factory method
+     *
+     * @param int $size
+     * @param int|float $min
+     * @param int|float $max
+     * @param VectorEnum $vectorType
+     * @return self
+     * @throws InvalidArgumentException (not expected)
+     * @throws OutOfBoundsException if the given size is non-positive or if $min is greater than $max
+     * @see Matrix::random()
+     */
+    public static function vectorRandom(int $size, int|float $min = 0.0, int|float $max = 1.0, VectorEnum $vectorType = VectorEnum::Column): self
+    {
+        [$rows, $columns] = $vectorType === VectorEnum::Column ? [$size, 1] : [1, $size];
+        return self::random($rows, $columns, $min, $max);
+    }
+
+    /**
+     * Wrapper for Matrix::randomInt() factory method
+     *
+     * @param int $size
+     * @param int $min
+     * @param int $max
+     * @param VectorEnum $vectorType
+     * @return self
+     * @throws InvalidArgumentException (not expected)
+     * @throws OutOfBoundsException if the given size is non-positive or if $min is greater than $max
+     * @see Matrix::randomInt()
+     */
+    public static function vectorRandomInt(int $size, int $min = 0, int $max = 100, VectorEnum $vectorType = VectorEnum::Column): self
+    {
+        [$rows, $columns] = $vectorType === VectorEnum::Column ? [$size, 1] : [1, $size];
+        return self::randomInt($rows, $columns, $min, $max);
+    }
+
+    /**
      * Returns VectorEnum::Row or VectorEnum::Column depending on the orientation of the vector
      *
      * @return VectorEnum
