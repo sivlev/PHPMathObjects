@@ -392,13 +392,12 @@ class VectorTest extends TestCase
         $v = $v1->multiply($v2);
         if ($expectedIsVector) {
             $this->assertInstanceOf(Vector::class, $v);
+            $this->assertEquals($expectedVectorType, $v->vectorType());
         } else {
             $this->assertNotInstanceOf(Vector::class, $v);
             $this->assertInstanceOf(Matrix::class, $v);
         }
-        if ($v instanceof Vector) {
-            $this->assertEquals($expectedVectorType, $v->vectorType());
-        }
+
         $this->assertEqualsWithDelta($expected, $v->toArray(), self::e);
 
         // Test mutating multiplication
@@ -496,6 +495,138 @@ class VectorTest extends TestCase
                 [
                     [1, 2, 3, 4, 5],
                 ], true, VectorEnum::Row, "PHPMathObjects\Exception\MatrixException",
+            ],
+        ];
+    }
+
+    /**
+     * @param VectorArray $array1
+     * @param VectorEnum $vectorType
+     * @param MatrixArray $array2
+     * @param MatrixArray $expected
+     * @param bool $expectedIsVector
+     * @param VectorEnum $expectedVectorType
+     * @param class-string<Throwable>|null $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider("providerVectorMatrixMultiplication")]
+    #[TestDox("Multiplication of a vector by a matrix with multiply() method returns either a vector, or a matrix, or throws an exception")]
+    public function testVectorMatrixMultiplication(array $array1, VectorEnum $vectorType, array $array2, array $expected, bool $expectedIsVector, VectorEnum $expectedVectorType, ?string $exception = null): void
+    {
+        if (isset($exception)) {
+            $this->expectException($exception);
+        }
+        $v = Vector::fromArray($array1, $vectorType);
+        $m = new Matrix($array2);
+        $result = $v->multiply($m);
+        $this->assertEqualsWithDelta($expected, $result->toArray(), self::e);
+        if ($expectedIsVector) {
+            $this->assertInstanceOf(Vector::class, $result);
+        } else {
+            $this->assertNotInstanceOf(Vector::class, $result);
+            $this->assertInstanceOf(Matrix::class, $result);
+        }
+    }
+
+    /**
+     * @return array<int, array<int, null|bool|String|VectorArray|VectorEnum|MatrixArray>>
+     */
+    public static function providerVectorMatrixMultiplication(): array
+    {
+        return [
+            [
+                [1, 2, 3], VectorEnum::Row,
+                [
+                    [1, 2, 3, 4, 5],
+                    [6, 7, 8, 9, 10],
+                    [11, 12, 13, 14, 15],
+                ],
+                [
+                    [46, 52, 58, 64, 70],
+                ], true, VectorEnum::Row,
+            ],
+            [
+                [1, 2, 3], VectorEnum::Column,
+                [
+                    [1, 2, 3, 4, 5],
+                ],
+                [
+                    [1, 2, 3, 4, 5],
+                    [2, 4, 6, 8, 10],
+                    [3, 6, 9, 12, 15],
+                ], false, VectorEnum::Row,
+            ],
+            [
+                [0], VectorEnum::Column,
+                [
+                    [1, 2, 3, 4, 5],
+                ],
+                [
+                    [0, 0, 0, 0, 0],
+                ], true, VectorEnum::Row,
+            ],
+            [
+                [0], VectorEnum::Row,
+                [
+                    [1, 2, 3, 4, 5],
+                ],
+                [
+                    [0, 0, 0, 0, 0],
+                ], true, VectorEnum::Row,
+            ],
+            [
+                [2, 4, 6, 8, 10], VectorEnum::Column,
+                [
+                    [3],
+                ],
+                [
+                    [6],
+                    [12],
+                    [18],
+                    [24],
+                    [30],
+                ], true, VectorEnum::Column,
+            ],
+            [
+                [5], VectorEnum::Column,
+                [
+                    [2],
+                ],
+                [
+                    [10],
+                ], true, VectorEnum::Column,
+            ],
+            [
+                [2], VectorEnum::Row,
+                [
+                    [5.5],
+                ],
+                [
+                    [11],
+                ], true, VectorEnum::Column,
+            ],
+            [
+                [2, 1, 2], VectorEnum::Row,
+                [
+                    [10, 11],
+                    [12, 13],
+                ],
+                [
+                    [11],
+                ], true, VectorEnum::Column, "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [2, 1, 2], VectorEnum::Column,
+                [
+                    [10, 11],
+                    [12, 13],
+                ],
+                [
+                    [11],
+                ], true, VectorEnum::Column, "PHPMathObjects\Exception\MatrixException",
             ],
         ];
     }
