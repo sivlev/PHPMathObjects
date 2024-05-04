@@ -320,7 +320,7 @@ class Matrix extends AbstractMatrix
      * @throws MatrixException if the matrices have incompatible dimensions
      * @throws InvalidArgumentException (not expected)
      */
-    public function multiply(Matrix $term): static
+    public function multiply(Matrix $term): self
     {
         $newMatrix = new static($this->matrix, false);
         return $newMatrix->mMultiply($term);

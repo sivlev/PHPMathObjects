@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace PHPMathObjects\LinearAlgebra;
 
 use PHPMathObjects\Exception\InvalidArgumentException;
+use PHPMathObjects\Exception\MatrixException;
 use PHPMathObjects\Exception\OutOfBoundsException;
 
 class Vector extends Matrix
@@ -199,5 +200,38 @@ class Vector extends Matrix
     {
         $arrayRowColumn = $this->vectorType === VectorEnum::Column ? [$offset, 0] : [0, $offset];
         parent::offsetSet($arrayRowColumn, $value);
+    }
+
+    /**
+     * Matrix multiplication
+     *
+     * @param Matrix $term
+     * @return self|Matrix
+     * @throws InvalidArgumentException (not expected)
+     * @throws MatrixException if the matrices have incompatible dimensions
+     * @throws OutOfBoundsException
+     */
+    public function multiply(Matrix $term): self|Matrix
+    {
+        if ($this->rows > 1 && $term->columns > 1) {
+            $newEntity = new Matrix($this->matrix, false);
+        } else {
+            $newEntity = new Vector($this->matrix, false);
+        }
+        return $newEntity->mMultiply($term);
+    }
+
+    /**
+     * @param Matrix $term
+     * @return static
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     */
+    public function mMultiply(Matrix $term): static
+    {
+        if ($this->rows > 1 && $term->columns > 1) {
+            throw new MatrixException("The result of multiplication is a matrix, not a vector. Cannot mutate the given vector object, use multiply() instead.");
+        }
+        return parent::mMultiply($term);
     }
 }

@@ -22,6 +22,7 @@ use PHPMathObjects\LinearAlgebra\AbstractMatrix;
 use PHPMathObjects\LinearAlgebra\Matrix;
 use PHPMathObjects\LinearAlgebra\Vector;
 use PHPMathObjects\LinearAlgebra\VectorEnum;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
@@ -360,5 +361,81 @@ class VectorTest extends TestCase
         $v1->mSubtract($v2);
         $this->assertInstanceOf(Vector::class, $v1);
         $this->assertEqualsWithDelta($expected, $v1->toArray(), self::e);
+    }
+
+    /**
+     * @param VectorArray $array1
+     * @param VectorEnum $vectorType1
+     * @param VectorArray $array2
+     * @param VectorEnum $vectorType2
+     * @param VectorArray $expected
+     * @param bool $expectedIsVector
+     * @param VectorEnum $expectedVectorType
+     * @param class-string<Throwable>|null $exception
+     * @param class-string<Throwable>|null $mutatingException
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider("providerVectorMultiply")]
+    #[TestDox("Multiply() and mMultiply() methods multiply one vector by another vector or by a matrix")]
+    public function testVectorMultiply(array $array1, VectorEnum $vectorType1, array $array2, VectorEnum $vectorType2, array $expected, bool $expectedIsVector, VectorEnum $expectedVectorType, ?string $exception = null, ?string $mutatingException = null): void
+    {
+        if (isset($exception)) {
+            $this->expectException($exception);
+        }
+        $v1 = Vector::fromArray($array1, $vectorType1);
+        $v2 = Vector::fromArray($array2, $vectorType2);
+
+        // Test non-mutating multiplication
+        $v = $v1->multiply($v2);
+        if ($expectedIsVector) {
+            $this->assertInstanceOf(Vector::class, $v);
+        } else {
+            $this->assertNotInstanceOf(Vector::class, $v);
+            $this->assertInstanceOf(Matrix::class, $v);
+        }
+        if ($v instanceof Vector) {
+            $this->assertEquals($expectedVectorType, $v->vectorType());
+        }
+        $this->assertEqualsWithDelta($expected, $v->toArray(), self::e);
+
+        // Test mutating multiplication
+        if (isset($mutatingException)) {
+            $this->expectException($mutatingException);
+        }
+        $v1->mMultiply($v2);
+        $this->assertInstanceOf(Vector::class, $v1);
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
+        if ($v1 instanceof Vector) {
+            $this->assertEquals($expectedVectorType, $v1->vectorType());
+        }
+        $this->assertEqualsWithDelta($expected, $v1->toArray(), self::e);
+    }
+
+    /**
+     * @return array<int, array<int, null|bool|String|VectorArray|VectorEnum|MatrixArray>>
+     */
+    public static function providerVectorMultiply(): array
+    {
+        return [
+            [
+                [1, 2, 3], VectorEnum::Row,
+                [1, 2, 3], VectorEnum::Column,
+                [
+                    [14],
+                ], true, VectorEnum::Column,
+            ],
+            [
+                [1, 2, 3], VectorEnum::Column,
+                [1, 2, 3], VectorEnum::Row,
+                [
+                    [1, 2, 3],
+                    [2, 4, 6],
+                    [3, 6, 9],
+                ], false, VectorEnum::Column, null, "PHPMathObjects\Exception\MatrixException",
+            ],
+        ];
     }
 }
