@@ -102,14 +102,14 @@ class VectorTest extends TestCase
      * @throws InvalidArgumentException
      * @throws OutOfBoundsException
      */
-    #[TestWith([[1, 2, 3], VectorEnum::Column, [[1], [2], [3]]])]
-    #[TestWith([[1, 2, 3], VectorEnum::Row, [[1, 2, 3]]])]
-    #[TestWith([[1], VectorEnum::Row, [[1]]])]
-    #[TestWith([[1], VectorEnum::Column, [[1]]])]
-    #[TestWith([[], VectorEnum::Row, [[1]], "PHPMathObjects\Exception\InvalidArgumentException"])]
-    #[TestWith([["1"], VectorEnum::Row, [[1]], "PHPMathObjects\Exception\InvalidArgumentException"])]
+    #[TestWith([[1, 2, 3], VectorEnum::Column, [[1], [2], [3]], VectorEnum::Column])]
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [[1, 2, 3]], VectorEnum::Row])]
+    #[TestWith([[1], VectorEnum::Row, [[1]], VectorEnum::Column])]
+    #[TestWith([[1], VectorEnum::Column, [[1]], VectorEnum::Column])]
+    #[TestWith([[], VectorEnum::Row, [[1]], VectorEnum::Column, "PHPMathObjects\Exception\InvalidArgumentException"])]
+    #[TestWith([["1"], VectorEnum::Row, [[1]], VectorEnum::Column, "PHPMathObjects\Exception\InvalidArgumentException"])]
     #[TestDox("FromArray() factory method creates a vector from a given plain array")]
-    public function testFromArray(array $array, VectorEnum $vectorType, array $expected, ?string $exception = null): void
+    public function testFromArray(array $array, VectorEnum $vectorType, array $expected, VectorEnum $expectedVectorType, ?string $exception = null): void
     {
         if ($exception) {
             $this->expectException($exception);
@@ -117,6 +117,7 @@ class VectorTest extends TestCase
 
         $v = Vector::fromArray($array, $vectorType);
         $this->assertEquals($expected, $v->toArray());
+        $this->assertEquals($expectedVectorType, $v->vectorType());
     }
 
     /**
@@ -828,5 +829,34 @@ class VectorTest extends TestCase
                 ], "PHPMathObjects\Exception\MatrixException",
             ],
         ];
+    }
+
+    /**
+     * @param VectorArray $array
+     * @param VectorEnum $vectorType
+     * @param VectorArray $expected
+     * @param VectorEnum $expectedVectorType
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [[1], [2], [3]], VectorEnum::Column])]
+    #[TestWith([[1, 2, 3], VectorEnum::Column, [[1, 2, 3]], VectorEnum::Row])]
+    #[TestWith([[1], VectorEnum::Column, [[1]], VectorEnum::Column])]
+    #[TestWith([[1], VectorEnum::Row, [[1]], VectorEnum::Column])]
+    #[TestDox("Transpose() and mTranspose methods convert a row vector into a column vector and vice versa")]
+    public function testTranspose(array $array, VectorEnum $vectorType, array $expected, VectorEnum $expectedVectorType): void
+    {
+        $v = Vector::fromArray($array, $vectorType);
+
+        // Test non-mutating method
+        $v1 = $v->transpose();
+        $this->assertEquals($expected, $v1->toArray());
+        $this->assertEquals($expectedVectorType, $v1->vectorType());
+
+        // Test mutating method
+        $v->mTranspose();
+        $this->assertEquals($expected, $v->toArray());
+        $this->assertEquals($expectedVectorType, $v->vectorType());
     }
 }

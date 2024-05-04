@@ -254,4 +254,18 @@ class Vector extends Matrix
         $this->vectorType = ($term->columns > 1) ? VectorEnum::Row : VectorEnum::Column;
         return parent::mMultiply($term);
     }
+
+    /**
+     * Override AbstractMatrix mTranspose() method to account for change of $vectorType
+     *
+     * @return $this
+     * @see AbstractMatrix::mTranspose()
+     */
+    public function mTranspose(): static
+    {
+        if ($this->size !== 1) {
+            $this->vectorType = $this->vectorType->transpose();
+        }
+        return parent::mTranspose();
+    }
 }
