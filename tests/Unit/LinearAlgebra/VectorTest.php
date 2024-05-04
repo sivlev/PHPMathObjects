@@ -97,6 +97,7 @@ class VectorTest extends TestCase
      * @param array<int, mixed> $array
      * @param VectorEnum $vectorType
      * @param MatrixArray $expected
+     * @param VectorEnum $expectedVectorType
      * @param class-string<Throwable>|null $exception
      * @return void
      * @throws InvalidArgumentException
@@ -266,7 +267,7 @@ class VectorTest extends TestCase
     #[TestDox("ToMatrix() method converts a Vector object into a Matrix object")]
     public function testToMatrix(array $array, VectorEnum $vectorType): void
     {
-        $v = Vector::fromArray($array);
+        $v = Vector::fromArray($array, $vectorType);
         $m = $v->toMatrix();
         $this->assertInstanceOf(Matrix::class, $m);
         $this->assertEquals($v->toArray(), $m->toArray());
