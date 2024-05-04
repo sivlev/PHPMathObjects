@@ -987,4 +987,188 @@ class VectorTest extends TestCase
         $this->assertInstanceOf(Vector::class, $v);
         $this->assertEqualsWithDelta($expected, $v->toPlainArray(), self::e);
     }
+
+    /**
+     * @param VectorArray $array1
+     * @param VectorEnum $vectorType1
+     * @param VectorArray $array2
+     * @param VectorEnum $vectorType2
+     * @param string $method
+     * @param bool $expected
+     * @param float $tolerance
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, [1, 2, 3, 4, 5], VectorEnum::Column, "float", true])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, [1, 2, 3, 4, 5], VectorEnum::Column, "int", true])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, [1, 2, 3, 4, 5], VectorEnum::Row, "float", false])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, [1, 2, 3, 4, 5], VectorEnum::Row, "int", false])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, [1, 2, 3, 4], VectorEnum::Column, "int", false])]
+    #[TestWith([[1], VectorEnum::Column, [1], VectorEnum::Column, "int", true])]
+    #[TestWith([[1], VectorEnum::Column, [1], VectorEnum::Row, "int", true])]
+    #[TestWith([[1], VectorEnum::Row, [1], VectorEnum::Column, "int", true])]
+    #[TestWith([[1], VectorEnum::Row, [1], VectorEnum::Row, "int", true])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, [1, 2, 3, 4], VectorEnum::Column, "float", false])]
+    #[TestWith([[0.000001, 0.000002, 0.000003, 0.000004, 0.000005], VectorEnum::Column, [0.000001, 0.000002, 0.000003, 0.000004, 0.000006], VectorEnum::Column, "float", false])]
+    #[TestWith([[0.000001, 0.000002, 0.000003, 0.000004, 0.000005], VectorEnum::Column, [0.000001, 0.000002, 0.000003, 0.000004, 0.000006], VectorEnum::Column, "float", true, 1e-5])]
+    #[TestDox("IsEqual() and isEqualExactly() method check the equality of two vectors")]
+    public function testIsEqualVectorVector(array $array1, VectorEnum $vectorType1, array $array2, VectorEnum $vectorType2, string $method, bool $expected, float $tolerance = self::e): void
+    {
+        $v1 = Vector::fromArray($array1, $vectorType1);
+        $v2 = Vector::fromArray($array2, $vectorType2);
+        if ($method === "float") {
+            $this->assertEquals($expected, $v1->isEqual($v2, $tolerance));
+        } else {
+            $this->assertEquals($expected, $v1->isEqualExactly($v2));
+        }
+    }
+
+    /**
+     * @param VectorArray $array1
+     * @param VectorEnum $vectorType1
+     * @param MatrixArray $array2
+     * @param string $method
+     * @param bool $expected
+     * @param float $tolerance
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider("providerIsEqualVectorMatrix")]
+    #[TestDox("IsEqual() and isEqualExactly() method check the equality of a vector with a matrix")]
+    public function testIsEqualVectorMatrix(array $array1, VectorEnum $vectorType1, array $array2, string $method, bool $expected, float $tolerance = self::e): void
+    {
+        $v = Vector::fromArray($array1, $vectorType1);
+        $m = new Matrix($array2);
+        if ($method === "float") {
+            $this->assertEquals($expected, $v->isEqual($m, $tolerance));
+        } else {
+            $this->assertEquals($expected, $v->isEqualExactly($m));
+        }
+    }
+
+    /**
+     * @return array<int, array<int, bool|String|float|VectorArray|VectorEnum|MatrixArray>>
+     */
+    public static function providerIsEqualVectorMatrix(): array
+    {
+        return [
+            [
+                [1, 2, 3], VectorEnum::Column,
+                [
+                    [1],
+                    [2],
+                    [3],
+                ], "int", true,
+            ],
+            [
+                [1, 2, 3], VectorEnum::Column,
+                [
+                    [1],
+                    [2],
+                ], "int", false,
+            ],
+            [
+                [1, 2, 3], VectorEnum::Row,
+                [
+                    [1],
+                    [2],
+                    [3],
+                ], "int", false,
+            ],
+            [
+                [1, 2, 3], VectorEnum::Row,
+                [
+                    [1, 2, 3],
+                ], "int", true,
+            ],
+            [
+                [0.00001, 0.00002, 0.00003], VectorEnum::Row,
+                [
+                    [0.00001, 0.00002, 0.00004],
+                ], "float", false,
+            ],
+            [
+                [0.00001, 0.00002, 0.00003], VectorEnum::Row,
+                [
+                    [0.00001, 0.00002, 0.00004],
+                ], "float", true, 1e-3,
+            ],
+        ];
+    }
+
+    /**
+     * @param MatrixArray $array1
+     * @param VectorArray $array2
+     * @param VectorEnum $vectorType2
+     * @param string $method
+     * @param bool $expected
+     * @param float $tolerance
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider("providerIsEqualMatrixVector")]
+    #[TestDox("IsEqual() and isEqualExactly() method check the equality of a vector with a matrix")]
+    public function testIsEqualMatrixVector(array $array1, array $array2, VectorEnum $vectorType2, string $method, bool $expected, float $tolerance = self::e): void
+    {
+        $m = new Matrix($array1);
+        $v = Vector::fromArray($array2, $vectorType2);
+        if ($method === "float") {
+            $this->assertEquals($expected, $m->isEqual($v, $tolerance));
+        } else {
+            $this->assertEquals($expected, $m->isEqualExactly($v));
+        }
+    }
+
+    /**
+     * @return array<int, array<int, bool|String|float|VectorArray|VectorEnum|MatrixArray>>
+     */
+    public static function providerIsEqualMatrixVector(): array
+    {
+        return [
+            [
+                [
+                    [1],
+                    [2],
+                    [3],
+                ],
+                [1, 2, 3], VectorEnum::Column, "int", true,
+            ],
+            [
+                [
+                    [1],
+                    [2],
+                ],
+                [1, 2, 3], VectorEnum::Column, "int", false,
+            ],
+            [
+                [
+                    [1],
+                    [2],
+                    [3],
+                ],
+                [1, 2, 3], VectorEnum::Row, "int", false,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                ],
+                [1, 2, 3], VectorEnum::Row, "int", true,
+            ],
+            [
+                [
+                    [0.00001, 0.00002, 0.00004],
+                ],
+                [0.00001, 0.00002, 0.00003], VectorEnum::Row, "float", false,
+            ],
+            [
+                [
+                    [0.00001, 0.00002, 0.00004],
+                ],
+                [0.00001, 0.00002, 0.00003], VectorEnum::Row, "float", true, 1e-3,
+            ],
+        ];
+    }
 }
