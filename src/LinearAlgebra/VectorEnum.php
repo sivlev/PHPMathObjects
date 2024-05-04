@@ -19,4 +19,12 @@ enum VectorEnum
 {
     case Column;
     case Row;
+
+    public function transpose(): self
+    {
+        return match ($this) {
+            self::Column => self::Row,
+            self::Row => self::Column,
+        };
+    }
 }
