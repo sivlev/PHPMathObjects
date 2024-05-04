@@ -933,4 +933,58 @@ class VectorTest extends TestCase
         $v2 = Vector::fromArray($array2, $vectorType2);
         $this->assertEqualsWithDelta($expected, $v1->dotProduct($v2), self::e);
     }
+
+    /**
+     * @param VectorArray $array
+     * @param VectorEnum $vectorType
+     * @param VectorArray $expected
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[1, 2, 3], VectorEnum::Column, [-1, -2, -3]])]
+    #[TestWith([[0.1, -0.2, 0.3, -0.4], VectorEnum::Row, [-0.1, 0.2, -0.3, 0.4]])]
+    #[TestDox("ChangeSign() and mChangeSign() change signs of all elements of a vector")]
+    public function testChangeSign(array $array, VectorEnum $vectorType, array $expected): void
+    {
+        $v = Vector::fromArray($array, $vectorType);
+
+        // Test non-mutating method
+        $v1 = $v->changeSign();
+        $this->assertInstanceOf(Vector::class, $v1);
+        $this->assertEqualsWithDelta($expected, $v1->toPlainArray(), self::e);
+
+        // Test mutating method
+        $v->mChangeSign();
+        $this->assertInstanceOf(Vector::class, $v);
+        $this->assertEqualsWithDelta($expected, $v->toPlainArray(), self::e);
+    }
+
+    /**
+     * @param VectorArray $array
+     * @param VectorEnum $vectorType
+     * @param int|float $scalar
+     * @param VectorArray $expected
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[1, 2, 3.3], VectorEnum::Column, 5.5, [5.5, 11, 18.15]])]
+    #[TestWith([[1, 2, 3.3], VectorEnum::Row, 5.5, [5.5, 11, 18.15]])]
+    #[TestWith([[1, 2, 3.3, -28.4, -0.1238], VectorEnum::Column, 0, [0, 0, 0, 0, 0]])]
+    #[TestDox("MultiplyByScalar() and mMultiplyByScalar() method multiply each element of a vector by a scalar")]
+    public function testMultiplyByScalar(array $array, VectorEnum $vectorType, int|float $scalar, array $expected): void
+    {
+        $v = Vector::fromArray($array, $vectorType);
+
+        // Test non-mutating method
+        $v1 = $v->multiplyByScalar($scalar);
+        $this->assertInstanceOf(Vector::class, $v1);
+        $this->assertEqualsWithDelta($expected, $v1->toPlainArray(), self::e);
+
+        // Test mutating method
+        $v->mMultiplyByScalar($scalar);
+        $this->assertInstanceOf(Vector::class, $v);
+        $this->assertEqualsWithDelta($expected, $v->toPlainArray(), self::e);
+    }
 }
