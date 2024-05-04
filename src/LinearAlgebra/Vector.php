@@ -203,13 +203,14 @@ class Vector extends Matrix
     }
 
     /**
-     * Matrix multiplication
+     * Override matrix multiplication method to account for that "vector x vector" is not always a vector but can also be a matrix
      *
      * @param Matrix $term
      * @return self|Matrix
      * @throws InvalidArgumentException (not expected)
-     * @throws MatrixException if the matrices have incompatible dimensions
-     * @throws OutOfBoundsException
+     * @throws MatrixException if the vectors or matrices have incompatible dimensions
+     * @throws OutOfBoundsException (not expected)
+     * @see Matrix::multiply()
      */
     public function multiply(Matrix $term): self|Matrix
     {
@@ -222,16 +223,23 @@ class Vector extends Matrix
     }
 
     /**
+     * Override matrix mMultiply() multiplication method to account for that "vector x vector" is not always a vector but can also be a matrix. A mutation that is incompatible with Vector object is not allowed.
+     *
      * @param Matrix $term
-     * @return static
-     * @throws InvalidArgumentException
-     * @throws MatrixException
+     * @return $this
+     * @throws InvalidArgumentException (not expected)
+     * @throws MatrixException if a vector has to be converted to a matrix after mutation or if the vector dimensions are incompatible
+     * @see Matrix::mMultiply()
+     * @internal Mutating method
      */
     public function mMultiply(Matrix $term): static
     {
         if ($this->rows > 1 && $term->columns > 1) {
             throw new MatrixException("The result of multiplication is a matrix, not a vector. Cannot mutate the given vector object, use multiply() instead.");
         }
+
+        // Check the resulting vector dimensions and assign the correct vector type
+        $this->vectorType = ($term->columns > 1) ? VectorEnum::Row : VectorEnum::Column;
         return parent::mMultiply($term);
     }
 }

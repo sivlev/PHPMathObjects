@@ -436,6 +436,67 @@ class VectorTest extends TestCase
                     [3, 6, 9],
                 ], false, VectorEnum::Column, null, "PHPMathObjects\Exception\MatrixException",
             ],
+            [
+                [1, 2, 3, 4, 5], VectorEnum::Column,
+                [1, 2, 3], VectorEnum::Row,
+                [
+                    [1, 2, 3],
+                    [2, 4, 6],
+                    [3, 6, 9],
+                    [4, 8, 12],
+                    [5, 10, 15],
+                ], false, VectorEnum::Column, null, "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [1], VectorEnum::Column,
+                [1, 2, 3, 4, 5], VectorEnum::Row,
+                [
+                    [1, 2, 3, 4, 5],
+                ], true, VectorEnum::Row,
+            ],
+            [
+                [1], VectorEnum::Row,
+                [1, 2, 3, 4, 5], VectorEnum::Row,
+                [
+                    [1, 2, 3, 4, 5],
+                ], true, VectorEnum::Row,
+            ],
+            [
+                [1, 2, 3, 4, 5], VectorEnum::Column,
+                [1], VectorEnum::Column,
+                [
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                    [5],
+                ], true, VectorEnum::Column,
+            ],
+            [
+                [1, 2, 3, 4, 5], VectorEnum::Column,
+                [1], VectorEnum::Row,
+                [
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                    [5],
+                ], true, VectorEnum::Column,
+            ],
+            [
+                [1], VectorEnum::Row,
+                [1, 2, 3, 4, 5], VectorEnum::Column,
+                [
+                    [1, 2, 3, 4, 5],
+                ], true, VectorEnum::Row, "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [1, 2, 3, 4, 5, 6], VectorEnum::Row,
+                [1, 2, 3, 4, 5], VectorEnum::Column,
+                [
+                    [1, 2, 3, 4, 5],
+                ], true, VectorEnum::Row, "PHPMathObjects\Exception\MatrixException",
+            ],
         ];
     }
 }
