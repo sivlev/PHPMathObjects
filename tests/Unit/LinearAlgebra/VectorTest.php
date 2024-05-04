@@ -859,4 +859,34 @@ class VectorTest extends TestCase
         $this->assertEquals($expected, $v->toArray());
         $this->assertEquals($expectedVectorType, $v->vectorType());
     }
+
+    /**
+     * @param VectorArray $array1
+     * @param VectorEnum $vectorType1
+     * @param VectorArray $array2
+     * @param VectorEnum $vectorType2
+     * @param int|float $expected
+     * @param class-string<Throwable>|null $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[1, 2, 3], VectorEnum::Column, [4, -5, 6], VectorEnum::Column, 12])]
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [4, -5, 6], VectorEnum::Column, 12])]
+    #[TestWith([[1, 2, 3], VectorEnum::Column, [4, -5, 6], VectorEnum::Row, 12])]
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [4, -5, 6], VectorEnum::Row, 12])]
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [1.2, -5.6, 2.03], VectorEnum::Row, -3.91])]
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [0, 0, 0], VectorEnum::Row, 0])]
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [4, -5], VectorEnum::Row, 12, "PHPMathObjects\Exception\MatrixException"])]
+    #[TestDox("DotProduct() method returns the value of the dot (scalar) product of two vectors")]
+    public function testDotProduct(array $array1, VectorEnum $vectorType1, array $array2, VectorEnum $vectorType2, int|float $expected, ?string $exception = null): void
+    {
+        if (isset($exception)) {
+            $this->expectException($exception);
+        }
+        $v1 = Vector::fromArray($array1, $vectorType1);
+        $v2 = Vector::fromArray($array2, $vectorType2);
+        $this->assertEqualsWithDelta($expected, $v1->dotProduct($v2), self::e);
+    }
 }

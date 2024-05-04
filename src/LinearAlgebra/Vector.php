@@ -268,4 +268,29 @@ class Vector extends Matrix
         }
         return parent::mTranspose();
     }
+
+    /**
+     * Calculates the dot (scalar) product of two vectors
+     *
+     * @param Vector $anotherVector
+     * @return int|float
+     * @throws InvalidArgumentException (not expected)
+     * @throws MatrixException if vectors have different numbers of components
+     */
+    public function dotProduct(Vector $anotherVector): int|float
+    {
+        if ($this->size !== $anotherVector->size) {
+            throw new MatrixException("Both vectors must have equal number of components for dot product calculation");
+        }
+
+        $v1 = $this->toPlainArray();
+        $v2 = $anotherVector->toPlainArray();
+
+        $dotProduct = 0;
+        foreach ($v1 as $index => $element) {
+            $dotProduct += $element * $v2[$index];
+        }
+
+        return $dotProduct;
+    }
 }
