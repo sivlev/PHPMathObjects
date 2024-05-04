@@ -110,6 +110,18 @@ class Vector extends Matrix
     }
 
     /**
+     * Converts the current vector into an instance of Matrix class
+     *
+     * @return Matrix
+     * @throws InvalidArgumentException (not expected)
+     * @see Matrix
+     */
+    public function toMatrix(): Matrix
+    {
+        return new Matrix($this->matrix, false);
+    }
+
+    /**
      * Wrapper for isSet() method
      *
      * @param int $index

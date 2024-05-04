@@ -252,6 +252,29 @@ class VectorTest extends TestCase
     }
 
     /**
+     * @param VectorArray $array
+     * @param VectorEnum $vectorType
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column])]
+    #[TestWith([[-0.111, 0.222, 3], VectorEnum::Row])]
+    #[TestWith([[5], VectorEnum::Row])]
+    #[TestWith([[5], VectorEnum::Column])]
+    #[TestDox("ToMatrix() method converts a Vector object into a Matrix object")]
+    public function testToMatrix(array $array, VectorEnum $vectorType): void
+    {
+        $v = Vector::fromArray($array);
+        $m = $v->toMatrix();
+        $this->assertInstanceOf(Matrix::class, $m);
+        $this->assertEquals($v->toArray(), $m->toArray());
+        $this->assertEquals($v->rows(), $m->rows());
+        $this->assertEquals($v->columns(), $m->columns());
+        $this->assertEquals($v->size(), $m->size());
+    }
+
+    /**
      * @param MatrixArray $array
      * @param string $expected
      * @return void
