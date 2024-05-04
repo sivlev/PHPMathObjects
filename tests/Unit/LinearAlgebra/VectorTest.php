@@ -660,7 +660,7 @@ class VectorTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, null|bool|String|VectorArray|VectorEnum|MatrixArray>>
+     * @return array<int, array<int, String|VectorArray|VectorEnum|MatrixArray>>
      */
     public static function providerVectorMatrixMMultiply(): array
     {
@@ -689,6 +689,120 @@ class VectorTest extends TestCase
                     [0, 0, 0],
                 ],
                 [-1.21, -2.42, -3.63], VectorEnum::Row, "PHPMathObjects\Exception\MatrixException",
+            ],
+        ];
+    }
+
+    /**
+     * @param MatrixArray $array1
+     * @param VectorArray $array2
+     * @param VectorEnum $vectorType
+     * @param MatrixArray $expected
+     * @param class-string<Throwable>|null $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider("providerMatrixVectorMultiplication")]
+    #[TestDox("Multiplication of matrix by a vector with multiply() and mMultiply() methods either returns a matrix, or throws an exception")]
+    public function testMatrixVectorMultiplication(array $array1, array $array2, VectorEnum $vectorType, array $expected, ?string $exception = null): void
+    {
+        if (isset($exception)) {
+            $this->expectException($exception);
+        }
+
+        $m = new Matrix($array1);
+        $v = Vector::fromArray($array2, $vectorType);
+
+        // Test non-mutating multiplication
+        $m1 = $m->multiply($v);
+        $this->assertInstanceOf(Matrix::class, $m1);
+        $this->assertNotInstanceOf(Vector::class, $m1);
+        $this->assertEqualsWithDelta($expected, $m1->toArray(), self::e);
+
+        // Test mutating multiplication
+        $m->mMultiply($v);
+        $this->assertInstanceOf(Matrix::class, $m);
+        $this->assertNotInstanceOf(Vector::class, $m);
+        $this->assertEqualsWithDelta($expected, $m->toArray(), self::e);
+    }
+
+    /**
+     * @return array<int, array<int, null|bool|String|VectorArray|VectorEnum|MatrixArray>>
+     */
+    public static function providerMatrixVectorMultiplication(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                [1, 2, 3], VectorEnum::Column,
+                [
+                    [14],
+                    [32],
+                    [50],
+                ],
+            ],
+            [
+                [
+                    [1.1, 2.2, 3.3],
+                ],
+                [-1.1, -2.2, -3.3], VectorEnum::Column,
+                [
+                    [-16.94],
+                ],
+            ],
+            [
+                [
+                    [50],
+                ],
+                [0.1, 0.2, 0.3, 0.4], VectorEnum::Row,
+                [
+                    [5, 10, 15, 20],
+                ],
+            ],
+            [
+                [
+                    [1],
+                    [2],
+                    [3],
+                ],
+                [-1, -2, -3], VectorEnum::Row,
+                [
+                    [-1, -2, -3],
+                    [-2, -4, -6],
+                    [-3, -6, -9],
+                ],
+            ],
+            [
+                [
+                    [1, 2],
+                    [2, 3],
+                    [3, 4],
+                ],
+                [-1, -2, -3], VectorEnum::Row,
+                [
+                    [-1, -2, -3],
+                    [-2, -4, -6],
+                    [-3, -6, -9],
+                ], "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [
+                    [1],
+                    [2],
+                    [3],
+                ],
+                [-1, -2, -3], VectorEnum::Column,
+                [
+                    [-1, -2, -3],
+                    [-2, -4, -6],
+                    [-3, -6, -9],
+                ], "PHPMathObjects\Exception\MatrixException",
             ],
         ];
     }
