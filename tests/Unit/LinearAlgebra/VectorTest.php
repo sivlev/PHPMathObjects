@@ -142,7 +142,7 @@ class VectorTest extends TestCase
             $this->expectException($exception);
         }
 
-        $v = Vector::fillVector($size, $value, $vectorType);
+        $v = Vector::vectorFill($size, $value, $vectorType);
         $this->assertInstanceOf(Vector::class, $v);
         $this->assertEquals($expected, $v->toArray());
         $this->assertEquals($vectorType, $v->vectorType());

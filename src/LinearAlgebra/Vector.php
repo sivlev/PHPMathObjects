@@ -82,7 +82,7 @@ class Vector extends Matrix
      * @throws OutOfBoundsException if the given size is non-positive
      * @see AbstractMatrix::fill()
      */
-    public static function fillVector(int $size, int|float $value, VectorEnum $vectorType = VectorEnum::Column): self
+    public static function vectorFill(int $size, int|float $value, VectorEnum $vectorType = VectorEnum::Column): self
     {
         [$rows, $columns] = $vectorType === VectorEnum::Column ? [$size, 1] : [1, $size];
         return self::fill($rows, $columns, $value);
