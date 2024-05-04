@@ -525,6 +525,7 @@ class VectorTest extends TestCase
         $this->assertEqualsWithDelta($expected, $result->toArray(), self::e);
         if ($expectedIsVector) {
             $this->assertInstanceOf(Vector::class, $result);
+            $this->assertEquals($expectedVectorType, $result->vectorType());
         } else {
             $this->assertNotInstanceOf(Vector::class, $result);
             $this->assertInstanceOf(Matrix::class, $result);
@@ -627,6 +628,67 @@ class VectorTest extends TestCase
                 [
                     [11],
                 ], true, VectorEnum::Column, "PHPMathObjects\Exception\MatrixException",
+            ],
+        ];
+    }
+
+    /**
+     * @param VectorArray $array1
+     * @param VectorEnum $vectorType
+     * @param MatrixArray $array2
+     * @param VectorArray $expectedPlain
+     * @param VectorEnum $expectedVectorType
+     * @param class-string<Throwable>|null $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider("providerVectorMatrixMMultiply")]
+    #[TestDox("MMultiply() method of vector with matrix returns either a vector or throws an exception")]
+    public function testVectorMatrixMMultiply(array $array1, VectorEnum $vectorType, array $array2, array $expectedPlain, VectorEnum $expectedVectorType, ?string $exception = null): void
+    {
+        if (isset($exception)) {
+            $this->expectException($exception);
+        }
+        $v = Vector::fromArray($array1, $vectorType);
+        $m = new Matrix($array2);
+        $v->mMultiply($m);
+        $this->assertInstanceOf(Vector::class, $v);
+        $this->assertEqualsWithDelta($expectedPlain, $v->toPlainArray(), self::e);
+        $this->assertEquals($expectedVectorType, $v->vectorType());
+    }
+
+    /**
+     * @return array<int, array<int, null|bool|String|VectorArray|VectorEnum|MatrixArray>>
+     */
+    public static function providerVectorMatrixMMultiply(): array
+    {
+        return [
+            [
+                [1.1, 2.2, 3.3], VectorEnum::Row,
+                [
+                    [1.1, 2.2, 3.3],
+                    [-1.1, -2.2, -3.3],
+                    [0, 0, 0],
+                ],
+                [-1.21, -2.42, -3.63], VectorEnum::Row,
+            ],
+            [
+                [1.1], VectorEnum::Row,
+                [
+                    [0],
+                ],
+                [0], VectorEnum::Column,
+            ],
+            [
+                [1.1, 2.2, 3.3], VectorEnum::Column,
+                [
+                    [1.1, 2.2, 3.3],
+                    [-1.1, -2.2, -3.3],
+                    [0, 0, 0],
+                ],
+                [-1.21, -2.42, -3.63], VectorEnum::Row, "PHPMathObjects\Exception\MatrixException",
             ],
         ];
     }
