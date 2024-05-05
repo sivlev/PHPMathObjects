@@ -57,6 +57,13 @@ readonly class Rational
                 $numerator = $numerator % $denominator;
             }
 
+            // Make the signs of whole and numerator equal
+            $wholeSign = Math::sign($whole);
+            if ($wholeSign !== Math::sign($numerator) && $whole !== 0 && $numerator !== 0) {
+                $whole -= $wholeSign;
+                $numerator = ($denominator - abs($numerator)) * $wholeSign;
+            }
+
             // Reduce the fraction if the numerator is greater than the denominator
             $gcd = 0;
             while ($gcd !== 1 && $numerator !== 0) {

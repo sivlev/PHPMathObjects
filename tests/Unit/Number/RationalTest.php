@@ -55,6 +55,13 @@ class RationalTest extends TestCase
     #[TestWith([1, 2, 4, true, 1, 1, 2])]
     #[TestWith([1, 4, 2, true, 3, 0, 1])]
     #[TestWith([1, 4, 2, true, 3, 0, 1])]
+    #[TestWith([-1, -1, 2, true, -1, -1, 2])]
+    #[TestWith([-1, 1, 2, true, 0, -1, 2])]
+    #[TestWith([1, 1, -2, true, 0, 1, 2])]
+    #[TestWith([5, -3, -4, true, 5, 3, 4])]
+    #[TestWith([10, -36, 4, true, 1, 0, 1])]
+    #[TestWith([1, 8, 6, true, 2, 1, 3])]
+    #[TestWith([-1, 1, -2, true, -1, -1, 2])]
     #[TestDox("Rational class getters return the expected whole part, numerator and denominator values")]
     public function testGetters(int $whole, int $numerator, int $denominator, bool $normalize, int $expectedWhole, int $expectedNumerator, int $expectedDenominator): void
     {
