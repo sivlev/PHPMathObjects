@@ -1187,9 +1187,9 @@ class VectorTest extends TestCase
      * @throws InvalidArgumentException
      * @throws OutOfBoundsException
      */
-    #[DataProvider("providerJoinRightVectorVector")]
+    #[DataProvider("providerJoinVectorVector")]
     #[TestDox("JoinRight(), joinBottom(), mJoinRight() and mJoinBottom on two vectors return either a vector, or a matrix, or throws exception")]
-    public function testJoinRightVectorVector(array $array1, VectorEnum $vectorType1, array $array2, VectorEnum $vectorType2, array $expected, string $method1, string $method2, bool $isVector, ?string $exception1 = null, ?string $exception2 = null): void
+    public function testJoinVectorVector(array $array1, VectorEnum $vectorType1, array $array2, VectorEnum $vectorType2, array $expected, string $method1, string $method2, bool $isVector, ?string $exception1 = null, ?string $exception2 = null): void
     {
         if (isset($exception1)) {
             $this->expectException($exception1);
@@ -1220,7 +1220,7 @@ class VectorTest extends TestCase
     /**
      * @return array<int, array<int, null|bool|String|VectorArray|VectorEnum|MatrixArray>>
      */
-    public static function providerJoinRightVectorVector(): array
+    public static function providerJoinVectorVector(): array
     {
         return [
             [
@@ -1308,6 +1308,337 @@ class VectorTest extends TestCase
                     [2, 2],
                 ],
                 "joinBottom", "mJoinBottom", false, "PHPMathObjects\Exception\MatrixException",
+            ],
+        ];
+    }
+
+    /**
+     * @param VectorArray $array1
+     * @param VectorEnum $vectorType1
+     * @param MatrixArray $array2
+     * @param MatrixArray $expected
+     * @param class-string $method1
+     * @param class-string $method2
+     * @param bool $isVector
+     * @param null|class-string<Throwable> $exception1
+     * @param null|class-string<Throwable> $exception2
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider("providerJoinVectorMatrix")]
+    #[TestDox("JoinRight(), joinBottom(), mJoinRight() and mJoinBottom on vector with matrix return either a vector, or a matrix, or throws exception")]
+    public function testJoinVectorMatrix(array $array1, VectorEnum $vectorType1, array $array2, array $expected, string $method1, string $method2, bool $isVector, ?string $exception1 = null, ?string $exception2 = null): void
+    {
+        if (isset($exception1)) {
+            $this->expectException($exception1);
+        }
+
+        $v1 = Vector::fromArray($array1, $vectorType1);
+        $m1 = new Matrix($array2);
+
+        // Non-mutating method
+        $v = $v1->{$method1}($m1);
+        if ($isVector) {
+            $this->assertInstanceOf(Vector::class, $v);
+        } else {
+            $this->assertNotInstanceOf(Vector::class, $v);
+            $this->assertInstanceOf(Matrix::class, $v);
+        }
+        $this->assertEquals($expected, $v->toArray());
+
+        // Mutating method
+        if (isset($exception2)) {
+            $this->expectException($exception2);
+        }
+        $v1->{$method2}($m1);
+        $this->assertInstanceOf(Vector::class, $v1);
+        $this->assertEquals($expected, $v1->toArray());
+    }
+
+    /**
+     * @return array<int, array<int, null|bool|String|VectorArray|VectorEnum|MatrixArray>>
+     */
+    public static function providerJoinVectorMatrix(): array
+    {
+        return [
+            [
+                [1, 2, 3], VectorEnum::Row,
+                [
+                    [1, 2, 3, 4],
+                ],
+                [[1, 2, 3, 1, 2, 3, 4]],
+                "joinRight", "mJoinRight", true,
+            ],
+            [
+                [1], VectorEnum::Column,
+                [
+                    [1, 2, 3, 4],
+                ],
+                [[1, 1, 2, 3, 4]],
+                "joinRight", "mJoinRight", true,
+            ],
+            [
+                [1, 2], VectorEnum::Column,
+                [
+                    [1, 2, 3, 4],
+                ],
+                [[1, 1, 2, 3, 4]],
+                "joinRight", "mJoinRight", true, "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [1, 2], VectorEnum::Column,
+                [
+                    [1],
+                    [2],
+                ],
+                [
+                    [1, 1],
+                    [2, 2],
+                ],
+                "joinRight", "mJoinRight", false, null, "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [1, 2], VectorEnum::Column,
+                [
+                    [1],
+                    [2],
+                    [3],
+                ],
+                [
+                    [1, 1],
+                    [2, 2],
+                ],
+                "joinRight", "mJoinRight", false, "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [1, 2, 3], VectorEnum::Column,
+                [
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                ],
+                [
+                    [1],
+                    [2],
+                    [3],
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                ],
+                "joinBottom", "mJoinBottom", true,
+            ],
+            [
+                [1], VectorEnum::Row,
+                [
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                ],
+                [
+                    [1],
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                ],
+                "joinBottom", "mJoinBottom", true,
+            ],
+            [
+                [1, 2], VectorEnum::Row,
+                [
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                ],
+                [[1, 1, 2, 3, 4]],
+                "joinBottom", "mJoinBottom", true, "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [1, 2], VectorEnum::Row,
+                [
+                    [1, 2],
+                ],
+                [
+                    [1, 2],
+                    [1, 2],
+                ],
+                "joinBottom", "mJoinBottom", false, null, "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [1, 2], VectorEnum::Row,
+                [
+                    [1, 2, 3],
+                ],
+                [
+                    [1, 1],
+                    [2, 2],
+                ],
+                "joinBottom", "mJoinBottom", false, "PHPMathObjects\Exception\MatrixException",
+            ],
+        ];
+    }
+
+    /**
+     * @param MatrixArray $array1
+     * @param VectorArray $array2
+     * @param VectorEnum $vectorType2
+     * @param MatrixArray $expected
+     * @param class-string $method1
+     * @param class-string $method2
+     * @param null|class-string<Throwable> $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider("providerJoinMatrixVector")]
+    #[TestDox("JoinRight(), joinBottom(), mJoinRight() and mJoinBottom on matrix with vector return a matrix or throw exception")]
+    public function testJoinMatrixVector(array $array1, array $array2, VectorEnum $vectorType2, array $expected, string $method1, string $method2, ?string $exception = null): void
+    {
+        if (isset($exception)) {
+            $this->expectException($exception);
+        }
+
+        $m1 = new Matrix($array1);
+        $v1 = Vector::fromArray($array2, $vectorType2);
+
+        // Non-mutating method
+        $m = $m1->{$method1}($v1);
+        $this->assertNotInstanceOf(Vector::class, $m);
+        $this->assertInstanceOf(Matrix::class, $m);
+        $this->assertEquals($expected, $m->toArray());
+
+        // Mutating method
+        $m1->{$method2}($v1);
+        $this->assertInstanceOf(Matrix::class, $m1);
+        $this->assertEquals($expected, $m1->toArray());
+    }
+
+    /**
+     * @return array<int, array<int, String|VectorArray|VectorEnum|MatrixArray>>
+     */
+    public static function providerJoinMatrixVector(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                ],
+                [1, 2, 3, 4], VectorEnum::Row,
+                [[1, 2, 3, 1, 2, 3, 4]],
+                "joinRight", "mJoinRight",
+            ],
+            [
+                [
+                    [1],
+                ],
+                [1, 2, 3, 4], VectorEnum::Row,
+                [[1, 1, 2, 3, 4]],
+                "joinRight", "mJoinRight",
+            ],
+            [
+                [
+                    [1],
+                    [2],
+                ],
+                [1, 2, 3, 4], VectorEnum::Row,
+                [[1, 1, 2, 3, 4]],
+                "joinRight", "mJoinRight", "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [
+                    [1],
+                    [2],
+                ],
+                [1, 2], VectorEnum::Column,
+                [
+                    [1, 1],
+                    [2, 2],
+                ],
+                "joinRight", "mJoinRight",
+            ],
+            [
+                [
+                    [1],
+                    [2],
+                    [3],
+                ],
+                [1, 2], VectorEnum::Column,
+                [
+                    [1, 1],
+                    [2, 2],
+                ],
+                "joinRight", "mJoinRight", "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                ],
+                [1, 2, 3], VectorEnum::Column,
+                [
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                    [1],
+                    [2],
+                    [3],
+                ],
+                "joinBottom", "mJoinBottom",
+            ],
+            [
+                [
+                    [1],
+                ],
+                [1, 2, 3, 4], VectorEnum::Column,
+                [
+                    [1],
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                ],
+                "joinBottom", "mJoinBottom",
+            ],
+            [
+                [
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                ],
+                [1, 2], VectorEnum::Row,
+                [[1, 1, 2, 3, 4]],
+                "joinBottom", "mJoinBottom", "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [
+                    [1, 2],
+                ],
+                [1, 2], VectorEnum::Row,
+                [
+                    [1, 2],
+                    [1, 2],
+                ],
+                "joinBottom", "mJoinBottom",
+            ],
+            [
+                [
+                    [1, 2, 3],
+                ],
+                [1, 2], VectorEnum::Row,
+                [
+                    [1, 1],
+                    [2, 2],
+                ],
+                "joinBottom", "mJoinBottom", "PHPMathObjects\Exception\MatrixException",
             ],
         ];
     }
