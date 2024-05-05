@@ -42,6 +42,23 @@ class RationalTest extends TestCase
      * @param int $numerator
      * @param int $denominator
      * @param bool $normalize
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestWith([32, 3, 0, true])]
+    #[TestWith([0, -12, 0, false])]
+    #[TestDox("Rational class constructor throws exception if denominator equals zero")]
+    public function testConstructException(int $whole, int $numerator, int $denominator, bool $normalize): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        new Rational($whole, $numerator, $denominator, $normalize);
+    }
+
+    /**
+     * @param int $whole
+     * @param int $numerator
+     * @param int $denominator
+     * @param bool $normalize
      * @param int $expectedWhole
      * @param int $expectedNumerator
      * @param int $expectedDenominator
