@@ -329,4 +329,5 @@ class Vector extends Matrix
 
         return $dotProduct;
     }
+
 }
