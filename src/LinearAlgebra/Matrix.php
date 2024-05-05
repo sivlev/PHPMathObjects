@@ -18,15 +18,13 @@ namespace PHPMathObjects\LinearAlgebra;
 use PHPMathObjects\Exception\DivisionByZeroException;
 use PHPMathObjects\Exception\InvalidArgumentException;
 use PHPMathObjects\Exception\MatrixException;
-
 use PHPMathObjects\Exception\OutOfBoundsException;
-
-use PHPUnit\Event\Runtime\PHP;
 use Random\Randomizer;
 
 use function is_int;
 use function is_float;
 use function array_fill;
+use function array_merge;
 use function abs;
 use function rand;
 use function getrandmax;
@@ -60,7 +58,7 @@ class Matrix extends AbstractMatrix
     /**
      * Cached value of the row echelon form
      *
-     * @var Matrix|null
+     * @var static|null
      */
     protected self|null $cacheRef = null;
 
@@ -74,7 +72,7 @@ class Matrix extends AbstractMatrix
     /**
      * Cached value of the reduced row echelon form
      *
-     * @var Matrix|null
+     * @var static|null
      */
     protected self|null $cacheRref = null;
 
@@ -82,11 +80,11 @@ class Matrix extends AbstractMatrix
      * Factory method to create an identity matrix with dimensions of size x size
      *
      * @param int $size
-     * @return self
+     * @return static
      * @throws OutOfBoundsException if the given size is non-positive
      * @throws InvalidArgumentException (not expected)
      */
-    public static function identity(int $size): self
+    public static function identity(int $size): static
     {
         if ($size <= 0) {
             throw new OutOfBoundsException("Size of identity matrix must greater than zero. Size $size is given.");
@@ -100,7 +98,7 @@ class Matrix extends AbstractMatrix
             $array[$i][$i] = 1;
         }
 
-        return new self($array, false);
+        return new static($array, false);
     }
 
     /**
@@ -112,11 +110,11 @@ class Matrix extends AbstractMatrix
      * @param int $columns
      * @param int|float $min
      * @param int|float $max
-     * @return self
+     * @return static
      * @throws InvalidArgumentException (not expected)
      * @throws OutOfBoundsException if the rows or columns are non-positive, or if $min is greater than $max
      */
-    public static function random(int $rows, int $columns, int|float $min = 0.0, int|float $max = 1.0): self
+    public static function random(int $rows, int $columns, int|float $min = 0.0, int|float $max = 1.0): static
     {
         // Check if the dimensions are correct
         if ($rows <= 0 || $columns <= 0) {
@@ -137,7 +135,7 @@ class Matrix extends AbstractMatrix
             $array[] = $row;
         }
 
-        return new Matrix($array, false);
+        return new static($array, false);
     }
 
     /**
@@ -147,11 +145,11 @@ class Matrix extends AbstractMatrix
      * @param int $columns
      * @param int $min
      * @param int $max
-     * @return self
+     * @return static
      * @throws InvalidArgumentException (not expected)
      * @throws OutOfBoundsException if the rows or columns are non-positive, or if $min is greater than $max
      */
-    public static function randomInt(int $rows, int $columns, int $min = 0, int $max = 100): self
+    public static function randomInt(int $rows, int $columns, int $min = 0, int $max = 100): static
     {
         // Check if the dimensions are correct
         if ($rows <= 0 || $columns <= 0) {
@@ -172,7 +170,7 @@ class Matrix extends AbstractMatrix
             $array[] = $row;
         }
 
-        return new Matrix($array, false);
+        return new static($array, false);
     }
 
     /**
@@ -224,17 +222,17 @@ class Matrix extends AbstractMatrix
      * Matrix addition
      *
      * @param Matrix $term
-     * @return self
+     * @return static
      * @throws MatrixException if the matrices have unequal dimensions
      * @throws InvalidArgumentException (not expected)
      */
-    public function add(Matrix $term): self
+    public function add(Matrix $term): static
     {
         if ($this->rows !== $term->rows || $this->columns !== $term->columns) {
             throw new MatrixException("Cannot add matrices with different dimensions.");
         }
 
-        $newMatrix = new Matrix($this->matrix, false);
+        $newMatrix = new static($this->matrix, false);
         return $newMatrix->mAdd($term);
     }
 
@@ -246,7 +244,7 @@ class Matrix extends AbstractMatrix
      * @throws MatrixException if the matrices have unequal dimensions
      * @internal Mutating method
      */
-    public function mAdd(Matrix $term): self
+    public function mAdd(Matrix $term): static
     {
         if ($this->rows !== $term->rows || $this->columns !== $term->columns) {
             throw new MatrixException("Cannot add matrices with different dimensions.");
@@ -271,17 +269,17 @@ class Matrix extends AbstractMatrix
      * Matrix subtraction
      *
      * @param Matrix $term
-     * @return self
+     * @return static
      * @throws MatrixException if the matrices have unequal dimensions
      * @throws InvalidArgumentException (not expected)
      */
-    public function subtract(Matrix $term): self
+    public function subtract(Matrix $term): static
     {
         if ($this->rows !== $term->rows || $this->columns !== $term->columns) {
             throw new MatrixException("Cannot subtract matrices with different dimensions.");
         }
 
-        $newMatrix = new Matrix($this->matrix, false);
+        $newMatrix = new static($this->matrix, false);
         return $newMatrix->mSubtract($term);
     }
 
@@ -293,7 +291,7 @@ class Matrix extends AbstractMatrix
      * @throws MatrixException if the matrices have unequal dimensions
      * @internal Mutating method
      */
-    public function mSubtract(Matrix $term): self
+    public function mSubtract(Matrix $term): static
     {
         if ($this->rows !== $term->rows || $this->columns !== $term->columns) {
             throw new MatrixException("Cannot subtract matrices with different dimensions.");
@@ -318,13 +316,13 @@ class Matrix extends AbstractMatrix
      * Matrix multiplication
      *
      * @param Matrix $term
-     * @return self
+     * @return static
      * @throws MatrixException if the matrices have incompatible dimensions
      * @throws InvalidArgumentException (not expected)
      */
     public function multiply(Matrix $term): self
     {
-        $newMatrix = new Matrix($this->matrix, false);
+        $newMatrix = new static($this->matrix, false);
         return $newMatrix->mMultiply($term);
     }
 
@@ -337,7 +335,7 @@ class Matrix extends AbstractMatrix
      * @throws InvalidArgumentException (not expected)
      * @internal Mutating method
      */
-    public function mMultiply(Matrix $term): self
+    public function mMultiply(Matrix $term): static
     {
         if ($this->columns !== $term->rows) {
             throw new MatrixException("Cannot multiply matrices with incompatible dimensions.");
@@ -375,12 +373,12 @@ class Matrix extends AbstractMatrix
      * Multiplication of a matrix by a scalar elementwise
      *
      * @param int|float $multiplier
-     * @return self
+     * @return static
      * @throws InvalidArgumentException (not expected)
      */
-    public function multiplyByScalar(int|float $multiplier): self
+    public function multiplyByScalar(int|float $multiplier): static
     {
-        $newMatrix = new Matrix($this->matrix, false);
+        $newMatrix = new static($this->matrix, false);
         return $newMatrix->mMultiplyByScalar($multiplier);
     }
 
@@ -391,7 +389,7 @@ class Matrix extends AbstractMatrix
      * @return $this
      * @internal Mutating method
      */
-    public function mMultiplyByScalar(int|float $multiplier): self
+    public function mMultiplyByScalar(int|float $multiplier): static
     {
         // Micro-optimized
         $count = $this->columns;
@@ -410,12 +408,12 @@ class Matrix extends AbstractMatrix
     /**
      * Change of signs of all elements
      *
-     * @return self
+     * @return static
      * @throws InvalidArgumentException
      */
-    public function changeSign(): self
+    public function changeSign(): static
     {
-        $newMatrix = new Matrix($this->matrix, false);
+        $newMatrix = new static($this->matrix, false);
         return $newMatrix->mMultiplyByScalar(-1);
     }
 
@@ -425,7 +423,7 @@ class Matrix extends AbstractMatrix
      * @return $this
      * @internal Mutating method
      */
-    public function mChangeSign(): self
+    public function mChangeSign(): static
     {
         return $this->mMultiplyByScalar(-1);
     }
@@ -507,12 +505,12 @@ class Matrix extends AbstractMatrix
      * @param bool $doSwaps If true, the method will swap the rows so that the maximal element of the column will be moved to top
      * @param int &$swaps Returns number of swaps done
      * @param float $zeroTolerance If the resulting value after subtraction is less than $zeroTolerance, it will be made equal to zero
-     * @return self
+     * @return static
      * @throws DivisionByZeroException if $doSwaps = false and some of the rows are linearly dependent
      * @throws InvalidArgumentException (not expected)
      * @internal May return a cached property
      */
-    public function ref(bool $doSwaps = true, int &$swaps = 0, float $zeroTolerance = self::DEFAULT_TOLERANCE): self
+    public function ref(bool $doSwaps = true, int &$swaps = 0, float $zeroTolerance = self::DEFAULT_TOLERANCE): static
     {
         // Check if the row echelon form is cached
         if (isset($this->cacheRef) && isset($this->cacheRefSwaps)) {
@@ -520,7 +518,7 @@ class Matrix extends AbstractMatrix
             return $this->cacheRef;
         }
 
-        $ref = (new Matrix($this->matrix, false))->mRef($doSwaps, $swaps, $zeroTolerance);
+        $ref = (new static($this->matrix, false))->mRef($doSwaps, $swaps, $zeroTolerance);
 
         // Set cache
         if ($this->cacheEnabled) {
@@ -541,7 +539,7 @@ class Matrix extends AbstractMatrix
      * @throws DivisionByZeroException if $doSwaps = false and some of the rows are linearly dependent
      * @internal Mutating method
      */
-    public function mRef(bool $doSwaps = true, int &$swaps = 0, float $zeroTolerance = self::DEFAULT_TOLERANCE): self
+    public function mRef(bool $doSwaps = true, int &$swaps = 0, float $zeroTolerance = self::DEFAULT_TOLERANCE): static
     {
         // Calculate the row echelon form by Gaussian elimination
         $rowIndex = $columnIndex = 0;
@@ -609,18 +607,18 @@ class Matrix extends AbstractMatrix
      * Reduced row echelon form
      *
      * @param float $zeroTolerance If a resulting value during subtraction is less than $zeroTolerance, it will be made equal to zero
-     * @return self
+     * @return static
      * @throws DivisionByZeroException (not expected)
      * @throws InvalidArgumentException (not expected)
      */
-    public function rref(float $zeroTolerance): self
+    public function rref(float $zeroTolerance): static
     {
         // Check if the reduced row echelon form is cached
         if (isset($this->cacheRref)) {
             return $this->cacheRref;
         }
 
-        $rref = (new Matrix($this->matrix, false))->mRref($zeroTolerance);
+        $rref = (new static($this->matrix, false))->mRref($zeroTolerance);
 
         // Set cache
         if ($this->cacheEnabled) {
@@ -638,7 +636,7 @@ class Matrix extends AbstractMatrix
      * @throws DivisionByZeroException (not expected)
      * @internal Mutating method
      */
-    public function mRref(float $zeroTolerance = self::DEFAULT_TOLERANCE): self
+    public function mRref(float $zeroTolerance = self::DEFAULT_TOLERANCE): static
     {
         // Check if we have a row echelon form in cache. If not, calculate it
         if (isset($this->cacheRef)) {
@@ -754,5 +752,83 @@ class Matrix extends AbstractMatrix
         }
 
         return $determinant;
+    }
+
+    /**
+     * Horizontal matrix concatenation (augmentation from the right)
+     *
+     * @param Matrix $anotherMatrix
+     * @return static
+     * @throws InvalidArgumentException (not expected)
+     * @throws MatrixException if the matrices have different amount of rows
+     */
+    public function joinRight(Matrix $anotherMatrix): self
+    {
+        $newMatrix = new static($this->matrix, false);
+        return $newMatrix->mJoinRight($anotherMatrix);
+    }
+
+    /**
+     * Horizontal matrix concatenation (augmentation from the right). Mutating method changes the original matrix
+     *
+     * @param Matrix $anotherMatrix
+     * @return $this
+     * @throws MatrixException if the matrices have different amount of rows
+     * @internal Mutating method
+     */
+    public function mJoinRight(Matrix $anotherMatrix): static
+    {
+        // Check if the matrices are compatible
+        if ($this->rows !== $anotherMatrix->rows) {
+            throw new MatrixException("Cannot perform horizontal concatenation. Both matrices must have same number of rows.");
+        }
+
+        foreach ($this->matrix as $rowIndex => &$row) {
+            $row = array_merge($row, $anotherMatrix->matrix[$rowIndex]);
+        }
+
+        // Clear cache and recalculate matrix dimensions
+        $this->clearCache();
+        $this->columns += $anotherMatrix->columns;
+        $this->size = $this->rows * $this->columns;
+        return $this;
+    }
+
+    /**
+     * Vertical matrix concatenation (augmentation from the bottom)
+     *
+     * @param Matrix $anotherMatrix
+     * @return static
+     * @throws InvalidArgumentException (not expected)
+     * @throws MatrixException if the matrices have different amount of columns
+     */
+    public function joinBottom(Matrix $anotherMatrix): self
+    {
+        $newMatrix = new static($this->matrix, false);
+        return $newMatrix->mJoinBottom($anotherMatrix);
+    }
+
+    /**
+     * Vertical matrix concatenation (augmentation from the bottom). Mutating method changes the original matrix
+     *
+     * @param Matrix $anotherMatrix
+     * @return $this
+     * @throws MatrixException if the matrices have different amount of columns
+     * @internal Mutating method
+     */
+    public function mJoinBottom(Matrix $anotherMatrix): static
+    {
+        // Check if the matrices are compatible
+        if ($this->columns !== $anotherMatrix->columns) {
+            throw new MatrixException("Cannot perform vertical concatenation. Both matrices must have same number of columns.");
+        }
+
+        $this->matrix = array_merge($this->matrix, $anotherMatrix->matrix);
+
+        // Clear cache and recalculate matrix dimensions
+        $this->clearCache();
+        $this->rows += $anotherMatrix->rows;
+        $this->size = $this->rows * $this->columns;
+        return $this;
     }
 }

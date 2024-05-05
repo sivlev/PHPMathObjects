@@ -59,4 +59,22 @@ class MathTest extends TestCase
     {
         $this->assertEquals($result, Math::areEqual($number1, $number2, $tolerance));
     }
+
+    /**
+     * @param int $number1
+     * @param int $number2
+     * @param int $expected
+     * @return void
+     */
+    #[TestWith([1, 0, 1])]
+    #[TestWith([0, 1, 1])]
+    #[TestWith([0, 0, 0])]
+    #[TestWith([28, 35, 7])]
+    #[TestWith([12, 25, 1])]
+    #[TestWith([615, 861, 123])]
+    #[TestDox("Gcd() method calculates the correct greatest common divisor for two numbers")]
+    public function testGcd(int $number1, int $number2, int $expected): void
+    {
+        $this->assertEquals($expected, Math::gcd($number1, $number2));
+    }
 }

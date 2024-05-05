@@ -1960,4 +1960,216 @@ class MatrixTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * @param MatrixArray $array1
+     * @param MatrixArray $array2
+     * @param MatrixArray $expected
+     * @param int $expectedRows
+     * @param int $expectedColumns
+     * @param int $expectedSize
+     * @param bool $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     */
+    #[DataProvider('providerJoinRight')]
+    #[TestDox("JoinRight() and mJoinRight() make horizontal matrix concatenation")]
+    public function testJoinRight(array $array1, array $array2, array $expected, int $expectedRows, int $expectedColumns, int $expectedSize, bool $exception = false): void
+    {
+        $m1 = new Matrix($array1);
+        $m2 = new Matrix($array2);
+
+        if ($exception) {
+            $this->expectException(MatrixException::class);
+        }
+
+        // Test joinRight()
+        $m3 = $m1->joinRight($m2);
+        $this->assertEquals($expected, $m3->toArray());
+        $this->assertEquals($expectedRows, $m3->rows());
+        $this->assertEquals($expectedColumns, $m3->columns());
+        $this->assertEquals($expectedSize, $m3->size());
+
+        // Test mJoinRight()
+        $this->assertEquals($expected, $m1->mJoinRight($m2)->toArray());
+        $this->assertEquals($expectedRows, $m1->rows());
+        $this->assertEquals($expectedColumns, $m1->columns());
+        $this->assertEquals($expectedSize, $m1->size());
+    }
+
+    /**
+     * @return array<int, array<int, bool|int|float|MatrixArray>>
+     */
+    public static function providerJoinRight(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                [
+                    [10, 11],
+                    [11, 12],
+                    [12, 13],
+                ],
+                [
+                    [1, 2, 3, 10, 11],
+                    [4, 5, 6, 11, 12],
+                    [7, 8, 9, 12, 13],
+                ], 3, 5, 15,
+            ],
+            [
+                [[-204.2843]],
+                [[1023.48324]],
+                [[-204.2843, 1023.48324]], 1, 2, 2,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                [
+                    [10],
+                    [11],
+                    [12],
+                    [13],
+                ],
+                [
+                    [1, 2, 3, 10],
+                    [4, 5, 6, 11],
+                    [7, 8, 9, 12],
+                ], 3, 4, 12, true,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                ],
+                [
+                    [10],
+                    [11],
+                    [12],
+                ],
+                [
+                    [1, 2, 3, 10],
+                    [4, 5, 6, 11],
+                    [7, 8, 9, 12],
+                ], 3, 4, 12, true,
+            ],
+        ];
+    }
+
+    /**
+     * @param MatrixArray $array1
+     * @param MatrixArray $array2
+     * @param MatrixArray $expected
+     * @param int $expectedRows
+     * @param int $expectedColumns
+     * @param int $expectedSize
+     * @param bool $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     */
+    #[DataProvider('providerJoinBottom')]
+    #[TestDox("JoinBottom() and mJoinBottom() make vertical matrix concatenation")]
+    public function testJoinBottom(array $array1, array $array2, array $expected, int $expectedRows, int $expectedColumns, int $expectedSize, bool $exception = false): void
+    {
+        $m1 = new Matrix($array1);
+        $m2 = new Matrix($array2);
+
+        if ($exception) {
+            $this->expectException(MatrixException::class);
+        }
+
+        // Test joinRight()
+        $m3 = $m1->joinBottom($m2);
+        $this->assertEquals($expected, $m3->toArray());
+        $this->assertEquals($expectedRows, $m3->rows());
+        $this->assertEquals($expectedColumns, $m3->columns());
+        $this->assertEquals($expectedSize, $m3->size());
+
+        // Test mJoinRight()
+        $this->assertEquals($expected, $m1->mJoinBottom($m2)->toArray());
+        $this->assertEquals($expectedRows, $m1->rows());
+        $this->assertEquals($expectedColumns, $m1->columns());
+        $this->assertEquals($expectedSize, $m1->size());
+    }
+
+    /**
+     * @return array<int, array<int, bool|int|float|MatrixArray>>
+     */
+    public static function providerJoinBottom(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                [
+                    [10, 11, 12],
+                    [11, 12, 13],
+                    [12, 13, 14],
+                    [13, 14, 15],
+                ],
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                    [10, 11, 12],
+                    [11, 12, 13],
+                    [12, 13, 14],
+                    [13, 14, 15],
+                ], 7, 3, 21,
+            ],
+            [
+                [[-204.2843]],
+                [[1023.48324]],
+                [
+                    [-204.2843],
+                    [1023.48324],
+                ], 2, 1, 2,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ],
+                [
+                    [10],
+                    [11],
+                    [12],
+                    [13],
+                ],
+                [
+                    [1, 2, 3, 10],
+                    [4, 5, 6, 11],
+                    [7, 8, 9, 12],
+                ], 3, 4, 12, true,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                ],
+                [
+                    [10],
+                    [11],
+                    [12],
+                ],
+                [
+                    [1, 2, 3, 10],
+                    [4, 5, 6, 11],
+                    [7, 8, 9, 12],
+                ], 3, 4, 12, true,
+            ],
+        ];
+    }
 }

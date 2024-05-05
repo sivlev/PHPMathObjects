@@ -28,7 +28,7 @@ For full API reference please refer to ```docs```.
 
 ### Contents
 
- * General mathematics
+ * General Mathematics
    - [Math](#math)
    
  * Linear Algebra
@@ -52,6 +52,9 @@ $isNotZero = Math::isNotZero(0.000002, 1e-3);           // Returns false
 // Check if two numbers are equal within the given tolerance
 $areEqual = Math::areEqual(0.000002, 0.000003);         // Returns false
 $areEqual = Math::areEqual(0.000002, 0.000003, 1e-3);   // Returns true
+
+// Find the greatest common divisor of two numbers
+$gcd = Math::gcd(28, 35);       // Returns 7
 ```
 
 ### Linear Algebra
@@ -130,6 +133,14 @@ $matrix->mTranspose();
 $matrix->mRef();             //Row echelon form
 $matrix->mRref();            //Reduced row echelon form
 
+// Matrix resizing and concatenation
+$joinRight = $matrix->joinRight($anotherMatrix);
+$joinBottom = $matrix->joinBottom($anotherMatrix);
+
+// Matrix resizing and concatenation (mutating methods)
+$matrix->mJoinRight($anotherMatrix);
+$matrix->mJoinBottom($anotherMatrix);
+
 // Conversion to a string representation
 $string = $matrix->toString();
 $string = (string) $matrix;
@@ -137,4 +148,37 @@ $string = (string) $matrix;
 // [1, 2, 3]
 // [4, 5, 6]
 // [7, 8, 9]
+```
+
+#### Vector
+
+Vector class extends the Matrix class so all Matrix methods are available too. Some of them have additional wrappers for more convenient usage, e.g. fill() vs. vectorFill().
+
+```php
+// Create a new vector using the class constructor
+$rowVector = new Vector([[1, 2, 3]]);
+$columnVector = new Vector([
+    [1],
+    [2],
+    [3],
+]);
+
+// Or use a suitable factory method
+$vector = Vector::vectorFill(5, 1.1, VectorEnum::Row);         // Creates a [[1.1, 1.1, 1.1, 1.1, 1.1]] row vector
+$vector = Vector::fromArray([1, 2, 3], VectorEnum::Column);   // Creates a [[1], [2], [3]] column vector
+
+// Get the vector type (orientation)
+$rowVector->vectorType();                 // Returns VectorEnum::Row
+$columnVector->vectorType();              // Returns VectorEnum::Column
+
+// Get vector as an array
+$columnVector->toArray();
+/* Returns the 2D column array:
+ * [
+ *  [1],
+ *  [2],
+ *  [3],
+ * ]
+ */
+$columnVector->toPlainArray();      // Returns a 1D array [1, 2, 3]
 ```
