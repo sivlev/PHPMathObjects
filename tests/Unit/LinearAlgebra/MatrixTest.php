@@ -518,6 +518,9 @@ class MatrixTest extends TestCase
         $this->assertFalse($m->isSet($m->rows(), $m->columns()));
         $this->assertTrue(isset($m[[$row, $column]]));
         $this->assertFalse(isset($m[[$m->rows(), $m->columns()]]));
+        $valueToSet++;
+        $m[[$row, $column]] = $valueToSet;
+        $this->assertEquals($valueToSet, $m[[$row, $column]]);
     }
 
     /**
