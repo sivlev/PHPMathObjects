@@ -33,6 +33,7 @@ For full API reference please refer to ```docs```.
    
  * Linear Algebra
    - [Matrix](#matrix)
+   - [Vector](#vector)
 
 ### General mathematics
 
