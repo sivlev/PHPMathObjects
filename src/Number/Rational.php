@@ -45,11 +45,6 @@ readonly class Rational
 
         // Normalize the rational to standard form if required
         if ($normalize) {
-            // If the numerator is zero, then the denominator value play no role, i.e. the rational is integer
-            if ($numerator === 0) {
-                $denominator = 1;
-            }
-
             // Make the denominator positive by default
             if ($denominator < 0) {
                 $denominator = -$denominator;
@@ -68,6 +63,11 @@ readonly class Rational
                 $gcd = abs(Math::gcd($numerator, $denominator));
                 $numerator = intdiv($numerator, $gcd);
                 $denominator = intdiv($denominator, $gcd);
+            }
+
+            // If the numerator is zero, then the denominator value play no role, i.e. the rational is integer
+            if ($numerator === 0) {
+                $denominator = 1;
             }
         }
 
