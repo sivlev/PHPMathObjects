@@ -90,5 +90,45 @@ class RationalTest extends TestCase
         $this->assertEquals($expectedWhole, $r->whole());
         $this->assertEquals($expectedNumerator, $r->numerator());
         $this->assertEquals($expectedDenominator, $r->denominator());
+        $this->assertEquals($normalize, $r->isNormalized());
+    }
+
+    /**
+     * @param string $string
+     * @param bool $normalize
+     * @param int $whole
+     * @param int $numerator
+     * @param int $denominator
+     * @param bool $exception
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestWith(["13 3/8", true, 13, 3, 8])]
+    #[TestWith(["2 16/8", true, 4, 0, 1])]
+    #[TestWith(["2 16/8", false, 2, 16, 8])]
+    #[TestWith(["-1 1/5", true, -1, -1, 5])]
+    #[TestWith(["8/17", true, 0, 8, 17])]
+    #[TestWith(["-6/5", true, -1, -1, 5])]
+    #[TestWith(["-17", true, -17, 0, 1])]
+    #[TestWith(["5", true, 5, 0, 1])]
+    #[TestWith(["0", true, 0, 0, 1])]
+    #[TestWith(["   -76    2/5    ", true, -76, -2, 5])]
+    #[TestWith(["-10 18/16", false, -10, -18, 16])]
+    #[TestWith(["-10 -18/16", false, -10, -18, 16, true])]
+    #[TestWith(["-10s", false, -10, -18, 16, true])]
+    #[TestWith(["-10 18/-16", false, -10, -18, 16, true])]
+    #[TestWith(["--10 -18/16", false, -10, -18, 16, true])]
+    #[TestWith(["-10 -18", false, -10, -18, 16, true])]
+    #[TestDox("FromString() factory creates a correct rational number from a string")]
+    public function testFromString(string $string, bool $normalize, int $whole, int $numerator, int $denominator, bool $exception = false): void
+    {
+        if ($exception) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        $r = Rational::fromString($string, $normalize);
+        $this->assertEquals($whole, $r->whole());
+        $this->assertEquals($numerator, $r->numerator());
+        $this->assertEquals($denominator, $r->denominator());
     }
 }

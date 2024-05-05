@@ -23,9 +23,33 @@ use PHPMathObjects\Math\Math;
  */
 readonly class Rational
 {
+    /**
+     * The whole part of the rational number
+     *
+     * @var int
+     */
     protected int $whole;
+
+    /**
+     * The numerator of the rational number
+     *
+     * @var int
+     */
     protected int $numerator;
+
+    /**
+     * The numerator of the rational number
+     *
+     * @var int
+     */
     protected int $denominator;
+
+    /**
+     * If true, then the number was normalized during instantiation
+     *
+     * @var bool
+     */
+    protected bool $isNormalized;
 
     /**
      * Class constructor
@@ -81,6 +105,32 @@ readonly class Rational
         $this->whole = $whole;
         $this->numerator = $numerator;
         $this->denominator = $denominator;
+        $this->isNormalized = $normalize;
+    }
+
+    /**
+     * @param string $string
+     * @param bool $normalize
+     * @return self
+     * @throws InvalidArgumentException if the string is not a valid rational number or if the denominator is zero
+     */
+    public static function fromString(string $string, bool $normalize = true): self
+    {
+        $result = preg_match("/^(-?\d+(?=$|\s))*\s*(?:((?(?<=^)-)?\d+)(?=\/)\/?(\d+))*$/", trim($string), $matches, PREG_UNMATCHED_AS_NULL);
+        if (!$result) {
+            throw new InvalidArgumentException("Cannot parse the given string into a rational number");
+        }
+
+        $whole = (int) ($matches[1] ?? 0);
+        $numerator = (int) ($matches[2] ?? 0);
+        $denominator = (int) ($matches[3] ?? 1);
+
+        // Make the numerator negative if the whole is negative
+        if ($whole < 0) {
+            $numerator = -$numerator;
+        }
+
+        return new self($whole, $numerator, $denominator, $normalize);
     }
 
     /**
@@ -111,5 +161,10 @@ readonly class Rational
     public function denominator(): int
     {
         return $this->denominator;
+    }
+
+    public function isNormalized(): bool
+    {
+        return $this->isNormalized;
     }
 }
