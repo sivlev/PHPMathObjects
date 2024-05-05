@@ -347,7 +347,7 @@ class Vector extends Matrix
         } else {
             $newEntity = new Vector($this->matrix, false);
         }
-        return $newEntity->mMultiply($anotherMatrix);
+        return $newEntity->mJoinRight($anotherMatrix);
     }
 
     /**
