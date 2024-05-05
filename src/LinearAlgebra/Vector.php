@@ -329,4 +329,44 @@ class Vector extends Matrix
 
         return $dotProduct;
     }
+
+    /**
+     * Override joinRight() method to account for that "vector x vector" is not always a vector but can also be a matrix
+     *
+     * @param Matrix $anotherMatrix
+     * @return self|Matrix
+     * @throws InvalidArgumentException (not expected)
+     * @throws MatrixException if the vectors or matrices have incompatible dimensions
+     * @throws OutOfBoundsException (not expected)
+     * @see Matrix::multiply()
+     */
+    public function joinRight(Matrix $anotherMatrix): self|Matrix
+    {
+        if ($this->rows > 1) {
+            $newEntity = new Matrix($this->matrix, false);
+        } else {
+            $newEntity = new Vector($this->matrix, false);
+        }
+        return $newEntity->mMultiply($anotherMatrix);
+    }
+
+    /**
+     * Override matrix mJoinRight() method to account for that "vector x vector" is not always a vector but can also be a matrix. A mutation that is incompatible with Vector object is not allowed.
+     *
+     * @param Matrix $anotherMatrix
+     * @return $this
+     * @throws MatrixException if a vector has to be converted to a matrix after mutation or if the vector dimensions are incompatible
+     * @see Matrix::mJoinRight()
+     * @internal Mutating method
+     */
+    public function mJoinRight(Matrix $anotherMatrix): static
+    {
+        if ($this->rows > 1) {
+            throw new MatrixException("The result of mJoinRight() is a matrix, not a vector. Cannot mutate the given vector object, use joinRight() instead.");
+        }
+
+        // Assign the correct vector type
+        $this->vectorType = VectorEnum::Row;
+        return parent::mJoinRight($anotherMatrix);
+    }
 }

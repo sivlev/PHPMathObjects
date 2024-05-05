@@ -762,7 +762,7 @@ class Matrix extends AbstractMatrix
      * @throws InvalidArgumentException (not expected)
      * @throws MatrixException if the matrices have different amount of rows
      */
-    public function joinRight(Matrix $anotherMatrix): static
+    public function joinRight(Matrix $anotherMatrix): self
     {
         $newMatrix = new static($this->matrix, false);
         return $newMatrix->mJoinRight($anotherMatrix);
