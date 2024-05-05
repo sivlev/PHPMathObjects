@@ -428,6 +428,13 @@ class Matrix extends AbstractMatrix
         return $this->mMultiplyByScalar(-1);
     }
 
+    /**
+     * Compares two matrices and returns true if they are equal elementwise with the given tolerance
+     *
+     * @param Matrix $term
+     * @param float $tolerance
+     * @return bool
+     */
     public function isEqual(Matrix $term, float $tolerance = self::DEFAULT_TOLERANCE): bool
     {
         if ($this->rows !== $term->rows || $this->columns !== $term->columns) {
@@ -447,6 +454,12 @@ class Matrix extends AbstractMatrix
         return true;
     }
 
+    /**
+     * Compares two matrices and returns true if they are equal elementwise exactly (with === operator)
+     *
+     * @param Matrix $term
+     * @return bool
+     */
     public function isEqualExactly(Matrix $term): bool
     {
         if ($this->rows !== $term->rows || $this->columns !== $term->columns) {
