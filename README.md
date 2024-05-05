@@ -88,19 +88,19 @@ $numberOfElements = count($matrix);         // Alternative way as Matrix impleme
 // Get matrix as array
 $array = $matrix->toArray(); 
 
-// Element getters and setters (zero-based)
+// Element getters and setters (zero-based indexing)
 $element = $matrix->get(1, 2);
 $matrix->set(1, 2, -15.6);
 $element = $matrix->set(1, 2, 100)->get(1, 2); // Set() method returns $this so it can be chained
 $doesElementExist = $matrix->isSet(2, 1);
 
-// Matrix properties
-$isSquare = $matrix->isSquare(); 
-
 // Alternative getters and setters via "ArrayAccess" interface
 $element = $matrix[[1, 2]];    // Note the format of the index. The problem is that PHP supports native ArrayAccess for 1D arrays only
 $matrix[[1, 2]] = 15;
 $doesElementExist = isset($matrix[[1, 2]]);
+
+// Matrix properties
+$isSquare = $matrix->isSquare(); 
 
 // Compare matrices
 $equal = $matrix->isEqual($anotherMatrix);          // Compare elementwise within a default tolerance of 1.0e^-6
@@ -164,12 +164,30 @@ $columnVector = new Vector([
 ]);
 
 // Or use a suitable factory method
-$vector = Vector::vectorFill(5, 1.1, VectorEnum::Row);         // Creates a [[1.1, 1.1, 1.1, 1.1, 1.1]] row vector
 $vector = Vector::fromArray([1, 2, 3], VectorEnum::Column);   // Creates a [[1], [2], [3]] column vector
+$vector = Vector::vectorFill(5, 1.1, VectorEnum::Row);         // Creates a [[1.1, 1.1, 1.1, 1.1, 1.1]] row vector
+$vector = Vector::vectorRandom(5, -3.5, 9.5)   // Make a with 5-component vector filled with random float numbers between -3.5 and 9.5
+$vector = Vector::randomInt(3, 1, 10)    // Make a 3-component vector filled with random integer numbers between 1 and 10
 
 // Get the vector type (orientation)
 $rowVector->vectorType();                 // Returns VectorEnum::Row
 $columnVector->vectorType();              // Returns VectorEnum::Column
+
+// Vector size
+$numberOfComponents = $rowVector->size(); // Returns 3
+$numberOfElements = count($rowVector);    // Alternative way as Vector implements "Countable" interface
+$rows = $rowVector->rows();               // Returns 1
+$columns = $rowVector->columns();         // Returns 3 
+
+// Element getters and setters (zero-based indexing)
+$element = $rowVector->vGet(2);            // Equivalent to get(1, 2) using the Matrix method
+$rowVector->vSet(2, -15.6);                // Equivalent to set(1, 2, -15.6) using the Matrix method
+$doesElementExist = $rowVector->vIsSet(2); // Equivalent to isSet(2) using the Matrix method 
+
+// Alternative getters and setters via "ArrayAccess" interface
+$element = $rowVector[2];    // Equivalent to $rowVector->vGet(2)
+$rowVector[2] = 15;          // Equivalent to $rowVector->vSet(2, 15) 
+$doesElementExist = isset($rowVector[2]);
 
 // Get vector as an array
 $columnVector->toArray();
@@ -181,4 +199,16 @@ $columnVector->toArray();
  * ]
  */
 $columnVector->toPlainArray();      // Returns a 1D array [1, 2, 3]
+
+// Conversion to a string representation
+$string = $rowVector->toString();
+$string = (string) $rowVector;
+// Both ways will return
+// [1, 2, 3]
+$string = $columnVector->toString();
+$string = (string) $columnVector;
+// Both ways will return
+// [1]
+// [2]
+// [3]
 ```
