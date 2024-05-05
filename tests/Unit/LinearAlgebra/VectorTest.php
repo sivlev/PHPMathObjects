@@ -1259,6 +1259,56 @@ class VectorTest extends TestCase
                 ],
                 "joinRight", "mJoinRight", false, "PHPMathObjects\Exception\MatrixException",
             ],
+            [
+                [1, 2, 3], VectorEnum::Column,
+                [1, 2, 3, 4], VectorEnum::Column,
+                [
+                    [1],
+                    [2],
+                    [3],
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                ],
+                "joinBottom", "mJoinBottom", true,
+            ],
+            [
+                [1], VectorEnum::Row,
+                [1, 2, 3, 4], VectorEnum::Column,
+                [
+                    [1],
+                    [1],
+                    [2],
+                    [3],
+                    [4],
+                ],
+                "joinBottom", "mJoinBottom", true,
+            ],
+            [
+                [1, 2], VectorEnum::Row,
+                [1, 2, 3, 4], VectorEnum::Column,
+                [[1, 1, 2, 3, 4]],
+                "joinBottom", "mJoinBottom", true, "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [1, 2], VectorEnum::Row,
+                [1, 2], VectorEnum::Row,
+                [
+                    [1, 2],
+                    [1, 2],
+                ],
+                "joinBottom", "mJoinBottom", false, null, "PHPMathObjects\Exception\MatrixException",
+            ],
+            [
+                [1, 2], VectorEnum::Row,
+                [1, 2, 3], VectorEnum::Row,
+                [
+                    [1, 1],
+                    [2, 2],
+                ],
+                "joinBottom", "mJoinBottom", false, "PHPMathObjects\Exception\MatrixException",
+            ],
         ];
     }
 }

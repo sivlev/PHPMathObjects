@@ -802,7 +802,7 @@ class Matrix extends AbstractMatrix
      * @throws InvalidArgumentException (not expected)
      * @throws MatrixException if the matrices have different amount of columns
      */
-    public function joinBottom(Matrix $anotherMatrix): static
+    public function joinBottom(Matrix $anotherMatrix): self
     {
         $newMatrix = new static($this->matrix, false);
         return $newMatrix->mJoinBottom($anotherMatrix);

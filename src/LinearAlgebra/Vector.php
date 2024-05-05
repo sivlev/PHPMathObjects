@@ -338,7 +338,7 @@ class Vector extends Matrix
      * @throws InvalidArgumentException (not expected)
      * @throws MatrixException if the vectors or matrices have incompatible dimensions
      * @throws OutOfBoundsException (not expected)
-     * @see Matrix::multiply()
+     * @see Matrix::joinBottom()
      */
     public function joinRight(Matrix $anotherMatrix): self|Matrix
     {
@@ -368,5 +368,45 @@ class Vector extends Matrix
         // Assign the correct vector type
         $this->vectorType = VectorEnum::Row;
         return parent::mJoinRight($anotherMatrix);
+    }
+
+    /**
+     * Override joinBottom() method to account for that "vector x vector" is not always a vector but can also be a matrix
+     *
+     * @param Matrix $anotherMatrix
+     * @return self|Matrix
+     * @throws InvalidArgumentException (not expected)
+     * @throws MatrixException if the vectors or matrices have incompatible dimensions
+     * @throws OutOfBoundsException (not expected)
+     * @see Matrix::joinBottom()
+     */
+    public function joinBottom(Matrix $anotherMatrix): self|Matrix
+    {
+        if ($this->columns > 1) {
+            $newEntity = new Matrix($this->matrix, false);
+        } else {
+            $newEntity = new Vector($this->matrix, false);
+        }
+        return $newEntity->mJoinBottom($anotherMatrix);
+    }
+
+    /**
+     * Override matrix mJoinBottom() method to account for that "vector x vector" is not always a vector but can also be a matrix. A mutation that is incompatible with Vector object is not allowed.
+     *
+     * @param Matrix $anotherMatrix
+     * @return $this
+     * @throws MatrixException if a vector has to be converted to a matrix after mutation or if the vector dimensions are incompatible
+     * @see Matrix::mJoinBottom()
+     * @internal Mutating method
+     */
+    public function mJoinBottom(Matrix $anotherMatrix): static
+    {
+        if ($this->columns > 1) {
+            throw new MatrixException("The result of mJoinBottom() is a matrix, not a vector. Cannot mutate the given vector object, use joinBottom() instead.");
+        }
+
+        // Assign the correct vector type
+        $this->vectorType = VectorEnum::Column;
+        return parent::mJoinBottom($anotherMatrix);
     }
 }
