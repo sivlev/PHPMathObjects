@@ -1218,7 +1218,7 @@ class VectorTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, bool|String|VectorArray|VectorEnum|MatrixArray>>
+     * @return array<int, array<int, null|bool|String|VectorArray|VectorEnum|MatrixArray>>
      */
     public static function providerJoinRightVectorVector(): array
     {
