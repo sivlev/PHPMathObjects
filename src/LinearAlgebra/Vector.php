@@ -19,6 +19,9 @@ use PHPMathObjects\Exception\InvalidArgumentException;
 use PHPMathObjects\Exception\MatrixException;
 use PHPMathObjects\Exception\OutOfBoundsException;
 
+/**
+ * Vector class to handle row and column vectors
+ */
 class Vector extends Matrix
 {
     /**

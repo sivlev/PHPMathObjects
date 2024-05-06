@@ -9,12 +9,12 @@
         "vector",
         "rational number"
     ],
-    "homepage": "https://github.com/sivlev/PHPMathObjects/",
+    "homepage": "https://github.com/sivlev/phpmathobjects/",
     "authors": [
         {
             "name": "Sergei Ivlev",
             "role": "Developer",
-            "email": "s.ivlev.me@gmail.com"
+            "email": "sergei.ivlev@chemie.uni-marburg.de"
         }
     ],
     "require": {
@@ -52,6 +52,6 @@
     "support": {
         "issues": "https://github.com/sivlev/phpmathobjects/issues",
         "source": "https://github.com/sivlev/phpmathobjects",
-        "email": "s.ivlev.me@gmail.com"
+        "email": "sergei.ivlev@chemie.uni-marburg.de"
     }
 }
