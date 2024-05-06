@@ -26,6 +26,9 @@ use PHPUnit\Framework\TestCase;
  */
 class RationalTest extends TestCase
 {
+    // Tolerance used to compare two floats
+    protected const e = 1e-8;
+
     /**
      * @return void
      * @throws InvalidArgumentException
@@ -173,5 +176,25 @@ class RationalTest extends TestCase
         $r = Rational::fromString($string);
         $this->assertEquals($string, $r->toString());
         $this->assertEquals($string, (string) $r);
+    }
+
+    /**
+     * @param int $whole
+     * @param int $numerator
+     * @param int $denominator
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestWith([0, 0, 1])]
+    #[TestWith([1, 0, 1])]
+    #[TestWith([15, 15, 1])]
+    #[TestWith([12, 6, 7])]
+    #[TestWith([-10, 5, 10])]
+    #[TestWith([-7, -5, 115])]
+    #[TestDox("ToFloat() method converts the rational number to a float")]
+    public function testToFloat(int $whole, int $numerator, int $denominator): void
+    {
+        $r = new Rational($whole, $numerator, $denominator);
+        $this->assertEqualsWithDelta($whole + $numerator / $denominator, $r->toFloat(), self::e);
     }
 }
