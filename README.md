@@ -228,5 +228,10 @@ A class to store rational numbers and perform mathematical operations on them
 $r = new Rational(5, 1, 2);             // Creates a rational number 1 1/2
 
 // Or use a suitable class constructor
-$r = Rational::fromString("-5 1/3");    // Equivalent to "new Rational(-5, -1, 3)" 
+$r = Rational::fromString("-5 1/3");    // Equivalent to "new Rational(-5, -1, 3)"
+
+// Convert a rational to a text form using toString() method
+$string = $r->toString();               // Returns "-5 1/3"
+// or string cast
+$string = (string) $r;  
 ```

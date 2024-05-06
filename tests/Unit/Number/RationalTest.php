@@ -65,7 +65,7 @@ class RationalTest extends TestCase
      */
     #[TestWith([0, 0, 1, 0, 0, 1])]
     #[TestWith([0, 0, 2, 0, 0, 1])]
-    #[TestWith([1, 1, 1, 1, 1, 1])]
+    #[TestWith([1, 1, 1, 2, 0, 1])]
     #[TestWith([1, 1, 2, 1, 1, 2])]
     #[TestWith([1, 2, 4, 1, 1, 2])]
     #[TestWith([1, 4, 2, 3, 0, 1])]
@@ -124,5 +124,54 @@ class RationalTest extends TestCase
         $this->assertEquals($whole, $r->whole());
         $this->assertEquals($numerator, $r->numerator());
         $this->assertEquals($denominator, $r->denominator());
+    }
+
+    /**
+     * @param int $whole
+     * @param int $numerator
+     * @param int $denominator
+     * @param string $string
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestWith([1, 0, 1, "1"])]
+    #[TestWith([0, 0, 1, "0"])]
+    #[TestWith([0, 1, 1, "1"])]
+    #[TestWith([1, 1, 1, "2"])]
+    #[TestWith([0, 1, 2, "1/2"])]
+    #[TestWith([0, -1, 2, "-1/2"])]
+    #[TestWith([0, 1, -2, "-1/2"])]
+    #[TestWith([0, -4, 3, "-1 1/3"])]
+    #[TestWith([1, 1, 2, "1 1/2"])]
+    #[TestWith([1, 2, 4, "1 1/2"])]
+    #[TestWith([-1, 1, 2, "-1/2"])]
+    #[TestWith([1, -1, 2, "1/2"])]
+    #[TestWith([-2, -8, 6, "-3 1/3"])]
+    #[TestDox("ToString() method and (string) cast return correct string representation of a rational number")]
+    public function testToString(int $whole, int $numerator, int $denominator, string $string): void
+    {
+        $r = new Rational($whole, $numerator, $denominator);
+        $this->assertEquals($string, $r->toString());
+        $this->assertEquals($string, (string) $r);
+    }
+
+    /**
+     * @param string $string
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestWith(["0"])]
+    #[TestWith(["1"])]
+    #[TestWith(["-1"])]
+    #[TestWith(["1/2"])]
+    #[TestWith(["-1/2"])]
+    #[TestWith(["1 1/2"])]
+    #[TestWith(["-1 1/2"])]
+    #[TestDox("FromString() and ToString() method handle normalized strings the same way")]
+    public function testToStringExtra(string $string): void
+    {
+        $r = Rational::fromString($string);
+        $this->assertEquals($string, $r->toString());
+        $this->assertEquals($string, (string) $r);
     }
 }

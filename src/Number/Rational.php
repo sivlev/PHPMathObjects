@@ -86,6 +86,12 @@ readonly class Rational
             $denominator = intdiv($denominator, $gcd);
         }
 
+        // Special case when numerator and denominator equal one
+        if (abs($numerator) === 1 && $denominator === 1) {
+            $whole += $numerator;
+            $numerator = 0;
+        }
+
         // If the numerator is zero, then the denominator value play no role, i.e. the rational is integer
         if ($numerator === 0) {
             $denominator = 1;
@@ -148,5 +154,30 @@ readonly class Rational
     public function denominator(): int
     {
         return $this->denominator;
+    }
+
+    /**
+     * Returns the string representation of the rational number
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        $string = $this->whole === 0 ? ($this->numerator === 0 ? "0" : "") : $this->whole . " ";
+        if ($this->numerator !== 0) {
+            $string .= $this->whole === 0 ? $this->numerator : abs($this->numerator);
+            $string .= "/" . $this->denominator;
+        }
+        return rtrim($string);
+    }
+
+    /**
+     * Alias for __toString() magic method
+     *
+     * @return string
+     */
+    public function toString(): string
+    {
+        return $this->__toString();
     }
 }
