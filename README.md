@@ -229,6 +229,11 @@ $r = new Rational(5, 1, 2);             // Creates a rational number 1 1/2
 
 // Or use a suitable class constructor
 $r = Rational::fromString("-5 1/3");    // Equivalent to "new Rational(-5, -1, 3)"
+$r = Rational::fromInt(15);             // Equivalent to "new Rational(15, 0, 1)"
+
+// Convert a rational to a float
+$r = Rational::fromString("1/3");
+$float = $r->toFloat();                 // Returns 0.33333333333
 
 // Convert a rational to a text form using toString() method
 $string = $r->toString();               // Returns "-5 1/3"

@@ -127,6 +127,18 @@ readonly class Rational
     }
 
     /**
+     * Creates a new rational number object from an integer
+     *
+     * @param int $number
+     * @return self
+     * @throws InvalidArgumentException (not expected)
+     */
+    public static function fromInt(int $number): self
+    {
+        return new self($number, 0, 1);
+    }
+
+    /**
      * Returns the whole part of the rational
      *
      * @return int

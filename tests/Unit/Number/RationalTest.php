@@ -197,4 +197,23 @@ class RationalTest extends TestCase
         $r = new Rational($whole, $numerator, $denominator);
         $this->assertEqualsWithDelta($whole + $numerator / $denominator, $r->toFloat(), self::e);
     }
+
+    /**
+     * @param int $number
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestWith([0])]
+    #[TestWith([1])]
+    #[TestWith([14])]
+    #[TestWith([-6])]
+    #[TestWith([-1000])]
+    #[TestDox("FromInt() factory method creates a rational number from an integer")]
+    public function testFromInt(int $number): void
+    {
+        $r = Rational::fromInt($number);
+        $this->assertEquals($number, $r->whole());
+        $this->assertEquals(0, $r->numerator());
+        $this->assertEquals(1, $r->denominator());
+    }
 }
