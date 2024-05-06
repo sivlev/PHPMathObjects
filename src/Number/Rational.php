@@ -98,11 +98,10 @@ readonly class Rational
 
     /**
      * @param string $string
-     * @param bool $normalize
      * @return self
      * @throws InvalidArgumentException if the string is not a valid rational number or if the denominator is zero
      */
-    public static function fromString(string $string, bool $normalize = true): self
+    public static function fromString(string $string): self
     {
         $result = preg_match("/^(-?\d+(?=$|\s))*\s*(?:((?(?<=^)-)?\d+)(?=\/)\/?(\d+))*$/", trim($string), $matches, PREG_UNMATCHED_AS_NULL);
         if (!$result) {
@@ -118,7 +117,7 @@ readonly class Rational
             $numerator = -$numerator;
         }
 
-        return new self($whole, $numerator, $denominator, $normalize);
+        return new self($whole, $numerator, $denominator);
     }
 
     /**
