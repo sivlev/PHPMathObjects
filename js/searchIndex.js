@@ -213,18 +213,28 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AisEqual\u0028\u0029",
             "name": "isEqual",
-            "summary": "",
+            "summary": "Compares\u0020two\u0020matrices\u0020and\u0020returns\u0020true\u0020if\u0020they\u0020are\u0020equal\u0020elementwise\u0020with\u0020the\u0020given\u0020tolerance",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isEqual"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AisEqualExactly\u0028\u0029",
             "name": "isEqualExactly",
-            "summary": "",
+            "summary": "Compares\u0020two\u0020matrices\u0020and\u0020returns\u0020true\u0020if\u0020they\u0020are\u0020equal\u0020elementwise\u0020exactly\u0020\u0028with\u0020\u003D\u003D\u003D\u0020operator\u0029",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isEqualExactly"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003Arref\u0028\u0029",
             "name": "rref",
             "summary": "Reduced\u0020row\u0020echelon\u0020form",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_rref"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AjoinRight\u0028\u0029",
+            "name": "joinRight",
+            "summary": "Horizontal\u0020matrix\u0020concatenation\u0020\u0028augmentation\u0020from\u0020the\u0020right\u0029",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_joinRight"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AjoinBottom\u0028\u0029",
+            "name": "joinBottom",
+            "summary": "Vertical\u0020matrix\u0020concatenation\u0020\u0028augmentation\u0020from\u0020the\u0020bottom\u0029",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_joinBottom"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003ADEFAULT_TOLERANCE",
             "name": "DEFAULT_TOLERANCE",
@@ -256,6 +266,116 @@ Search.appendIndex(
             "summary": "Cached\u0020value\u0020of\u0020the\u0020reduced\u0020row\u0020echelon\u0020form",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#property_cacheRref"
         },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector",
+            "name": "Vector",
+            "summary": "Implementation\u0020of\u0020the\u0020AbstractMatrix\u0020class\u0020to\u0020manipulate\u0020numeric\u0020matrices",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Vector\u0020class\u0020constructor",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method___construct"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AfromArray\u0028\u0029",
+            "name": "fromArray",
+            "summary": "Factory\u0020method\u0020to\u0020create\u0020a\u0020vector\u0020from\u0020a\u0020plain\u0020array",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_fromArray"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AvectorFill\u0028\u0029",
+            "name": "vectorFill",
+            "summary": "Factory\u0020method\u0020to\u0020create\u0020a\u0020vector\u0020with\u0020the\u0020given\u0020size\u0020and\u0020filled\u0020with\u0020the\u0020given\u0020value\u0020\u0028a\u0020wrapper\u0020for\u0020AbstractMatrix\u003A\u003Afill\u0029",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_vectorFill"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AvectorRandom\u0028\u0029",
+            "name": "vectorRandom",
+            "summary": "Wrapper\u0020for\u0020Matrix\u003A\u003Arandom\u0028\u0029\u0020factory\u0020method",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_vectorRandom"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AvectorRandomInt\u0028\u0029",
+            "name": "vectorRandomInt",
+            "summary": "Wrapper\u0020for\u0020Matrix\u003A\u003ArandomInt\u0028\u0029\u0020factory\u0020method",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_vectorRandomInt"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003A\u0024vectorType",
+            "name": "vectorType",
+            "summary": "Vector\u0020type\u0020\u0028orientation\u0029\u003A\u0020row\u0020vector\u0020or\u0020column\u0020vector",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#property_vectorType"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AtoPlainArray\u0028\u0029",
+            "name": "toPlainArray",
+            "summary": "Returns\u0020the\u0020vector\u0020as\u0020a\u0020plain\u00201D\u0020array\u0020independent\u0020of\u0020its\u0020type",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_toPlainArray"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AtoMatrix\u0028\u0029",
+            "name": "toMatrix",
+            "summary": "Converts\u0020the\u0020current\u0020vector\u0020into\u0020an\u0020instance\u0020of\u0020Matrix\u0020class",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_toMatrix"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AvIsSet\u0028\u0029",
+            "name": "vIsSet",
+            "summary": "Wrapper\u0020for\u0020isSet\u0028\u0029\u0020method",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_vIsSet"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AvGet\u0028\u0029",
+            "name": "vGet",
+            "summary": "Wrapper\u0020for\u0020get\u0028\u0029\u0020method",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_vGet"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AoffsetExists\u0028\u0029",
+            "name": "offsetExists",
+            "summary": "Wrapper\u0020for\u0020offsetExists\u0028\u0029\u0020method",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_offsetExists"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AoffsetGet\u0028\u0029",
+            "name": "offsetGet",
+            "summary": "Wrapper\u0020for\u0020offsetGet\u0028\u0029\u0020method",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_offsetGet"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003Amultiply\u0028\u0029",
+            "name": "multiply",
+            "summary": "Override\u0020matrix\u0020multiplication\u0020method\u0020to\u0020account\u0020for\u0020that\u0020\u0022vector\u0020x\u0020vector\u0022\u0020is\u0020not\u0020always\u0020a\u0020vector\u0020but\u0020can\u0020also\u0020be\u0020a\u0020matrix",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_multiply"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AmTranspose\u0028\u0029",
+            "name": "mTranspose",
+            "summary": "Override\u0020AbstractMatrix\u0020mTranspose\u0028\u0029\u0020method\u0020to\u0020account\u0020for\u0020change\u0020of\u0020\u0024vectorType",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_mTranspose"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AdotProduct\u0028\u0029",
+            "name": "dotProduct",
+            "summary": "Calculates\u0020the\u0020dot\u0020\u0028scalar\u0029\u0020product\u0020of\u0020two\u0020vectors",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_dotProduct"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AjoinRight\u0028\u0029",
+            "name": "joinRight",
+            "summary": "Override\u0020joinRight\u0028\u0029\u0020method\u0020to\u0020account\u0020for\u0020that\u0020\u0022vector\u0020x\u0020vector\u0022\u0020is\u0020not\u0020always\u0020a\u0020vector\u0020but\u0020can\u0020also\u0020be\u0020a\u0020matrix",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_joinRight"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AjoinBottom\u0028\u0029",
+            "name": "joinBottom",
+            "summary": "Override\u0020joinBottom\u0028\u0029\u0020method\u0020to\u0020account\u0020for\u0020that\u0020\u0022vector\u0020x\u0020vector\u0022\u0020is\u0020not\u0020always\u0020a\u0020vector\u0020but\u0020can\u0020also\u0020be\u0020a\u0020matrix",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_joinBottom"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\VectorEnum",
+            "name": "VectorEnum",
+            "summary": "",
+            "url": "classes/PHPMathObjects-LinearAlgebra-VectorEnum.html"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\VectorEnum\u003A\u003Atranspose\u0028\u0029",
+            "name": "transpose",
+            "summary": "",
+            "url": "classes/PHPMathObjects-LinearAlgebra-VectorEnum.html#method_transpose"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\VectorEnum\u003A\u003AColumn",
+            "name": "Column",
+            "summary": "",
+            "url": "classes/PHPMathObjects-LinearAlgebra-VectorEnum.html#enumcase_Column"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\VectorEnum\u003A\u003ARow",
+            "name": "Row",
+            "summary": "",
+            "url": "classes/PHPMathObjects-LinearAlgebra-VectorEnum.html#enumcase_Row"
+        },                {
             "fqsen": "\\PHPMathObjects\\Math\\Math",
             "name": "Math",
             "summary": "Class\u0020implementing\u0020some\u0020common\u0020math\u0020functions\u0020as\u0020static\u0020methods",
@@ -275,6 +395,11 @@ Search.appendIndex(
             "name": "areEqual",
             "summary": "Returns\u0020true\u0020if\u0020the\u0020two\u0020numbers\u0020are\u0020equal\u0020with\u0020the\u0020given\u0020tolerance",
             "url": "classes/PHPMathObjects-Math-Math.html#method_areEqual"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Math\\Math\u003A\u003Agcd\u0028\u0029",
+            "name": "gcd",
+            "summary": "Calculates\u0020the\u0020greatest\u0020common\u0020divisor\u0020\u0028GCD\u0029\u0020of\u0020two\u0020numbers",
+            "url": "classes/PHPMathObjects-Math-Math.html#method_gcd"
         },                {
             "fqsen": "\\PHPMathObjects\\Math\\Math\u003A\u003ADEFAULT_TOLERANCE",
             "name": "DEFAULT_TOLERANCE",
