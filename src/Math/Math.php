@@ -63,6 +63,17 @@ class Math
     }
 
     /**
+     * Returns sign of the number (-1 if negative, 1 if positive and 0 if zero)
+     *
+     * @param int|float $number
+     * @return int
+     */
+    public static function sign(int|float $number): int
+    {
+        return $number <=> 0;
+    }
+
+    /**
      * Calculates the greatest common divisor (GCD) of two numbers
      *
      * @param int $number1

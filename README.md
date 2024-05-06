@@ -35,6 +35,9 @@ For full API reference please refer to ```docs```.
    - [Matrix](#matrix)
    - [Vector](#vector)
 
+ * Numbers
+   - [Rational](#rational)
+
 ### General mathematics
 
 #### Math
@@ -212,4 +215,45 @@ $string = (string) $columnVector;
 // [1]
 // [2]
 // [3]
+```
+
+### Numbers
+
+#### Rational
+
+A class to store rational numbers and perform mathematical operations on them
+
+```php
+// Create a new rational number using class constructor Rational($whole, $numerator, $denominator)
+$r = new Rational(5, 1, 2);             // Creates a rational number 1 1/2
+
+// Or use a suitable class constructor
+$r = Rational::fromString("-5 1/3");    // Equivalent to "new Rational(-5, -1, 3)"
+$r = Rational::fromInt(15);             // Equivalent to "new Rational(15, 0, 1)"
+$r = Rational::fromFloat(0.333333);     // Equivalent to "new Rational(0, 1, 3)"
+
+// Convert a rational to a float
+$r = Rational::fromString("1/3");
+$float = $r->toFloat();                 // Returns 0.33333333333
+
+// Convert a rational to a text form using toString() method
+$string = $r->toString();               // Returns "-5 1/3"
+// or string cast
+$string = (string) $r;  
+
+// Compare a rational number with zero
+$isZero = $r->isZero();
+// Or with another rational
+$isEqual = $r->isEqual($anotherRational);
+
+// Calculate the reciprocal (multiplicative inverse)
+$reciprocal = $r->reciprocal();
+
+// Arithmetics with rationals
+$r1 = Rational::fromString("2 3/8");
+$r2 = Rational::fromString("4 9/17");
+$sum = $r1->add($r2);
+$difference = $r1->subtract($r2);
+$multiplication = $r1->multiply($r2);
+$division = $r1->divide($r2);
 ```

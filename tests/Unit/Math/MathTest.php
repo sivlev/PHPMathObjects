@@ -61,6 +61,21 @@ class MathTest extends TestCase
     }
 
     /**
+     * @param int|float $number
+     * @param int $expected
+     * @return void
+     */
+    #[TestWith([-0.53123, -1])]
+    #[TestWith([0, 0])]
+    #[TestWith([-0.0, 0])]
+    #[TestWith([31.23432, 1])]
+    #[TestDox("Math::sign function returns the sign of the given number")]
+    public function testSign(int|float $number, int $expected): void
+    {
+        $this->assertEquals($expected, Math::sign($number));
+    }
+
+    /**
      * @param int $number1
      * @param int $number2
      * @param int $expected

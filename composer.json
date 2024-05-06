@@ -5,7 +5,9 @@
     "keywords": [
         "math",
         "linear algebra",
-        "matrix"
+        "matrix",
+        "vector",
+        "rational number"
     ],
     "homepage": "https://github.com/sivlev/PHPMathObjects/",
     "authors": [
