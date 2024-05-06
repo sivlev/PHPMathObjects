@@ -240,4 +240,20 @@ $float = $r->toFloat();                 // Returns 0.33333333333
 $string = $r->toString();               // Returns "-5 1/3"
 // or string cast
 $string = (string) $r;  
+
+// Compare a rational number with zero
+$isZero = $r->isZero();
+// Or with another rational
+$isEqual = $r->isEqual($anotherRational);
+
+// Calculate the reciprocal (multiplicative inverse)
+$reciprocal = $r->reciprocal();
+
+// Arithmetics with rationals
+$r1 = Rational::fromString("2 3/8");
+$r2 = Rational::fromString("4 9/17");
+$sum = $r1->add($r2);
+$difference = $r1->subtract($r2);
+$multiplication = $r1->multiply($r2);
+$division = $r1->divide($r2);
 ```

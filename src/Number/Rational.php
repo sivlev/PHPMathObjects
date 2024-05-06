@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace PHPMathObjects\Number;
 
+use PHPMathObjects\Exception\DivisionByZeroException;
 use PHPMathObjects\Exception\InvalidArgumentException;
 use PHPMathObjects\Math\Math;
 
@@ -235,5 +236,93 @@ readonly class Rational
     public function toString(): string
     {
         return $this->__toString();
+    }
+
+    /**
+     * Returns true if the rational number equals zero
+     *
+     * @return bool
+     */
+    public function isZero(): bool
+    {
+        return $this->whole === 0 && $this->numerator === 0;
+    }
+
+    /**
+     * Compares two rational numbers and returns true if they are equal
+     *
+     * @param Rational $number
+     * @return bool
+     */
+    public function isEqual(Rational $number): bool
+    {
+        return $this->whole === $number->whole && $this->numerator === $number->numerator && $this->denominator === $number->denominator;
+    }
+
+    /**
+     * Adds one rational number to another
+     *
+     * @param Rational $term
+     * @return self
+     * @throws InvalidArgumentException (not expected)
+     */
+    public function add(Rational $term): self
+    {
+        return new Rational($this->whole + $term->whole, $this->numerator * $term->denominator + $term->numerator * $this->denominator, $this->denominator * $term->denominator);
+    }
+
+    /**
+     * Subtracts one rational number from another
+     *
+     * @param Rational $term
+     * @return self
+     * @throws InvalidArgumentException (not expected)
+     */
+    public function subtract(Rational $term): self
+    {
+        return new Rational($this->whole - $term->whole, $this->numerator * $term->denominator - $term->numerator * $this->denominator, $this->denominator * $term->denominator);
+    }
+
+    /**
+     * Multiplies one rational number by another
+     *
+     * @param Rational $term
+     * @return self
+     * @throws InvalidArgumentException (not expected)
+     */
+    public function multiply(Rational $term): self
+    {
+        return new Rational(0, ($this->whole * $this->denominator + $this->numerator) * ($term->whole * $term->denominator + $term->numerator), $this->denominator * $term->denominator);
+    }
+
+    /**
+     * Divides one rational number by another
+     *
+     * @param Rational $term
+     * @return self
+     * @throws DivisionByZeroException if the divisor equals zero
+     * @throws InvalidArgumentException (not expected)
+     */
+    public function divide(Rational $term): self
+    {
+        if ($term->isZero()) {
+            throw new DivisionByZeroException("Cannot divide a rational number by zero");
+        }
+        return new Rational(0, ($this->whole * $this->denominator + $this->numerator) * $term->denominator, $this->denominator * ($term->whole * $term->denominator + $term->numerator));
+    }
+
+    /**
+     * Returns the reciprocal (multiplicative inverse) of the rational number
+     *
+     * @return self
+     * @throws DivisionByZeroException
+     * @throws InvalidArgumentException
+     */
+    public function reciprocal(): self
+    {
+        if ($this->isZero()) {
+            throw new DivisionByZeroException("Cannot calculate reciprocal of zero");
+        }
+        return new Rational(0, $this->denominator, $this->whole * $this->denominator + $this->numerator);
     }
 }
