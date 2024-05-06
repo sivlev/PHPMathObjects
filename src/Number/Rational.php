@@ -157,6 +157,16 @@ readonly class Rational
     }
 
     /**
+     * Converts the rational number to float
+     *
+     * @return float
+     */
+    public function toFloat(): float
+    {
+        return $this->whole + $this->numerator / $this->denominator;
+    }
+
+    /**
      * Returns the string representation of the rational number
      *
      * @return string
