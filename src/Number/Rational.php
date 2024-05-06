@@ -45,67 +45,55 @@ readonly class Rational
     protected int $denominator;
 
     /**
-     * If true, then the number was normalized during instantiation
-     *
-     * @var bool
-     */
-    protected bool $isNormalized;
-
-    /**
      * Class constructor
      *
      * @param int $whole
      * @param int $numerator
      * @param int $denominator
-     * @param bool $normalize If true, then the rational number will be created in standard form
      * @throws InvalidArgumentException if the denominator equals zero
      */
-    public function __construct(int $whole, int $numerator, int $denominator, bool $normalize = true)
+    public function __construct(int $whole, int $numerator, int $denominator)
     {
         // Denominator cannot be equal to zero
         if ($denominator === 0) {
             throw new InvalidArgumentException("Denominator cannot be equal to zero");
         }
 
-        // Normalize the rational to standard form if required
-        if ($normalize) {
-            // Make the denominator positive by default
-            if ($denominator < 0) {
-                $denominator = -$denominator;
-                $numerator = -$numerator;
-            }
+        // Make the denominator positive by default
+        if ($denominator < 0) {
+            $denominator = -$denominator;
+            $numerator = -$numerator;
+        }
 
-            // Get the whole part
-            if (abs($numerator) > $denominator) {
-                $whole += intdiv($numerator, $denominator);
-                $numerator = $numerator % $denominator;
-            }
+        // Get the whole part
+        if (abs($numerator) > $denominator) {
+            $whole += intdiv($numerator, $denominator);
+            $numerator = $numerator % $denominator;
+        }
 
-            // Make the signs of whole and numerator equal
-            $wholeSign = Math::sign($whole);
-            if ($wholeSign !== Math::sign($numerator) && $whole !== 0 && $numerator !== 0) {
-                $whole -= $wholeSign;
-                $numerator = ($denominator - abs($numerator)) * $wholeSign;
-            }
+        // Make the signs of whole and numerator equal
+        $wholeSign = Math::sign($whole);
+        if ($wholeSign !== Math::sign($numerator) && $whole !== 0 && $numerator !== 0) {
+            $whole -= $wholeSign;
+            $numerator = ($denominator - abs($numerator)) * $wholeSign;
+        }
 
-            // Reduce the fraction if the numerator is greater than the denominator
-            $gcd = 0;
-            while ($gcd !== 1 && $numerator !== 0) {
-                $gcd = abs(Math::gcd($numerator, $denominator));
-                $numerator = intdiv($numerator, $gcd);
-                $denominator = intdiv($denominator, $gcd);
-            }
+        // Reduce the fraction if the numerator is greater than the denominator
+        $gcd = 0;
+        while ($gcd !== 1 && $numerator !== 0) {
+            $gcd = abs(Math::gcd($numerator, $denominator));
+            $numerator = intdiv($numerator, $gcd);
+            $denominator = intdiv($denominator, $gcd);
+        }
 
-            // If the numerator is zero, then the denominator value play no role, i.e. the rational is integer
-            if ($numerator === 0) {
-                $denominator = 1;
-            }
+        // If the numerator is zero, then the denominator value play no role, i.e. the rational is integer
+        if ($numerator === 0) {
+            $denominator = 1;
         }
 
         $this->whole = $whole;
         $this->numerator = $numerator;
         $this->denominator = $denominator;
-        $this->isNormalized = $normalize;
     }
 
     /**
@@ -161,10 +149,5 @@ readonly class Rational
     public function denominator(): int
     {
         return $this->denominator;
-    }
-
-    public function isNormalized(): bool
-    {
-        return $this->isNormalized;
     }
 }
