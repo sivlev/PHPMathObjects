@@ -216,4 +216,28 @@ class RationalTest extends TestCase
         $this->assertEquals(0, $r->numerator());
         $this->assertEquals(1, $r->denominator());
     }
+
+    /**
+     * @param int|float $number
+     * @param float $precision
+     * @param string $string
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestWith([0, "0"])]
+    #[TestWith([1, "1"])]
+    #[TestWith([-1, "-1"])]
+    #[TestWith([0.1, "1/10"])]
+    #[TestWith([-1.1, "-1 1/10"])]
+    #[TestWith([15.3333333, "15 1/3"])]
+    #[TestWith([-7.6666666, "-7 2/3"])]
+    #[TestWith([0.22543352, "39/173"])]
+    #[TestWith([0.22543433, "1622/7195", 1e-4])]
+    #[TestWith([0.116116116, "116/999"])]
+    #[TestDox("FromFloat() factory method convert a float number into a rational with a given precision")]
+    public function testFromFloat(int|float $number, string $string, float $precision = 1e-3): void
+    {
+        $r = Rational::fromFloat($number, $precision);
+        $this->assertEquals($string, $r->toString());
+    }
 }

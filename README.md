@@ -230,6 +230,7 @@ $r = new Rational(5, 1, 2);             // Creates a rational number 1 1/2
 // Or use a suitable class constructor
 $r = Rational::fromString("-5 1/3");    // Equivalent to "new Rational(-5, -1, 3)"
 $r = Rational::fromInt(15);             // Equivalent to "new Rational(15, 0, 1)"
+$r = Rational::fromFloat(0.333333);     // Equivalent to "new Rational(0, 1, 3)"
 
 // Convert a rational to a float
 $r = Rational::fromString("1/3");

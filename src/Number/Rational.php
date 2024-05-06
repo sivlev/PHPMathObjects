@@ -139,6 +139,40 @@ readonly class Rational
     }
 
     /**
+     * Finds a rational approximation of a given float with a given tolerance
+     *
+     * @param int|float $number
+     * @param float $precision
+     * @return self
+     * @throws InvalidArgumentException (not expected)
+     */
+    public static function fromFloat(int|float $number, float $precision = 1e-3): self
+    {
+        $whole = intval($number);
+        $fraction = $number - $whole;
+
+        // Trivial case: $number is integer
+        if (Math::isZero($fraction, $precision)) {
+            return Rational::fromInt($whole);
+        }
+
+        $numerator = 0;
+        $denominator = 1;
+        $maxDenominator = round(1 / $precision);
+        // Conversion is done by trying possible denominators up to 1/$tolerance
+        for ($i = 2; $i < $maxDenominator; $i++) {
+            $product = $fraction * $i;
+            if (abs($product - round($product)) < $precision) {
+                $numerator = (int) round($product);
+                $denominator = $i;
+                break;
+            }
+        }
+
+        return new self($whole, $numerator, $denominator);
+    }
+
+    /**
      * Returns the whole part of the rational
      *
      * @return int
