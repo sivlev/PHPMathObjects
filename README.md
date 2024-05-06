@@ -35,6 +35,9 @@ For full API reference please refer to ```docs```.
    - [Matrix](#matrix)
    - [Vector](#vector)
 
+ * Numbers
+   - [Rational](#rational)
+
 ### General mathematics
 
 #### Math
@@ -212,4 +215,18 @@ $string = (string) $columnVector;
 // [1]
 // [2]
 // [3]
+```
+
+### Numbers
+
+#### Rational
+
+A class to store rational numbers and perform mathematical operations on them
+
+```php
+// Create a new rational number using class constructor Rational($whole, $numerator, $denominator)
+$r = new Rational(5, 1, 2);             // Creates a rational number 1 1/2
+
+// Or use a suitable class constructor
+$r = Rational::fromString("-5 1/3");    // Equivalent to "new Rational(-5, -1, 3)" 
 ```
