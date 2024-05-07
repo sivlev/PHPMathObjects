@@ -23,6 +23,7 @@ use PHPMathObjects\Exception\OutOfBoundsException;
 use PHPMathObjects\LinearAlgebra\AbstractMatrix;
 use PHPMathObjects\LinearAlgebra\ComplexMatrix;
 use PHPMathObjects\LinearAlgebra\Matrix;
+use PHPMathObjects\LinearAlgebra\VectorEnum;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\TestWith;
@@ -682,6 +683,74 @@ class MatrixTest extends TestCase
                 /* @phpstan-ignore-next-line */
                 isset($m[$index]);
         }
+    }
+
+    /**
+     * @param MatrixArray $array
+     * @param MatrixArray $expected
+     * @param VectorEnum $expectedVectorType
+     * @param bool $expectException
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider('providerToVector')]
+    #[TestDox("ToVector() method converts a matrix to a vector")]
+    public function testToVector(array $array, VectorEnum $expectedVectorType, bool $expectException = false): void
+    {
+        if ($expectException) {
+            $this->expectException(MatrixException::class);
+            $this->expectExceptionMessage("Cannot convert a matrix to a vector. The matrix must have only one row or one column.");
+        }
+        $m = new Matrix($array);
+        $v = $m->toVector();
+        $this->assertEquals($array, $v->toArray());
+        $this->assertEquals($expectedVectorType, $v->vectorType());
+    }
+
+    /**
+     * @return array<int, array<int, array<int, VectorEnum|MatrixArray|bool>>>
+     */
+    public static function providerToVector(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], VectorEnum::Column, true,
+            ],
+            [
+                [
+                    [1],
+                    [4],
+                    [7],
+                ], VectorEnum::Column,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                ], VectorEnum::Row,
+            ],
+            [
+                [
+                    [1],
+                ], VectorEnum::Column,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                ], VectorEnum::Column, true,
+            ],
+            [
+                [
+                    [1, 2],
+                ], VectorEnum::Row,
+            ],
+        ];
     }
 
     /**

@@ -218,6 +218,23 @@ class Matrix extends AbstractMatrix
     }
 
     /**
+     * Converts the matrix to a vector if it has only one row or one column
+     *
+     * @return Vector
+     * @throws InvalidArgumentException (not expected)
+     * @throws MatrixException if the matrix is not a vector
+     * @throws OutOfBoundsException (not expected)
+     */
+    public function toVector(): Vector
+    {
+        if ($this->rows !== 1 && $this->columns !== 1) {
+            throw new MatrixException("Cannot convert a matrix to a vector. The matrix must have only one row or one column.");
+        }
+
+        return new Vector($this->toArray());
+    }
+
+    /**
      * Matrix addition
      *
      * @param Matrix $term
