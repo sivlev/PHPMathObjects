@@ -207,6 +207,9 @@ $columnVector->toArray();
  */
 $columnVector->toPlainArray();      // Returns a 1D array [1, 2, 3]
 
+// Get a subvector
+$subvector = $rowVector->subvector(1, 2); // Returns a new vector [2, 3]
+
 // Conversion to a string representation
 $string = $rowVector->toString();
 $string = (string) $rowVector;
