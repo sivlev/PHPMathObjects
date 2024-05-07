@@ -21,6 +21,7 @@ use PHPMathObjects\Exception\MathObjectsException;
 use PHPMathObjects\Exception\MatrixException;
 use PHPMathObjects\Exception\OutOfBoundsException;
 use PHPMathObjects\LinearAlgebra\AbstractMatrix;
+use PHPMathObjects\LinearAlgebra\ComplexMatrix;
 use PHPMathObjects\LinearAlgebra\Matrix;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -2174,6 +2175,25 @@ class MatrixTest extends TestCase
                 ], 3, 4, 12, true,
             ],
         ];
+    }
+
+    /**
+     * @param class-string $method
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestWith(["joinRight"])]
+    #[TestWith(["joinBottom"])]
+    #[TestWith(["mJoinRight"])]
+    #[TestWith(["mJoinBottom"])]
+    #[TestDox("All join() methods throw an exception if the matrices are not of the same type")]
+    public function testJoinTypeException(string $method): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $m1 = new Matrix([[1, 2, 3]]);
+        $m2 = new ComplexMatrix([[4, 5, 6]]);
+        $m1->{$method}($m2);
     }
 
     /**

@@ -40,6 +40,11 @@ use function array_slice;
 abstract class AbstractMatrix implements Countable, ArrayAccess
 {
     /**
+     * This constant is used as the default tolerance: If a float point number is below the tolerance, then it is considered being equal to zero.
+     */
+    protected const DEFAULT_TOLERANCE = 1e-8;
+
+    /**
      * Type of the matrix class (e.g. 'real', 'complex')
      */
     protected const TYPE = 'abstract';
