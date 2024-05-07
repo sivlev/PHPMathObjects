@@ -709,7 +709,7 @@ class MatrixTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, array<int, VectorEnum|MatrixArray|bool>>>
+     * @return array<int, array<int, VectorEnum|MatrixArray|bool>>
      */
     public static function providerToVector(): array
     {
