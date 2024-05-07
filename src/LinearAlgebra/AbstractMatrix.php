@@ -443,4 +443,30 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
     {
         return $this->__toString();
     }
+
+    /**
+     * Returns a submatrix of the current matrix
+     *
+     * @param int $rowStart
+     * @param int $columnStart
+     * @param int $rowEnd
+     * @param int $columnEnd
+     * @return static
+     * @throws InvalidArgumentException (not expected)
+     * @throws OutOfBoundsException if the indices of the submatrix are out of bounds
+     */
+    public function submatrix(int $rowStart, int $columnStart, int $rowEnd, int $columnEnd): static
+    {
+        if ($rowStart < 0 || $columnStart < 0 || $rowEnd >= $this->rows || $columnEnd >= $this->columns
+            || $rowStart > $rowEnd || $columnStart > $columnEnd) {
+            throw new OutOfBoundsException("The indices are out of bounds. Start row $rowStart, start column $columnStart, end row $rowEnd, end column $columnEnd are given.");
+        }
+
+        $result = [];
+        for ($i = $rowStart; $i <= $rowEnd; $i++) {
+            $result[] = array_slice($this->matrix[$i], $columnStart, $columnEnd - $columnStart + 1);
+        }
+
+        return new static($result, false);
+    }
 }

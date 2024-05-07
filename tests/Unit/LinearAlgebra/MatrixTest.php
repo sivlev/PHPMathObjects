@@ -2175,4 +2175,107 @@ class MatrixTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * @param MatrixArray $array
+     * @param int $rowStart
+     * @param int $columnStart
+     * @param int $rowEnd
+     * @param int $columnEnd
+     * @param MatrixArray $expected
+     * @param bool $expectException
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider('providerSubmatrix')]
+    #[TestDox("submatrix() method returns a submatrix of the matrix")]
+    public function testSubmatrix(array $array, int $rowStart, int $columnStart, int $rowEnd, int $columnEnd, array $expected, bool $expectException = false): void
+    {
+        if ($expectException) {
+            $this->expectException(OutOfBoundsException::class);
+        }
+
+        $m = new Matrix($array);
+        $this->assertEquals($expected, $m->submatrix($rowStart, $columnStart, $rowEnd, $columnEnd)->toArray());
+    }
+
+    /**
+     * @return array<int, array<int, bool|int|MatrixArray>>
+     */
+    public static function providerSubmatrix(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 0, 0, 1, 1, [[1, 2], [4, 5]], false,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 0, 0, 2, 2, [[1, 2, 3], [4, 5, 6], [7, 8, 9]], false,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 1, 1, 2, 2, [[5, 6], [8, 9]], false,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 1, 1, 1, 1, [[5]], false,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 0, 0, 3, 2, [[1, 2, 3], [4, 5, 6], [7, 8, 9]], true,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 0, 0, 2, 3, [[1, 2, 3], [4, 5, 6], [7, 8, 9]], true,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], -1, 0, 2, 2, [[1, 2, 3], [4, 5, 6], [7, 8, 9]], true,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 0, -1, 2, 2, [[1, 2, 3], [4, 5, 6], [7, 8, 9]], true,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 1, 0, 0, 2, [[1, 2, 3], [4, 5, 6], [7, 8, 9]], true,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 0, 1, 2, 0, [[1, 2, 3], [4, 5, 6], [7, 8, 9]], true,
+            ],
+        ];
+    }
 }

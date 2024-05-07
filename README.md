@@ -145,6 +145,9 @@ $joinBottom = $matrix->joinBottom($anotherMatrix);
 $matrix->mJoinRight($anotherMatrix);
 $matrix->mJoinBottom($anotherMatrix);
 
+ // Create a 1x2 submatrix starting from the element at row 0, column 0 till the element at row 1, column 2 
+$submatrix = $matrix->submatrix(0, 0, 1, 2);
+
 // Conversion to a string representation
 $string = $matrix->toString();
 $string = (string) $matrix;

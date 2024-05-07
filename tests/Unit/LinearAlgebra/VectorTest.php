@@ -1642,4 +1642,36 @@ class VectorTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * @param VectorArray $array
+     * @param VectorEnum $vectorType
+     * @param int $start
+     * @param int $length
+     * @param MatrixArray $expected
+     * @param bool $expectException
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, 1, 3, [[2], [3], [4]], false])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, 0, 4, [[1], [2], [3], [4], [5]], false])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Row, 1, 3, [[2, 3, 4]], false])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Row, 0, 4, [[1, 2, 3, 4, 5]], false])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, 1, 1, [[2]], false])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Row, 1, 1, [[2]], false])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, -1, 0, [], true])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Row, -1, 0, [], true])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Row, 0, 5, [], true])]
+    #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Row, 3, 2, [], true])]
+    #[TestDox("Subvector() method returns a subvector of a vector")]
+    public function testSubvector(array $array, VectorEnum $vectorType, int $start, int $length, array $expected, bool $expectException = false): void
+    {
+        if ($expectException) {
+            $this->expectException(OutOfBoundsException::class);
+        }
+        $v = Vector::fromArray($array, $vectorType);
+        $v1 = $v->subvector($start, $length);
+        $this->assertEquals($expected, $v1->toArray());
+    }
 }

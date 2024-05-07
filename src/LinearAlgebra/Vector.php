@@ -412,4 +412,31 @@ class Vector extends Matrix
         $this->vectorType = VectorEnum::Column;
         return parent::mJoinBottom($anotherMatrix);
     }
+
+    /**
+     * Returns a subvector of the current vector
+     *
+     * @param int $start
+     * @param int $end
+     * @return self
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     * @see AbstractMatrix::submatrix()
+     */
+    public function subvector(int $start, int $end): self
+    {
+        if ($this->rows === 1) {
+            $rowStart = 0;
+            $rowEnd = 0;
+            $columnStart = $start;
+            $columnEnd = $end;
+        } else {
+            $rowStart = $start;
+            $rowEnd = $end;
+            $columnStart = 0;
+            $columnEnd = 0;
+        }
+
+        return self::submatrix($rowStart, $columnStart, $rowEnd, $columnEnd);
+    }
 }
