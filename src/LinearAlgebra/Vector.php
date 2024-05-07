@@ -338,7 +338,7 @@ class Vector extends Matrix
      *
      * @param Matrix $anotherMatrix
      * @return self|Matrix
-     * @throws InvalidArgumentException (not expected)
+     * @throws InvalidArgumentException if the vectors or matrices have incompatible types
      * @throws MatrixException if the vectors or matrices have incompatible dimensions
      * @throws OutOfBoundsException (not expected)
      * @see Matrix::joinBottom()
@@ -359,6 +359,7 @@ class Vector extends Matrix
      * @param Matrix $anotherMatrix
      * @return $this
      * @throws MatrixException if a vector has to be converted to a matrix after mutation or if the vector dimensions are incompatible
+     * @throws InvalidArgumentException if the vectors or matrices have incompatible types
      * @see Matrix::mJoinRight()
      * @internal Mutating method
      */
@@ -378,7 +379,7 @@ class Vector extends Matrix
      *
      * @param Matrix $anotherMatrix
      * @return self|Matrix
-     * @throws InvalidArgumentException (not expected)
+     * @throws InvalidArgumentException if the vectors or matrices have incompatible types
      * @throws MatrixException if the vectors or matrices have incompatible dimensions
      * @throws OutOfBoundsException (not expected)
      * @see Matrix::joinBottom()
@@ -399,6 +400,7 @@ class Vector extends Matrix
      * @param Matrix $anotherMatrix
      * @return $this
      * @throws MatrixException if a vector has to be converted to a matrix after mutation or if the vector dimensions are incompatible
+     * @throws InvalidArgumentException if the vectors or matrices have incompatible types
      * @see Matrix::mJoinBottom()
      * @internal Mutating method
      */
