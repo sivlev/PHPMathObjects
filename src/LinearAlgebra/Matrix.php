@@ -24,7 +24,6 @@ use Random\Randomizer;
 use function is_int;
 use function is_float;
 use function array_fill;
-use function array_merge;
 use function abs;
 use function rand;
 use function getrandmax;
@@ -40,6 +39,11 @@ class Matrix extends AbstractMatrix
      * This constant is used as the default tolerance: If a float point number is below the tolerance, then it is considered being equal to zero.
      */
     protected const DEFAULT_TOLERANCE = 1e-8;
+
+    /**
+     * This constant is used to define the type of the matrix
+     */
+    protected const TYPE = 'real';
 
     /**
      * Cached value of the trace of the matrix

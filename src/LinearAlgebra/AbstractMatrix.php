@@ -28,6 +28,7 @@ use function array_reduce;
 use function count;
 use function is_array;
 use function gettype;
+use function array_slice;
 
 /**
  * Abstract class to implement matrices of different types
@@ -38,6 +39,18 @@ use function gettype;
  */
 abstract class AbstractMatrix implements Countable, ArrayAccess
 {
+    /**
+     * Type of the matrix class (e.g. 'real', 'complex')
+     */
+    protected const TYPE = 'abstract';
+
+    /**
+     * Type of the matrix instance
+     *
+     * @var string
+     */
+    protected readonly string $type;
+
     /**
      * Two-dimensional array to store the matrix data
      *
@@ -103,6 +116,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
         /* @phpstan-ignore-next-line */
         $this->columns = count(is_array($data[0]) ? $data[0] : []);
         $this->size = $this->rows * $this->columns;
+        $this->type = static::TYPE;
     }
 
     /**
@@ -450,7 +464,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      *
      * @param AbstractMatrix<T> $anotherMatrix
      * @return static
-     * @throws InvalidArgumentException (not expected)
+     * @throws InvalidArgumentException if the matrices have different types
      * @throws MatrixException if the matrices have different amount of rows
      */
     public function joinRight(AbstractMatrix $anotherMatrix): self
@@ -464,6 +478,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      *
      * @param AbstractMatrix<T> $anotherMatrix
      * @return $this
+     * @throws InvalidArgumentException if the matrices have different types
      * @throws MatrixException if the matrices have different amount of rows
      * @internal Mutating method
      */
@@ -472,6 +487,10 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
         // Check if the matrices are compatible
         if ($this->rows !== $anotherMatrix->rows) {
             throw new MatrixException("Cannot perform horizontal concatenation. Both matrices must have same number of rows.");
+        }
+
+        if ($this->type !== $anotherMatrix->type) {
+            throw new InvalidArgumentException("Cannot perform horizontal concatenation. Both matrices must have the same type.");
         }
 
         foreach ($this->matrix as $rowIndex => &$row) {
@@ -490,7 +509,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      *
      * @param AbstractMatrix<T> $anotherMatrix
      * @return static
-     * @throws InvalidArgumentException (not expected)
+     * @throws InvalidArgumentException if the matrices have different types
      * @throws MatrixException if the matrices have different amount of columns
      */
     public function joinBottom(AbstractMatrix $anotherMatrix): self
@@ -504,6 +523,7 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      *
      * @param AbstractMatrix<T> $anotherMatrix
      * @return $this
+     * @throws InvalidArgumentException if the matrices have different types
      * @throws MatrixException if the matrices have different amount of columns
      * @internal Mutating method
      */
@@ -512,6 +532,10 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
         // Check if the matrices are compatible
         if ($this->columns !== $anotherMatrix->columns) {
             throw new MatrixException("Cannot perform vertical concatenation. Both matrices must have same number of columns.");
+        }
+
+        if ($this->type !== $anotherMatrix->type) {
+            throw new InvalidArgumentException("Cannot perform vertical concatenation. Both matrices must have the same type.");
         }
 
         $this->matrix = array_merge($this->matrix, $anotherMatrix->matrix);
