@@ -268,7 +268,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector",
             "name": "Vector",
-            "summary": "Implementation\u0020of\u0020the\u0020AbstractMatrix\u0020class\u0020to\u0020manipulate\u0020numeric\u0020matrices",
+            "summary": "Vector\u0020class\u0020to\u0020handle\u0020row\u0020and\u0020column\u0020vectors",
             "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003A__construct\u0028\u0029",
@@ -396,6 +396,11 @@ Search.appendIndex(
             "summary": "Returns\u0020true\u0020if\u0020the\u0020two\u0020numbers\u0020are\u0020equal\u0020with\u0020the\u0020given\u0020tolerance",
             "url": "classes/PHPMathObjects-Math-Math.html#method_areEqual"
         },                {
+            "fqsen": "\\PHPMathObjects\\Math\\Math\u003A\u003Asign\u0028\u0029",
+            "name": "sign",
+            "summary": "Returns\u0020sign\u0020of\u0020the\u0020number\u0020\u0028\u002D1\u0020if\u0020negative,\u00201\u0020if\u0020positive\u0020and\u00200\u0020if\u0020zero\u0029",
+            "url": "classes/PHPMathObjects-Math-Math.html#method_sign"
+        },                {
             "fqsen": "\\PHPMathObjects\\Math\\Math\u003A\u003Agcd\u0028\u0029",
             "name": "gcd",
             "summary": "Calculates\u0020the\u0020greatest\u0020common\u0020divisor\u0020\u0028GCD\u0029\u0020of\u0020two\u0020numbers",
@@ -405,6 +410,96 @@ Search.appendIndex(
             "name": "DEFAULT_TOLERANCE",
             "summary": "This\u0020constant\u0020is\u0020used\u0020as\u0020the\u0020default\u0020tolerance\u003A\u0020If\u0020a\u0020float\u0020point\u0020number\u0020is\u0020below\u0020the\u0020tolerance,\u0020then\u0020it\u0020is\u0020considered\u0020being\u0020equal\u0020to\u0020zero.",
             "url": "classes/PHPMathObjects-Math-Math.html#constant_DEFAULT_TOLERANCE"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational",
+            "name": "Rational",
+            "summary": "Class\u0020to\u0020handle\u0020rational\u0020numbers",
+            "url": "classes/PHPMathObjects-Number-Rational.html"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Class\u0020constructor",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method___construct"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003AfromString\u0028\u0029",
+            "name": "fromString",
+            "summary": "",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_fromString"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003AfromInt\u0028\u0029",
+            "name": "fromInt",
+            "summary": "Creates\u0020a\u0020new\u0020rational\u0020number\u0020object\u0020from\u0020an\u0020integer",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_fromInt"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003AfromFloat\u0028\u0029",
+            "name": "fromFloat",
+            "summary": "Finds\u0020a\u0020rational\u0020approximation\u0020of\u0020a\u0020given\u0020float\u0020with\u0020a\u0020given\u0020tolerance",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_fromFloat"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003A\u0024whole",
+            "name": "whole",
+            "summary": "The\u0020whole\u0020part\u0020of\u0020the\u0020rational\u0020number",
+            "url": "classes/PHPMathObjects-Number-Rational.html#property_whole"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003A\u0024numerator",
+            "name": "numerator",
+            "summary": "The\u0020numerator\u0020of\u0020the\u0020rational\u0020number",
+            "url": "classes/PHPMathObjects-Number-Rational.html#property_numerator"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003A\u0024denominator",
+            "name": "denominator",
+            "summary": "The\u0020numerator\u0020of\u0020the\u0020rational\u0020number",
+            "url": "classes/PHPMathObjects-Number-Rational.html#property_denominator"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003AtoFloat\u0028\u0029",
+            "name": "toFloat",
+            "summary": "Converts\u0020the\u0020rational\u0020number\u0020to\u0020float",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_toFloat"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003A__toString\u0028\u0029",
+            "name": "__toString",
+            "summary": "Returns\u0020the\u0020string\u0020representation\u0020of\u0020the\u0020rational\u0020number",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method___toString"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003AtoString\u0028\u0029",
+            "name": "toString",
+            "summary": "Alias\u0020for\u0020__toString\u0028\u0029\u0020magic\u0020method",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_toString"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003AisZero\u0028\u0029",
+            "name": "isZero",
+            "summary": "Returns\u0020true\u0020if\u0020the\u0020rational\u0020number\u0020equals\u0020zero",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_isZero"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003AisEqual\u0028\u0029",
+            "name": "isEqual",
+            "summary": "Compares\u0020two\u0020rational\u0020numbers\u0020and\u0020returns\u0020true\u0020if\u0020they\u0020are\u0020equal",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_isEqual"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003Aadd\u0028\u0029",
+            "name": "add",
+            "summary": "Adds\u0020one\u0020rational\u0020number\u0020to\u0020another",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_add"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003Asubtract\u0028\u0029",
+            "name": "subtract",
+            "summary": "Subtracts\u0020one\u0020rational\u0020number\u0020from\u0020another",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_subtract"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003Amultiply\u0028\u0029",
+            "name": "multiply",
+            "summary": "Multiplies\u0020one\u0020rational\u0020number\u0020by\u0020another",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_multiply"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003Adivide\u0028\u0029",
+            "name": "divide",
+            "summary": "Divides\u0020one\u0020rational\u0020number\u0020by\u0020another",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_divide"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003Areciprocal\u0028\u0029",
+            "name": "reciprocal",
+            "summary": "Returns\u0020the\u0020reciprocal\u0020\u0028multiplicative\u0020inverse\u0029\u0020of\u0020the\u0020rational\u0020number",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_reciprocal"
         },                {
             "fqsen": "\\",
             "name": "\\",
@@ -430,5 +525,10 @@ Search.appendIndex(
             "name": "Math",
             "summary": "",
             "url": "namespaces/phpmathobjects-math.html"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number",
+            "name": "Number",
+            "summary": "",
+            "url": "namespaces/phpmathobjects-number.html"
         }            ]
 );
