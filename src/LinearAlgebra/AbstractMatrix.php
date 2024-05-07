@@ -19,6 +19,7 @@ use ArrayAccess;
 use Countable;
 use PHPMathObjects\Exception\BadMethodCallException;
 use PHPMathObjects\Exception\InvalidArgumentException;
+use PHPMathObjects\Exception\MatrixException;
 use PHPMathObjects\Exception\OutOfBoundsException;
 
 use function array_values;
@@ -442,6 +443,84 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
     public function toString(): string
     {
         return $this->__toString();
+    }
+
+    /**
+     * Horizontal matrix concatenation (augmentation from the right)
+     *
+     * @param AbstractMatrix<T> $anotherMatrix
+     * @return static
+     * @throws InvalidArgumentException (not expected)
+     * @throws MatrixException if the matrices have different amount of rows
+     */
+    public function joinRight(AbstractMatrix $anotherMatrix): self
+    {
+        $newMatrix = new static($this->matrix, false);
+        return $newMatrix->mJoinRight($anotherMatrix);
+    }
+
+    /**
+     * Horizontal matrix concatenation (augmentation from the right). Mutating method changes the original matrix
+     *
+     * @param AbstractMatrix<T> $anotherMatrix
+     * @return $this
+     * @throws MatrixException if the matrices have different amount of rows
+     * @internal Mutating method
+     */
+    public function mJoinRight(AbstractMatrix $anotherMatrix): static
+    {
+        // Check if the matrices are compatible
+        if ($this->rows !== $anotherMatrix->rows) {
+            throw new MatrixException("Cannot perform horizontal concatenation. Both matrices must have same number of rows.");
+        }
+
+        foreach ($this->matrix as $rowIndex => &$row) {
+            $row = array_merge($row, $anotherMatrix->matrix[$rowIndex]);
+        }
+
+        // Clear cache and recalculate matrix dimensions
+        $this->clearCache();
+        $this->columns += $anotherMatrix->columns;
+        $this->size = $this->rows * $this->columns;
+        return $this;
+    }
+
+    /**
+     * Vertical matrix concatenation (augmentation from the bottom)
+     *
+     * @param AbstractMatrix<T> $anotherMatrix
+     * @return static
+     * @throws InvalidArgumentException (not expected)
+     * @throws MatrixException if the matrices have different amount of columns
+     */
+    public function joinBottom(AbstractMatrix $anotherMatrix): self
+    {
+        $newMatrix = new static($this->matrix, false);
+        return $newMatrix->mJoinBottom($anotherMatrix);
+    }
+
+    /**
+     * Vertical matrix concatenation (augmentation from the bottom). Mutating method changes the original matrix
+     *
+     * @param AbstractMatrix<T> $anotherMatrix
+     * @return $this
+     * @throws MatrixException if the matrices have different amount of columns
+     * @internal Mutating method
+     */
+    public function mJoinBottom(AbstractMatrix $anotherMatrix): static
+    {
+        // Check if the matrices are compatible
+        if ($this->columns !== $anotherMatrix->columns) {
+            throw new MatrixException("Cannot perform vertical concatenation. Both matrices must have same number of columns.");
+        }
+
+        $this->matrix = array_merge($this->matrix, $anotherMatrix->matrix);
+
+        // Clear cache and recalculate matrix dimensions
+        $this->clearCache();
+        $this->rows += $anotherMatrix->rows;
+        $this->size = $this->rows * $this->columns;
+        return $this;
     }
 
     /**

@@ -343,7 +343,7 @@ class Vector extends Matrix
      * @throws OutOfBoundsException (not expected)
      * @see Matrix::joinBottom()
      */
-    public function joinRight(Matrix $anotherMatrix): self|Matrix
+    public function joinRight(AbstractMatrix $anotherMatrix): self|Matrix
     {
         if ($this->rows > 1) {
             $newEntity = new Matrix($this->matrix, false);
@@ -362,7 +362,7 @@ class Vector extends Matrix
      * @see Matrix::mJoinRight()
      * @internal Mutating method
      */
-    public function mJoinRight(Matrix $anotherMatrix): static
+    public function mJoinRight(AbstractMatrix $anotherMatrix): static
     {
         if ($this->rows > 1) {
             throw new MatrixException("The result of mJoinRight() is a matrix, not a vector. Cannot mutate the given vector object, use joinRight() instead.");
@@ -383,7 +383,7 @@ class Vector extends Matrix
      * @throws OutOfBoundsException (not expected)
      * @see Matrix::joinBottom()
      */
-    public function joinBottom(Matrix $anotherMatrix): self|Matrix
+    public function joinBottom(AbstractMatrix $anotherMatrix): self|Matrix
     {
         if ($this->columns > 1) {
             $newEntity = new Matrix($this->matrix, false);
@@ -402,7 +402,7 @@ class Vector extends Matrix
      * @see Matrix::mJoinBottom()
      * @internal Mutating method
      */
-    public function mJoinBottom(Matrix $anotherMatrix): static
+    public function mJoinBottom(AbstractMatrix $anotherMatrix): static
     {
         if ($this->columns > 1) {
             throw new MatrixException("The result of mJoinBottom() is a matrix, not a vector. Cannot mutate the given vector object, use joinBottom() instead.");
