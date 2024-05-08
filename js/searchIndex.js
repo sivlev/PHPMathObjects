@@ -141,6 +141,36 @@ Search.appendIndex(
             "summary": "Alias\u0020to\u0020magic\u0020method\u0020__toString\u0028\u0029",
             "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_toString"
         },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003AjoinRight\u0028\u0029",
+            "name": "joinRight",
+            "summary": "Horizontal\u0020matrix\u0020concatenation\u0020\u0028augmentation\u0020from\u0020the\u0020right\u0029",
+            "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_joinRight"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003AjoinBottom\u0028\u0029",
+            "name": "joinBottom",
+            "summary": "Vertical\u0020matrix\u0020concatenation\u0020\u0028augmentation\u0020from\u0020the\u0020bottom\u0029",
+            "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_joinBottom"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003Asubmatrix\u0028\u0029",
+            "name": "submatrix",
+            "summary": "Returns\u0020a\u0020submatrix\u0020of\u0020the\u0020current\u0020matrix",
+            "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_submatrix"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003ADEFAULT_TOLERANCE",
+            "name": "DEFAULT_TOLERANCE",
+            "summary": "This\u0020constant\u0020is\u0020used\u0020as\u0020the\u0020default\u0020tolerance\u003A\u0020If\u0020a\u0020float\u0020point\u0020number\u0020is\u0020below\u0020the\u0020tolerance,\u0020then\u0020it\u0020is\u0020considered\u0020being\u0020equal\u0020to\u0020zero.",
+            "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#constant_DEFAULT_TOLERANCE"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003ATYPE",
+            "name": "TYPE",
+            "summary": "Type\u0020of\u0020the\u0020matrix\u0020class\u0020\u0028e.g.\u0020\u0027real\u0027,\u0020\u0027complex\u0027\u0029",
+            "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#constant_TYPE"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003A\u0024type",
+            "name": "type",
+            "summary": "Type\u0020of\u0020the\u0020matrix\u0020instance",
+            "url": "classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#property_type"
+        },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\AbstractMatrix\u003A\u003A\u0024matrix",
             "name": "matrix",
             "summary": "Two\u002Ddimensional\u0020array\u0020to\u0020store\u0020the\u0020matrix\u0020data",
@@ -186,6 +216,11 @@ Search.appendIndex(
             "summary": "Implementation\u0020of\u0020abstract\u0020clearCache\u0028\u0029\u0020method\u0020for\u0020numeric\u0020matrices",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_clearCache"
         },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AtoVector\u0028\u0029",
+            "name": "toVector",
+            "summary": "Converts\u0020the\u0020matrix\u0020to\u0020a\u0020vector\u0020if\u0020it\u0020has\u0020only\u0020one\u0020row\u0020or\u0020one\u0020column",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_toVector"
+        },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003Aadd\u0028\u0029",
             "name": "add",
             "summary": "Matrix\u0020addition",
@@ -226,20 +261,10 @@ Search.appendIndex(
             "summary": "Reduced\u0020row\u0020echelon\u0020form",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_rref"
         },                {
-            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AjoinRight\u0028\u0029",
-            "name": "joinRight",
-            "summary": "Horizontal\u0020matrix\u0020concatenation\u0020\u0028augmentation\u0020from\u0020the\u0020right\u0029",
-            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_joinRight"
-        },                {
-            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AjoinBottom\u0028\u0029",
-            "name": "joinBottom",
-            "summary": "Vertical\u0020matrix\u0020concatenation\u0020\u0028augmentation\u0020from\u0020the\u0020bottom\u0029",
-            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_joinBottom"
-        },                {
-            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003ADEFAULT_TOLERANCE",
-            "name": "DEFAULT_TOLERANCE",
-            "summary": "This\u0020constant\u0020is\u0020used\u0020as\u0020the\u0020default\u0020tolerance\u003A\u0020If\u0020a\u0020float\u0020point\u0020number\u0020is\u0020below\u0020the\u0020tolerance,\u0020then\u0020it\u0020is\u0020considered\u0020being\u0020equal\u0020to\u0020zero.",
-            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#constant_DEFAULT_TOLERANCE"
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003ATYPE",
+            "name": "TYPE",
+            "summary": "This\u0020constant\u0020is\u0020used\u0020to\u0020define\u0020the\u0020type\u0020of\u0020the\u0020matrix",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#constant_TYPE"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003A\u0024cacheTrace",
             "name": "cacheTrace",
@@ -355,6 +380,11 @@ Search.appendIndex(
             "name": "joinBottom",
             "summary": "Override\u0020joinBottom\u0028\u0029\u0020method\u0020to\u0020account\u0020for\u0020that\u0020\u0022vector\u0020x\u0020vector\u0022\u0020is\u0020not\u0020always\u0020a\u0020vector\u0020but\u0020can\u0020also\u0020be\u0020a\u0020matrix",
             "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_joinBottom"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003Asubvector\u0028\u0029",
+            "name": "subvector",
+            "summary": "Returns\u0020a\u0020subvector\u0020of\u0020the\u0020current\u0020vector",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_subvector"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\VectorEnum",
             "name": "VectorEnum",
