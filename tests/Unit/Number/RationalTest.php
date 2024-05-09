@@ -263,6 +263,66 @@ class RationalTest extends TestCase
     }
 
     /**
+     * @param string $number
+     * @param bool $expected
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestWith(["0", false])]
+    #[TestWith(["1", false])]
+    #[TestWith(["-1", true])]
+    #[TestWith(["-1/2", true])]
+    #[TestWith(["1/2", false])]
+    #[TestWith(["5 3/8", false])]
+    #[TestWith(["-5 3/8", true])]
+    #[TestDox("IsNegative() method returns true if the rational number is negative")]
+    public function testIsNegative(string $number, bool $expected): void
+    {
+        $r = Rational::fromString($number);
+        $this->assertEquals($expected, $r->isNegative());
+    }
+
+    /**
+     * @param string $number
+     * @param bool $expected
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestWith(["0", false])]
+    #[TestWith(["1", true])]
+    #[TestWith(["-1", false])]
+    #[TestWith(["-1/2", false])]
+    #[TestWith(["1/2", true])]
+    #[TestWith(["5 3/8", true])]
+    #[TestWith(["-5 3/8", false])]
+    #[TestDox("IsPositive() method returns true if the rational number is positive")]
+    public function testIsPositive(string $number, bool $expected): void
+    {
+        $r = Rational::fromString($number);
+        $this->assertEquals($expected, $r->isPositive());
+    }
+
+    /**
+     * @param string $number
+     * @param bool $expected
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[TestWith(["0", true])]
+    #[TestWith(["1", true])]
+    #[TestWith(["-1", true])]
+    #[TestWith(["-1/2", false])]
+    #[TestWith(["1/2", false])]
+    #[TestWith(["5 3/8", false])]
+    #[TestWith(["-5 3/8", false])]
+    #[TestDox("IsInteger() method returns true if the rational number is integer")]
+    public function testIsInteger(string $number, bool $expected): void
+    {
+        $r = Rational::fromString($number);
+        $this->assertEquals($expected, $r->isInteger());
+    }
+
+    /**
      * @param string $number1
      * @param string $number2
      * @param bool $expected
@@ -408,6 +468,14 @@ class RationalTest extends TestCase
         $this->assertEquals($expected, $r1->divide($r2)->toString());
     }
 
+    /**
+     * @param string $number
+     * @param string $expected
+     * @param bool $exception
+     * @return void
+     * @throws DivisionByZeroException
+     * @throws InvalidArgumentException
+     */
     #[TestWith(["0", "0", true])]
     #[TestWith(["1", "1"])]
     #[TestWith(["2", "1/2"])]

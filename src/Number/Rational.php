@@ -249,6 +249,36 @@ readonly class Rational
     }
 
     /**
+     * Returns true if the rational number is negative
+     *
+     * @return bool
+     */
+    public function isNegative(): bool
+    {
+        return $this->whole < 0 || $this->numerator < 0;
+    }
+
+    /**
+     * Returns true if the rational number is positive
+     *
+     * @return bool
+     */
+    public function isPositive(): bool
+    {
+        return $this->whole > 0 || $this->numerator > 0;
+    }
+
+    /**
+     * Returns true if the rational number is an integer
+     *
+     * @return bool
+     */
+    public function isInteger(): bool
+    {
+        return $this->numerator === 0;
+    }
+
+    /**
      * Compares two rational numbers and returns true if they are equal
      *
      * @param Rational $number
