@@ -252,6 +252,14 @@ $isZero = $r->isZero();
 // Or with another rational
 $isEqual = $r->isEqual($anotherRational);
 
+// Check if the rational number is negative
+$isNegative = $r->isNegative();
+// Or if it is positive
+$isPositive = $r->isPositive();
+
+// Check if the rational number is an integer
+$isInteger = $r->isInteger();
+
 // Calculate the reciprocal (multiplicative inverse)
 $reciprocal = $r->reciprocal();
 
