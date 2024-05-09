@@ -15,6 +15,9 @@ declare(strict_types=1);
 
 namespace PHPMathObjects\LinearAlgebra;
 
+/**
+ * Enum for the vector orientation.
+ */
 enum VectorEnum
 {
     case Column;

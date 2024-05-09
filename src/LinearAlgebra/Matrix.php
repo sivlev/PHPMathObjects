@@ -81,7 +81,6 @@ class Matrix extends AbstractMatrix
      * @param int $size
      * @return static
      * @throws OutOfBoundsException if the given size is non-positive
-     * @throws InvalidArgumentException (not expected)
      */
     public static function identity(int $size): static
     {
@@ -110,7 +109,6 @@ class Matrix extends AbstractMatrix
      * @param int|float $min
      * @param int|float $max
      * @return static
-     * @throws InvalidArgumentException (not expected)
      * @throws OutOfBoundsException if the rows or columns are non-positive, or if $min is greater than $max
      */
     public static function random(int $rows, int $columns, int|float $min = 0.0, int|float $max = 1.0): static
@@ -145,7 +143,6 @@ class Matrix extends AbstractMatrix
      * @param int $min
      * @param int $max
      * @return static
-     * @throws InvalidArgumentException (not expected)
      * @throws OutOfBoundsException if the rows or columns are non-positive, or if $min is greater than $max
      */
     public static function randomInt(int $rows, int $columns, int $min = 0, int $max = 100): static
@@ -221,9 +218,7 @@ class Matrix extends AbstractMatrix
      * Converts the matrix to a vector if it has only one row or one column
      *
      * @return Vector
-     * @throws InvalidArgumentException (not expected)
      * @throws MatrixException if the matrix is not a vector
-     * @throws OutOfBoundsException (not expected)
      */
     public function toVector(): Vector
     {
@@ -240,7 +235,6 @@ class Matrix extends AbstractMatrix
      * @param Matrix $term
      * @return static
      * @throws MatrixException if the matrices have unequal dimensions
-     * @throws InvalidArgumentException (not expected)
      */
     public function add(Matrix $term): static
     {
@@ -287,7 +281,6 @@ class Matrix extends AbstractMatrix
      * @param Matrix $term
      * @return static
      * @throws MatrixException if the matrices have unequal dimensions
-     * @throws InvalidArgumentException (not expected)
      */
     public function subtract(Matrix $term): static
     {
@@ -334,7 +327,6 @@ class Matrix extends AbstractMatrix
      * @param Matrix $term
      * @return static
      * @throws MatrixException if the matrices have incompatible dimensions
-     * @throws InvalidArgumentException (not expected)
      */
     public function multiply(Matrix $term): self
     {
@@ -348,7 +340,6 @@ class Matrix extends AbstractMatrix
      * @param Matrix $term
      * @return $this
      * @throws MatrixException if the matrices have incompatible dimensions
-     * @throws InvalidArgumentException (not expected)
      * @internal Mutating method
      */
     public function mMultiply(Matrix $term): static
@@ -390,7 +381,6 @@ class Matrix extends AbstractMatrix
      *
      * @param int|float $multiplier
      * @return static
-     * @throws InvalidArgumentException (not expected)
      */
     public function multiplyByScalar(int|float $multiplier): static
     {
@@ -536,7 +526,6 @@ class Matrix extends AbstractMatrix
      * @param float $zeroTolerance If the resulting value after subtraction is less than $zeroTolerance, it will be made equal to zero
      * @return static
      * @throws DivisionByZeroException if $doSwaps = false and some of the rows are linearly dependent
-     * @throws InvalidArgumentException (not expected)
      * @internal May return a cached property
      */
     public function ref(bool $doSwaps = true, int &$swaps = 0, float $zeroTolerance = self::DEFAULT_TOLERANCE): static
@@ -637,8 +626,6 @@ class Matrix extends AbstractMatrix
      *
      * @param float $zeroTolerance If a resulting value during subtraction is less than $zeroTolerance, it will be made equal to zero
      * @return static
-     * @throws DivisionByZeroException (not expected)
-     * @throws InvalidArgumentException (not expected)
      */
     public function rref(float $zeroTolerance): static
     {
@@ -662,7 +649,6 @@ class Matrix extends AbstractMatrix
      *
      * @param float $zeroTolerance If a resulting value after subtraction is less than $zeroTolerance, it will be made equal to zero
      * @return $this
-     * @throws DivisionByZeroException (not expected)
      * @internal Mutating method
      */
     public function mRref(float $zeroTolerance = self::DEFAULT_TOLERANCE): static
@@ -721,7 +707,6 @@ class Matrix extends AbstractMatrix
      * Calculates the determinant of the matrix
      *
      * @return int|float
-     * @throws InvalidArgumentException (not expected)
      * @throws MatrixException if the matrix is not square
      * @internal May return a cached property
      */

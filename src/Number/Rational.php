@@ -132,7 +132,6 @@ readonly class Rational
      *
      * @param int $number
      * @return self
-     * @throws InvalidArgumentException (not expected)
      */
     public static function fromInt(int $number): self
     {
@@ -145,7 +144,6 @@ readonly class Rational
      * @param int|float $number
      * @param float $precision
      * @return self
-     * @throws InvalidArgumentException (not expected)
      */
     public static function fromFloat(int|float $number, float $precision = 1e-3): self
     {
@@ -294,7 +292,6 @@ readonly class Rational
      *
      * @param Rational $term
      * @return self
-     * @throws InvalidArgumentException (not expected)
      */
     public function add(Rational $term): self
     {
@@ -306,7 +303,6 @@ readonly class Rational
      *
      * @param Rational $term
      * @return self
-     * @throws InvalidArgumentException (not expected)
      */
     public function subtract(Rational $term): self
     {
@@ -318,7 +314,6 @@ readonly class Rational
      *
      * @param Rational $term
      * @return self
-     * @throws InvalidArgumentException (not expected)
      */
     public function multiply(Rational $term): self
     {
@@ -331,7 +326,6 @@ readonly class Rational
      * @param Rational $term
      * @return self
      * @throws DivisionByZeroException if the divisor equals zero
-     * @throws InvalidArgumentException (not expected)
      */
     public function divide(Rational $term): self
     {

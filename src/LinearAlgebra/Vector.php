@@ -61,7 +61,6 @@ class Vector extends Matrix
      * @param VectorEnum $vectorType Defines whether the vector is a row vector or a column vector
      * @return self
      * @throws InvalidArgumentException if the array contains elements of incompatible data types
-     * @throws OutOfBoundsException (not expected)
      */
     public static function fromArray(array $data, VectorEnum $vectorType = VectorEnum::Column): self
     {
@@ -81,7 +80,6 @@ class Vector extends Matrix
      * @param int|float $value
      * @param VectorEnum $vectorType Defines whether the vector is a row vector or a column vector
      * @return self
-     * @throws InvalidArgumentException (not expected)
      * @throws OutOfBoundsException if the given size is non-positive
      * @see AbstractMatrix::fill()
      */
@@ -99,7 +97,6 @@ class Vector extends Matrix
      * @param int|float $max
      * @param VectorEnum $vectorType
      * @return self
-     * @throws InvalidArgumentException (not expected)
      * @throws OutOfBoundsException if the given size is non-positive or if $min is greater than $max
      * @see Matrix::random()
      */
@@ -117,7 +114,6 @@ class Vector extends Matrix
      * @param int $max
      * @param VectorEnum $vectorType
      * @return self
-     * @throws InvalidArgumentException (not expected)
      * @throws OutOfBoundsException if the given size is non-positive or if $min is greater than $max
      * @see Matrix::randomInt()
      */
@@ -141,7 +137,6 @@ class Vector extends Matrix
      * Returns the vector as a plain 1D array independent of its type
      *
      * @return array<int, int|float>
-     * @throws InvalidArgumentException (not expected)
      */
     public function toPlainArray(): array
     {
@@ -152,7 +147,6 @@ class Vector extends Matrix
      * Converts the current vector into an instance of Matrix class
      *
      * @return Matrix
-     * @throws InvalidArgumentException (not expected)
      * @see Matrix
      */
     public function toMatrix(): Matrix
@@ -258,9 +252,7 @@ class Vector extends Matrix
      *
      * @param Matrix $term
      * @return self|Matrix
-     * @throws InvalidArgumentException (not expected)
      * @throws MatrixException if the vectors or matrices have incompatible dimensions
-     * @throws OutOfBoundsException (not expected)
      * @see Matrix::multiply()
      */
     public function multiply(Matrix $term): self|Matrix
@@ -278,7 +270,6 @@ class Vector extends Matrix
      *
      * @param Matrix $term
      * @return $this
-     * @throws InvalidArgumentException (not expected)
      * @throws MatrixException if a vector has to be converted to a matrix after mutation or if the vector dimensions are incompatible
      * @see Matrix::mMultiply()
      * @internal Mutating method
@@ -313,7 +304,6 @@ class Vector extends Matrix
      *
      * @param Vector $anotherVector
      * @return int|float
-     * @throws InvalidArgumentException (not expected)
      * @throws MatrixException if vectors have different numbers of components
      */
     public function dotProduct(Vector $anotherVector): int|float
@@ -340,7 +330,6 @@ class Vector extends Matrix
      * @return self|Matrix
      * @throws InvalidArgumentException if the vectors or matrices have incompatible types
      * @throws MatrixException if the vectors or matrices have incompatible dimensions
-     * @throws OutOfBoundsException (not expected)
      * @see Matrix::joinBottom()
      */
     public function joinRight(AbstractMatrix $anotherMatrix): self|Matrix
@@ -381,7 +370,6 @@ class Vector extends Matrix
      * @return self|Matrix
      * @throws InvalidArgumentException if the vectors or matrices have incompatible types
      * @throws MatrixException if the vectors or matrices have incompatible dimensions
-     * @throws OutOfBoundsException (not expected)
      * @see Matrix::joinBottom()
      */
     public function joinBottom(AbstractMatrix $anotherMatrix): self|Matrix

@@ -24,5 +24,8 @@ namespace PHPMathObjects\LinearAlgebra;
  */
 class ComplexMatrix extends Matrix
 {
+    /**
+     * This constant is used to define the type of the matrix
+     */
     protected const TYPE = 'complex';
 }

@@ -398,7 +398,6 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * Matrix transpose
      *
      * @return static
-     * @throws InvalidArgumentException (not expected)
      */
     public function transpose(): static
     {
@@ -560,7 +559,6 @@ abstract class AbstractMatrix implements Countable, ArrayAccess
      * @param int $rowEnd
      * @param int $columnEnd
      * @return static
-     * @throws InvalidArgumentException (not expected)
      * @throws OutOfBoundsException if the indices of the submatrix are out of bounds
      */
     public function submatrix(int $rowStart, int $columnStart, int $rowEnd, int $columnEnd): static
