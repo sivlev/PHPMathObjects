@@ -19,6 +19,7 @@ use PHPMathObjects\Exception\DivisionByZeroException;
 use PHPMathObjects\Exception\InvalidArgumentException;
 use PHPMathObjects\Exception\MatrixException;
 use PHPMathObjects\Exception\OutOfBoundsException;
+use PHPMathObjects\Math\Math;
 use Random\Randomizer;
 
 use function is_int;
@@ -660,12 +661,12 @@ class Matrix extends AbstractMatrix
             }
 
             // If all remaining elements in the current column are zeros, then go to the next element in the current row
-            if ($maxValue === 0) {
+            if (Math::isZero($maxValue, $zeroTolerance)) {
                 $columnIndex++;
                 continue;
             }
 
-            if ($this->matrix[$rowIndex][$columnIndex] === 0) {
+            if (Math::isZero($this->matrix[$rowIndex][$columnIndex], $zeroTolerance)) {
                 throw new DivisionByZeroException("Row echelon form requires division by zero. Call ref() or mRef() method with $doSwaps = true.");
             }
 
@@ -745,7 +746,7 @@ class Matrix extends AbstractMatrix
         $maxColumnIndex = $this->columns;
 
         while ($rowIndex < $maxRowIndex && $columnIndex < $maxColumnIndex) {
-            if ($refArray[$rowIndex][$columnIndex] === 0) {
+            if (Math::isZero($refArray[$rowIndex][$columnIndex], $zeroTolerance)) {
                 $columnIndex++;
                 continue;
             }
@@ -761,7 +762,7 @@ class Matrix extends AbstractMatrix
 
             // Now reduce all elements above the pivot
             for ($i = 0; $i < $rowIndex; $i++) {
-                if ($refArray[$i][$columnIndex] === 0) {
+                if (Math::isZero($refArray[$i][$columnIndex], $zeroTolerance)) {
                     continue;
                 }
                 $coefficient = $refArray[$i][$columnIndex];
