@@ -570,7 +570,7 @@ class Matrix extends AbstractMatrix
             $maxValue = $this->matrix[$rowIndex][$columnIndex];
             $maxValueRow = null;
             for ($i = $rowIndex; $i < $this->rows; $i++) {
-                if (abs($this->matrix[$i][$columnIndex]) > $maxValue) {
+                if (abs($this->matrix[$i][$columnIndex]) > abs($maxValue)) {
                     $maxValue = $this->matrix[$i][$columnIndex];
                     $maxValueRow = $i;
                 }
@@ -591,6 +591,7 @@ class Matrix extends AbstractMatrix
             if ($this->matrix[$rowIndex][$columnIndex] === 0) {
                 throw new DivisionByZeroException("Row echelon form requires division by zero. Call ref() or mRef() method with $doSwaps = true.");
             }
+
 
             // Go through the remaining rows
             for ($i = $rowIndex + 1; $i < $this->rows; $i++) {
