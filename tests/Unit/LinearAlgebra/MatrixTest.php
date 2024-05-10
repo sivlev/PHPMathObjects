@@ -33,10 +33,13 @@ use PHPUnit\Framework\TestCase;
  * Test case for the Matrix class as well as for its parent class AbstractMatrix
  *
  * @phpstan-type MatrixArray array<int, array<int, int|float>>
+ * @phpstan-type VectorArray array<int, int|float>
  */
 class MatrixTest extends TestCase
 {
-    // Tolerance used to compare two floats
+    /**
+     * Tolerance used to compare two floats
+     */
     protected const e = 1e-8;
 
     /**
@@ -152,7 +155,6 @@ class MatrixTest extends TestCase
      * @param int $size
      * @param array<int, array<int, int>> $expected
      * @return void
-     * @throws InvalidArgumentException
      * @throws OutOfBoundsException
      */
     #[DataProvider('providerIdentityFactory')]
@@ -196,7 +198,6 @@ class MatrixTest extends TestCase
      * @param int $size
      * @param string $exceptionMessage
      * @return void
-     * @throws InvalidArgumentException
      * @throws OutOfBoundsException
      */
     #[TestWith([0, "Size of identity matrix must greater than zero. Size 0 is given."])]
@@ -692,7 +693,6 @@ class MatrixTest extends TestCase
      * @return void
      * @throws InvalidArgumentException
      * @throws MatrixException
-     * @throws OutOfBoundsException
      */
     #[DataProvider('providerToVector')]
     #[TestDox("ToVector() method converts a matrix to a vector")]
@@ -748,6 +748,134 @@ class MatrixTest extends TestCase
                 [
                     [1, 2],
                 ], VectorEnum::Row,
+            ],
+        ];
+    }
+
+    /**
+     * @param MatrixArray $array
+     * @param int $row
+     * @param VectorArray $expected
+     * @param bool $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider('providerRowToVector')]
+    #[TestDox("RowToVector() method converts a row of a matrix to a vector")]
+    public function testRowToVector(array $array, int $row, array $expected, bool $exception = false): void
+    {
+        $m = new Matrix($array);
+        if ($exception) {
+            $this->expectException(OutOfBoundsException::class);
+            $this->expectExceptionMessage("Row index $row is out of bounds. The matrix has only {$m->rows()} rows.");
+        }
+        $v = $m->rowToVector($row);
+        $this->assertEquals($expected, $v->toPlainArray());
+        if ($v->size() !== 1) {
+            $this->assertEquals(VectorEnum::Row, $v->vectorType());
+        } else {
+            $this->assertEquals(VectorEnum::Column, $v->vectorType());
+        }
+    }
+
+    /**
+     * @return array<int, array<int, MatrixArray|VectorArray|int|bool>>
+     */
+    public static function providerRowToVector(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 1, [4, 5, 6],
+            ],
+            [
+                [
+                    [1],
+                    [4],
+                    [7],
+                ], 0, [1],
+            ],
+            [
+                [
+                    [1, 2, 3],
+                ], 0, [1, 2, 3],
+            ],
+            [
+                [
+                    [1],
+                ], 1, [], true,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                ], -2, [], true,
+            ],
+        ];
+    }
+
+    /**
+     * @param MatrixArray $array
+     * @param int $column
+     * @param VectorArray $expected
+     * @param bool $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws OutOfBoundsException
+     */
+    #[DataProvider('providerColumnToVector')]
+    #[TestDox("ColumnToVector() method converts a column of a matrix to a vector")]
+    public function testColumnToVector(array $array, int $column, array $expected, bool $exception = false): void
+    {
+        $m = new Matrix($array);
+        if ($exception) {
+            $this->expectException(OutOfBoundsException::class);
+            $this->expectExceptionMessage("Column index $column is out of bounds. The matrix has only {$m->columns()} columns.");
+        }
+        $v = $m->columnToVector($column);
+        $this->assertEquals($expected, $v->toPlainArray());
+        $this->assertEquals(VectorEnum::Column, $v->vectorType());
+    }
+
+    /**
+     * @return array<int, array<int, MatrixArray|VectorArray|int|bool>>
+     */
+    public static function providerColumnToVector(): array
+    {
+        return [
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9],
+                ], 1, [2, 5, 8],
+            ],
+            [
+                [
+                    [1],
+                    [4],
+                    [7],
+                ], 0, [1, 4, 7],
+            ],
+            [
+                [
+                    [1, 2, 3],
+                ], 0, [1],
+            ],
+            [
+                [
+                    [1],
+                ], 1, [], true,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                ], -2, [], true,
             ],
         ];
     }

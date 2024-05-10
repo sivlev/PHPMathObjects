@@ -230,6 +230,43 @@ class Matrix extends AbstractMatrix
     }
 
     /**
+     * Converts the given matrix row to a row vector
+     *
+     * @param int $rowIndex
+     * @return Vector
+     * @throws OutOfBoundsException if the row index is out of bounds
+     */
+    public function rowToVector(int $rowIndex): Vector
+    {
+        if ($rowIndex < 0 || $rowIndex >= $this->rows) {
+            throw new OutOfBoundsException("Row index $rowIndex is out of bounds. The matrix has only $this->rows rows.");
+        }
+
+        return Vector::fromArray($this->matrix[$rowIndex], VectorEnum::Row);
+    }
+
+    /**
+     * Converts the given matrix column to a column vector
+     *
+     * @param int $columnIndex
+     * @return Vector
+     * @throws OutOfBoundsException if the column index is out of bounds
+     */
+    public function columnToVector(int $columnIndex): Vector
+    {
+        if ($columnIndex < 0 || $columnIndex >= $this->columns) {
+            throw new OutOfBoundsException("Column index $columnIndex is out of bounds. The matrix has only $this->columns columns.");
+        }
+
+        $column = [];
+        foreach ($this->matrix as $row) {
+            $column[] = $row[$columnIndex];
+        }
+
+        return Vector::fromArray($column, VectorEnum::Column);
+    }
+
+    /**
      * Matrix addition
      *
      * @param Matrix $term

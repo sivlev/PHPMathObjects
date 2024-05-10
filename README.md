@@ -148,6 +148,10 @@ $matrix->mJoinBottom($anotherMatrix);
  // Create a 1x2 submatrix starting from the element at row 0, column 0 till the element at row 1, column 2 
 $submatrix = $matrix->submatrix(0, 0, 1, 2);
 
+// Convert a matrix row or column to a Vector object
+$rowVector = $matrix->rowToVector(1);
+$columnVector = $matrix->columnToVector(2);
+
 // Conversion to a string representation
 $string = $matrix->toString();
 $string = (string) $matrix;
