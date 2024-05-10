@@ -627,7 +627,7 @@ class Matrix extends AbstractMatrix
      * @param float $zeroTolerance If a resulting value during subtraction is less than $zeroTolerance, it will be made equal to zero
      * @return static
      */
-    public function rref(float $zeroTolerance): static
+    public function rref(float $zeroTolerance = self::DEFAULT_TOLERANCE): static
     {
         // Check if the reduced row echelon form is cached
         if (isset($this->cacheRref)) {
