@@ -263,6 +263,7 @@ class Matrix extends AbstractMatrix
             $column[] = $row[$columnIndex];
         }
 
+        /** @noinspection PhpRedundantOptionalArgumentInspection */
         return Vector::fromArray($column, VectorEnum::Column);
     }
 
@@ -514,6 +515,45 @@ class Matrix extends AbstractMatrix
             $rowRight = $term->matrix[$rowIndex];
             for ($i = 0; $i < $countColumns; $i++) {
                 if ($rowLeft[$i] !== $rowRight[$i]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if the matrix contains only zero elements within the given tolerance
+     *
+     * @param float $tolerance
+     * @return bool
+     */
+    public function isZero(float $tolerance = self::DEFAULT_TOLERANCE): bool
+    {
+        $countColumns = $this->columns;
+        foreach ($this->matrix as $row) {
+            for ($i = 0; $i < $countColumns; $i++) {
+                if (abs($row[$i]) > $tolerance) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if the matrix contains only zero elements exactly (with === operator)
+     *
+     * @return bool
+     */
+    public function isZeroExactly(): bool
+    {
+        $countColumns = $this->columns;
+        foreach ($this->matrix as $row) {
+            for ($i = 0; $i < $countColumns; $i++) {
+                if ($row[$i] !== 0) {
                     return false;
                 }
             }

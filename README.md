@@ -107,9 +107,13 @@ $doesElementExist = isset($matrix[[1, 2]]);
 $isSquare = $matrix->isSquare(); 
 
 // Compare matrices
-$equal = $matrix->isEqual($anotherMatrix);          // Compare elementwise within a default tolerance of 1.0e^-6
+$equal = $matrix->isEqual($anotherMatrix);          // Compare elementwise within a default tolerance of 1.0e^-8
 $equal = $matrix->isEqual($anotherMatrix, 1e-8);    // Or set the tolerance explicitly
 $equal = $matrix->isEqualExactly($anotherMatrix);   // Compare matrices elementwise with '===' operator
+
+// Check if the matrix has zero elements only
+$isZero = $matrix->isZero($tolerance);              // Check if zero elementwise within the given tolerance (default is 1.0e^-8)
+$isZeroExactly = $matrix->isZeroExactly();          // Check if zero elementwise exactly using the '===' operator
 
 // Matrix arithmetics
 $sum = $matrix->add($anotherMatrix);

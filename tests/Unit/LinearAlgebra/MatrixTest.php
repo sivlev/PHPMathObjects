@@ -1712,6 +1712,147 @@ class MatrixTest extends TestCase
 
     /**
      * @param MatrixArray $array
+     * @param bool $expected
+     * @param float $tolerance
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[DataProvider('providerIsZero')]
+    #[TestDox("isZero() method returns true if the matrix is zero, and false otherwise")]
+    public function testIsZero(array $array, bool $expected, float $tolerance = self::e): void
+    {
+        $m = new Matrix($array);
+        $this->assertEquals($expected, $m->isZero($tolerance));
+    }
+
+    /**
+     * @return array<int, array<int, float|bool|MatrixArray>>
+     */
+    public static function providerIsZero(): array
+    {
+        return [
+            [
+                [[0]],
+                true,
+            ],
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                ],
+                true,
+            ],
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 1],
+                ],
+                false,
+            ],
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                ],
+                true,
+            ],
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 1e-6],
+                ],
+                false,
+            ],
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 1e-6],
+                ],
+                true, 1e-5,
+            ],
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 1],
+                ],
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @param MatrixArray $array
+     * @param bool $expected
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    #[DataProvider('providerIsZeroExactly')]
+    #[TestDox("isZeroExactly() method returns true if the matrix is exactly zero, and false otherwise")]
+    public function testIsZeroExactly(array $array, bool $expected): void
+    {
+        $m = new Matrix($array);
+        $this->assertEquals($expected, $m->isZeroExactly());
+    }
+
+    /**
+     * @return array<int, array<int, bool|MatrixArray>>
+     */
+    public static function providerIsZeroExactly(): array
+    {
+        return [
+            [
+                [[0]],
+                true,
+            ],
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 1e-9],
+                ],
+                false,
+            ],
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 1],
+                ],
+                false,
+            ],
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                ],
+                true,
+            ],
+            [
+                [
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [0, 0, 1e-10],
+                ],
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @param MatrixArray $array
      * @param int|float $expected
      * @param bool $exception
      * @return void
