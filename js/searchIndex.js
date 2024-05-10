@@ -388,7 +388,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\VectorEnum",
             "name": "VectorEnum",
-            "summary": "",
+            "summary": "Enum\u0020for\u0020the\u0020vector\u0020orientation.",
             "url": "classes/PHPMathObjects-LinearAlgebra-VectorEnum.html"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\VectorEnum\u003A\u003Atranspose\u0028\u0029",
@@ -500,6 +500,21 @@ Search.appendIndex(
             "name": "isZero",
             "summary": "Returns\u0020true\u0020if\u0020the\u0020rational\u0020number\u0020equals\u0020zero",
             "url": "classes/PHPMathObjects-Number-Rational.html#method_isZero"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003AisNegative\u0028\u0029",
+            "name": "isNegative",
+            "summary": "Returns\u0020true\u0020if\u0020the\u0020rational\u0020number\u0020is\u0020negative",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_isNegative"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003AisPositive\u0028\u0029",
+            "name": "isPositive",
+            "summary": "Returns\u0020true\u0020if\u0020the\u0020rational\u0020number\u0020is\u0020positive",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_isPositive"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003AisInteger\u0028\u0029",
+            "name": "isInteger",
+            "summary": "Returns\u0020true\u0020if\u0020the\u0020rational\u0020number\u0020is\u0020an\u0020integer",
+            "url": "classes/PHPMathObjects-Number-Rational.html#method_isInteger"
         },                {
             "fqsen": "\\PHPMathObjects\\Number\\Rational\u003A\u003AisEqual\u0028\u0029",
             "name": "isEqual",
