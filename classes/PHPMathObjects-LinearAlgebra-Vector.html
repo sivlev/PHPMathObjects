@@ -320,6 +320,13 @@
 <dd>Getter for the &quot;columns&quot; property. Returns number of columns</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_columnToVector">columnToVector()</a>
+    <span>
+                                &nbsp;: <a href="classes/PHPMathObjects-LinearAlgebra-Vector.html"><abbr title="\PHPMathObjects\LinearAlgebra\Vector">Vector</abbr></a>    </span>
+</dt>
+<dd>Converts the given matrix column to a column vector</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_count">count()</a>
     <span>
                                 &nbsp;: int    </span>
@@ -397,6 +404,20 @@
 <dd>Returns true if the matrix is square (i.e. number of rows is equal to number of columns)</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isZero">isZero()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Checks if the matrix contains only zero elements within the given tolerance</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isZeroExactly">isZeroExactly()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Checks if the matrix contains only zero elements exactly (with === operator)</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_joinBottom">joinBottom()</a>
     <span>
                                 &nbsp;: self|<a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html"><abbr title="\PHPMathObjects\LinearAlgebra\Matrix">Matrix</abbr></a>    </span>
@@ -472,6 +493,13 @@
                                 &nbsp;: int    </span>
 </dt>
 <dd>Getter for the &quot;rows&quot; property. Returns number of rows</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_rowToVector">rowToVector()</a>
+    <span>
+                                &nbsp;: <a href="classes/PHPMathObjects-LinearAlgebra-Vector.html"><abbr title="\PHPMathObjects\LinearAlgebra\Vector">Vector</abbr></a>    </span>
+</dt>
+<dd>Converts the given matrix row to a row vector</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_rref">rref()</a>
@@ -673,7 +701,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -718,7 +746,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
@@ -835,7 +863,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -869,7 +897,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">70</span>
 
     </aside>
 
@@ -903,7 +931,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">76</span>
+    <span class="phpdocumentor-element-found-in__line">77</span>
 
     </aside>
 
@@ -937,7 +965,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 
     </aside>
 
@@ -1300,7 +1328,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">239</span>
+    <span class="phpdocumentor-element-found-in__line">278</span>
 
     </aside>
 
@@ -1363,7 +1391,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">420</span>
+    <span class="phpdocumentor-element-found-in__line">459</span>
 
     </aside>
 
@@ -1433,6 +1461,69 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_columnToVector">
+        columnToVector()
+        <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_columnToVector" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">256</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Converts the given matrix column to a column vector</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">columnToVector</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$columnIndex</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html"><abbr title="\PHPMathObjects\LinearAlgebra\Vector">Vector</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$columnIndex</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_columnToVector#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/PHPMathObjects-Exception-OutOfBoundsException.html"><abbr title="\PHPMathObjects\Exception\OutOfBoundsException">OutOfBoundsException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>if the column index is out of bounds</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html"><abbr title="\PHPMathObjects\LinearAlgebra\Vector">Vector</abbr></a></span>
             </section>
 
 </article>
@@ -1778,7 +1869,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">85</span>
+    <span class="phpdocumentor-element-found-in__line">86</span>
 
     </aside>
 
@@ -1877,7 +1968,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">444</span>
+    <span class="phpdocumentor-element-found-in__line">483</span>
 
     </aside>
 
@@ -1930,7 +2021,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">469</span>
+    <span class="phpdocumentor-element-found-in__line">508</span>
 
     </aside>
 
@@ -2038,6 +2129,88 @@
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">isSquare</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isZero">
+        isZero()
+        <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isZero" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">533</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Checks if the matrix contains only zero elements within the given tolerance</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">isZero</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tolerance</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_TOLERANCE</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$tolerance</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_TOLERANCE</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isZeroExactly">
+        isZeroExactly()
+        <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isZeroExactly" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">552</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Checks if the matrix contains only zero elements exactly (with === operator)</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">isZeroExactly</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2349,7 +2522,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">385</span>
+    <span class="phpdocumentor-element-found-in__line">424</span>
 
     </aside>
 
@@ -2614,7 +2787,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">114</span>
+    <span class="phpdocumentor-element-found-in__line">115</span>
 
     </aside>
 
@@ -2700,7 +2873,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">148</span>
+    <span class="phpdocumentor-element-found-in__line">149</span>
 
     </aside>
 
@@ -2812,6 +2985,69 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_rowToVector">
+        rowToVector()
+        <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_rowToVector" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">240</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Converts the given matrix row to a row vector</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">rowToVector</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rowIndex</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html"><abbr title="\PHPMathObjects\LinearAlgebra\Vector">Vector</abbr></a></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$rowIndex</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_rowToVector#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/PHPMathObjects-Exception-OutOfBoundsException.html"><abbr title="\PHPMathObjects\Exception\OutOfBoundsException">OutOfBoundsException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>if the row index is out of bounds</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html"><abbr title="\PHPMathObjects\LinearAlgebra\Vector">Vector</abbr></a></span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_rref">
         rref()
         <a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_rref" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2820,7 +3056,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">630</span>
+    <span class="phpdocumentor-element-found-in__line">709</span>
 
     </aside>
 
@@ -2828,7 +3064,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">rref</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$zeroTolerance</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
+                    <span class="phpdocumentor-signature__name">rref</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$zeroTolerance</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_TOLERANCE</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2838,7 +3074,7 @@
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$zeroTolerance</span>
                 : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
+                 = <span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_TOLERANCE</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>If a resulting value during subtraction is less than $zeroTolerance, it will be made equal to zero</p>
 </section>
@@ -3030,7 +3266,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">285</span>
+    <span class="phpdocumentor-element-found-in__line">324</span>
 
     </aside>
 
@@ -3336,7 +3572,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">223</span>
+    <span class="phpdocumentor-element-found-in__line">224</span>
 
     </aside>
 
@@ -3862,7 +4098,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">199</span>
+    <span class="phpdocumentor-element-found-in__line">200</span>
 
     </aside>
 
@@ -3958,7 +4194,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Matrix.php"><a href="files/src-linearalgebra-matrix.html"><abbr title="src/LinearAlgebra/Matrix.php">Matrix.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">181</span>
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
     </aside>
 
@@ -4164,6 +4400,7 @@
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_add">add()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_changeSign">changeSign()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_columns">columns()</a></li>
+                                            <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_columnToVector">columnToVector()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_count">count()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_dotProduct">dotProduct()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_fill">fill()</a></li>
@@ -4175,6 +4412,8 @@
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isEqualExactly">isEqualExactly()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_isSet">isSet()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_isSquare">isSquare()</a></li>
+                                            <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isZero">isZero()</a></li>
+                                            <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isZeroExactly">isZeroExactly()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_joinBottom">joinBottom()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_joinRight">joinRight()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_mTranspose">mTranspose()</a></li>
@@ -4186,6 +4425,7 @@
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_random">random()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_randomInt">randomInt()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_rows">rows()</a></li>
+                                            <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_rowToVector">rowToVector()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_rref">rref()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_setCacheEnabled">setCacheEnabled()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_size">size()</a></li>

@@ -221,6 +221,16 @@ Search.appendIndex(
             "summary": "Converts\u0020the\u0020matrix\u0020to\u0020a\u0020vector\u0020if\u0020it\u0020has\u0020only\u0020one\u0020row\u0020or\u0020one\u0020column",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_toVector"
         },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003ArowToVector\u0028\u0029",
+            "name": "rowToVector",
+            "summary": "Converts\u0020the\u0020given\u0020matrix\u0020row\u0020to\u0020a\u0020row\u0020vector",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_rowToVector"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AcolumnToVector\u0028\u0029",
+            "name": "columnToVector",
+            "summary": "Converts\u0020the\u0020given\u0020matrix\u0020column\u0020to\u0020a\u0020column\u0020vector",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_columnToVector"
+        },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003Aadd\u0028\u0029",
             "name": "add",
             "summary": "Matrix\u0020addition",
@@ -255,6 +265,16 @@ Search.appendIndex(
             "name": "isEqualExactly",
             "summary": "Compares\u0020two\u0020matrices\u0020and\u0020returns\u0020true\u0020if\u0020they\u0020are\u0020equal\u0020elementwise\u0020exactly\u0020\u0028with\u0020\u003D\u003D\u003D\u0020operator\u0029",
             "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isEqualExactly"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AisZero\u0028\u0029",
+            "name": "isZero",
+            "summary": "Checks\u0020if\u0020the\u0020matrix\u0020contains\u0020only\u0020zero\u0020elements\u0020within\u0020the\u0020given\u0020tolerance",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isZero"
+        },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003AisZeroExactly\u0028\u0029",
+            "name": "isZeroExactly",
+            "summary": "Checks\u0020if\u0020the\u0020matrix\u0020contains\u0020only\u0020zero\u0020elements\u0020exactly\u0020\u0028with\u0020\u003D\u003D\u003D\u0020operator\u0029",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_isZeroExactly"
         },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Matrix\u003A\u003Arref\u0028\u0029",
             "name": "rref",
