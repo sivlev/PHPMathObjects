@@ -63,6 +63,28 @@ class Math
     }
 
     /**
+     * Returns true if the elements of the two arrays are equal with the given tolerance
+     * @param array<int, int|float> $array1
+     * @param array<int, int|float> $array2
+     * @param float $tolerance
+     * @return bool
+     */
+    public static function areArraysEqual(array $array1, array $array2, float $tolerance = self::DEFAULT_TOLERANCE): bool
+    {
+        if (count($array1) !== count($array2)) {
+            return false;
+        }
+
+        foreach ($array1 as $index => $value) {
+            if (abs($value - $array2[$index]) > $tolerance) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Returns sign of the number (-1 if negative, 1 if positive and 0 if zero)
      *
      * @param int|float $number

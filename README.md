@@ -57,6 +57,9 @@ $isNotZero = Math::isNotZero(0.000002, 1e-3);           // Returns false
 $areEqual = Math::areEqual(0.000002, 0.000003);         // Returns false
 $areEqual = Math::areEqual(0.000002, 0.000003, 1e-3);   // Returns true
 
+// Compare two numeric arrays elementwise within the given tolerance
+$areEqual = Math::areArraysEqual([1, 2, 3], [1, 2, 3]); // Returns true
+
 // Find the greatest common divisor of two numbers
 $gcd = Math::gcd(28, 35);       // Returns 7
 ```

@@ -27,6 +27,12 @@ class MathTest extends TestCase
 {
     protected const e = 1e-8;
 
+    /**
+     * @param int|float $number
+     * @param bool $result
+     * @param float $tolerance
+     * @return void
+     */
     #[TestWith([5, false])]
     #[TestWith([0, true])]
     #[TestWith([-10.53, false])]
@@ -38,6 +44,12 @@ class MathTest extends TestCase
         $this->assertEquals($result, Math::isZero($number, $tolerance));
     }
 
+    /**
+     * @param int|float $number
+     * @param bool $result
+     * @param float $tolerance
+     * @return void
+     */
     #[TestWith([0.49, true])]
     #[TestWith([0, false])]
     #[TestWith([-0.239, true])]
@@ -49,6 +61,13 @@ class MathTest extends TestCase
         $this->assertEquals($result, Math::isNotZero($number, $tolerance));
     }
 
+    /**
+     * @param int|float $number1
+     * @param int|float $number2
+     * @param bool $result
+     * @param float $tolerance
+     * @return void
+     */
     #[TestWith([15, 14, false])]
     #[TestWith([-12.459, -12.459, true])]
     #[TestWith([-0.239, -0.238, false])]
@@ -58,6 +77,24 @@ class MathTest extends TestCase
     public function testAreEqual(int|float $number1, int|float $number2, bool $result, float $tolerance = self::e): void
     {
         $this->assertEquals($result, Math::areEqual($number1, $number2, $tolerance));
+    }
+
+    /**
+     * @param array<int, int|float> $array1
+     * @param array<int, int|float> $array2
+     * @param bool $result
+     * @param float $tolerance
+     * @return void
+     */
+    #[TestWith([[1, 2, 3], [1, 2, 3], true])]
+    #[TestWith([[1, 2, 3], [1, 2, 3, 4], false])]
+    #[TestWith([[1, 2, 3], [1, 2, 4], false])]
+    #[TestWith([[1, 2, 3], [1, 2, 3.0000001], false])]
+    #[TestWith([[1, 2, 3], [1, 2, 3.0000001], true, 1e-6])]
+    #[TestDox("Math::areArraysEqual() method returns true if the elements of the two arrays are equal within the tolerance")]
+    public function areArraysEqual(array $array1, array $array2, bool $result, float $tolerance = self::e): void
+    {
+        $this->assertEquals($result, Math::areArraysEqual($array1, $array2));
     }
 
     /**
