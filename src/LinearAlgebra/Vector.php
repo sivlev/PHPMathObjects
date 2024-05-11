@@ -324,6 +324,29 @@ class Vector extends Matrix
     }
 
     /**
+     * Calculates the cross product of two 3D vectors
+     *
+     * @param Vector $anotherVector
+     * @return self
+     * @throws MatrixException if vectors have the number of components different from 3
+     */
+    public function crossProduct(Vector $anotherVector): self
+    {
+        if ($this->size !== 3 || $anotherVector->size !== 3) {
+            throw new MatrixException("Both vectors must have 3 components for cross product calculation");
+        }
+
+        $v1 = $this->toPlainArray();
+        $v2 = $anotherVector->toPlainArray();
+
+        $x = $v1[1] * $v2[2] - $v1[2] * $v2[1];
+        $y = $v1[2] * $v2[0] - $v1[0] * $v2[2];
+        $z = $v1[0] * $v2[1] - $v1[1] * $v2[0];
+
+        return new Vector([[$x], [$y], [$z]], false);
+    }
+
+    /**
      * Override joinRight() method to account for that "vector x vector" is not always a vector but can also be a matrix
      *
      * @param Matrix $anotherMatrix

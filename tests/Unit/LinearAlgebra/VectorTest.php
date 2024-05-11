@@ -36,7 +36,9 @@ use Throwable;
  */
 class VectorTest extends TestCase
 {
-    // Tolerance used to compare two floats
+    /**
+     * Tolerance used to compare two floats
+     */
     protected const e = 1e-8;
 
     /**
@@ -101,7 +103,6 @@ class VectorTest extends TestCase
      * @param class-string<Throwable>|null $exception
      * @return void
      * @throws InvalidArgumentException
-     * @throws OutOfBoundsException
      */
     #[TestWith([[1, 2, 3], VectorEnum::Column, [[1], [2], [3]], VectorEnum::Column])]
     #[TestWith([[1, 2, 3], VectorEnum::Row, [[1, 2, 3]], VectorEnum::Row])]
@@ -128,7 +129,6 @@ class VectorTest extends TestCase
      * @param MatrixArray $expected
      * @param class-string<Throwable>|null $exception
      * @return void
-     * @throws InvalidArgumentException
      * @throws OutOfBoundsException
      */
     #[TestWith([5, -2.3, VectorEnum::Row, [[-2.3, -2.3, -2.3, -2.3, -2.3]]])]
@@ -197,7 +197,6 @@ class VectorTest extends TestCase
      * @param MatrixArray $expected
      * @param class-string<Throwable>|null $exception
      * @return void
-     * @throws InvalidArgumentException
      * @throws OutOfBoundsException
      */
     #[TestWith([1, [[1]]])]
@@ -250,7 +249,6 @@ class VectorTest extends TestCase
      * @param int $expectedSize
      * @return void
      * @throws InvalidArgumentException
-     * @throws OutOfBoundsException
      */
     #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, 5, 1, 5])]
     #[TestWith([[0.1, -0.2, 0.3, -0.4], VectorEnum::Row, 1, 4, 4])]
@@ -301,7 +299,6 @@ class VectorTest extends TestCase
      * @param VectorEnum $vectorType
      * @return void
      * @throws InvalidArgumentException
-     * @throws OutOfBoundsException
      */
     #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column])]
     #[TestWith([[-0.111, 0.222, 3], VectorEnum::Row])]
@@ -376,7 +373,6 @@ class VectorTest extends TestCase
      * @param class-string<Throwable>|null $exception
      * @return void
      * @throws InvalidArgumentException
-     * @throws OutOfBoundsException
      * @throws MatrixException
      */
     #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Row, [6, 7, 8, 9, 10], VectorEnum::Row, [[7, 9, 11, 13, 15]]])]
@@ -408,7 +404,6 @@ class VectorTest extends TestCase
      * @param class-string<Throwable>|null $exception
      * @return void
      * @throws InvalidArgumentException
-     * @throws OutOfBoundsException
      * @throws MatrixException
      */
     #[TestWith([[10, 20, 30, 40, 50, 60], VectorEnum::Row, [10, 10, 10, 10, 10, 10], VectorEnum::Row, [[0, 10, 20, 30, 40, 50]]])]
@@ -444,7 +439,6 @@ class VectorTest extends TestCase
      * @return void
      * @throws InvalidArgumentException
      * @throws MatrixException
-     * @throws OutOfBoundsException
      */
     #[DataProvider("providerVectorMultiply")]
     #[TestDox("Multiply() and mMultiply() methods multiply one vector by another vector or by a matrix")]
@@ -578,7 +572,6 @@ class VectorTest extends TestCase
      * @return void
      * @throws InvalidArgumentException
      * @throws MatrixException
-     * @throws OutOfBoundsException
      */
     #[DataProvider("providerVectorMatrixMultiplication")]
     #[TestDox("Multiplication of a vector by a matrix with multiply() method returns either a vector, or a matrix, or throws an exception")]
@@ -710,7 +703,6 @@ class VectorTest extends TestCase
      * @return void
      * @throws InvalidArgumentException
      * @throws MatrixException
-     * @throws OutOfBoundsException
      */
     #[DataProvider("providerVectorMatrixMMultiply")]
     #[TestDox("MMultiply() method of vector with matrix returns either a vector or throws an exception")]
@@ -770,7 +762,6 @@ class VectorTest extends TestCase
      * @return void
      * @throws InvalidArgumentException
      * @throws MatrixException
-     * @throws OutOfBoundsException
      */
     #[DataProvider("providerMatrixVectorMultiplication")]
     #[TestDox("Multiplication of matrix by a vector with multiply() and mMultiply() methods either returns a matrix, or throws an exception")]
@@ -882,7 +873,6 @@ class VectorTest extends TestCase
      * @param VectorEnum $expectedVectorType
      * @return void
      * @throws InvalidArgumentException
-     * @throws OutOfBoundsException
      */
     #[TestWith([[1, 2, 3], VectorEnum::Row, [[1], [2], [3]], VectorEnum::Column])]
     #[TestWith([[1, 2, 3], VectorEnum::Column, [[1, 2, 3]], VectorEnum::Row])]
@@ -914,7 +904,6 @@ class VectorTest extends TestCase
      * @return void
      * @throws InvalidArgumentException
      * @throws MatrixException
-     * @throws OutOfBoundsException
      */
     #[TestWith([[1, 2, 3], VectorEnum::Column, [4, -5, 6], VectorEnum::Column, 12])]
     #[TestWith([[1, 2, 3], VectorEnum::Row, [4, -5, 6], VectorEnum::Column, 12])]
@@ -935,12 +924,42 @@ class VectorTest extends TestCase
     }
 
     /**
+     * @param VectorArray $array1
+     * @param VectorEnum $vectorType1
+     * @param VectorArray $array2
+     * @param VectorEnum $vectorType2
+     * @param VectorArray $expected
+     * @param bool $exception
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws MatrixException
+     */
+    #[TestWith([[1, 2, 3], VectorEnum::Column, [1, 2, 3], VectorEnum::Column, [0, 0, 0]])]
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [3, 6, 9], VectorEnum::Column, [0, 0, 0]])]
+    #[TestWith([[1, 2, 3], VectorEnum::Column, [-1, -2, -3], VectorEnum::Row, [0, 0, 0]])]
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [5, -7, 12], VectorEnum::Row, [45, 3, -17]])]
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [5, -7, 12], VectorEnum::Column, [45, 3, -17]])]
+    #[TestWith([[-0.81, 65.273, 93], VectorEnum::Column, [0, 2.573, -3.2234], VectorEnum::Row, [-449.6899882, -2.610954, -2.08413]])]
+    #[TestWith([[1, 2, 3], VectorEnum::Row, [3, 6], VectorEnum::Column, [], true])]
+    #[TestWith([[1, 2, 3, 4], VectorEnum::Row, [3, 6, 9], VectorEnum::Column, [], true])]
+    #[TestDox("CrossProduct() method returns the cross product of two vectors")]
+    public function testCrossProduct(array $array1, VectorEnum $vectorType1, array $array2, VectorEnum $vectorType2, array $expected, bool $exception = false): void
+    {
+        if ($exception) {
+            $this->expectException(MatrixException::class);
+        }
+        $v1 = Vector::fromArray($array1, $vectorType1);
+        $v2 = Vector::fromArray($array2, $vectorType2);
+        $v = $v1->crossProduct($v2);
+        $this->assertEqualsWithDelta($expected, $v->toPlainArray(), self::e);
+    }
+
+    /**
      * @param VectorArray $array
      * @param VectorEnum $vectorType
      * @param VectorArray $expected
      * @return void
      * @throws InvalidArgumentException
-     * @throws OutOfBoundsException
      */
     #[TestWith([[1, 2, 3], VectorEnum::Column, [-1, -2, -3]])]
     #[TestWith([[0.1, -0.2, 0.3, -0.4], VectorEnum::Row, [-0.1, 0.2, -0.3, 0.4]])]
@@ -967,7 +986,6 @@ class VectorTest extends TestCase
      * @param VectorArray $expected
      * @return void
      * @throws InvalidArgumentException
-     * @throws OutOfBoundsException
      */
     #[TestWith([[1, 2, 3.3], VectorEnum::Column, 5.5, [5.5, 11, 18.15]])]
     #[TestWith([[1, 2, 3.3], VectorEnum::Row, 5.5, [5.5, 11, 18.15]])]
@@ -998,7 +1016,6 @@ class VectorTest extends TestCase
      * @param float $tolerance
      * @return void
      * @throws InvalidArgumentException
-     * @throws OutOfBoundsException
      */
     #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, [1, 2, 3, 4, 5], VectorEnum::Column, "float", true])]
     #[TestWith([[1, 2, 3, 4, 5], VectorEnum::Column, [1, 2, 3, 4, 5], VectorEnum::Column, "int", true])]
@@ -1033,7 +1050,6 @@ class VectorTest extends TestCase
      * @param float $tolerance
      * @return void
      * @throws InvalidArgumentException
-     * @throws OutOfBoundsException
      */
     #[DataProvider("providerIsEqualVectorMatrix")]
     #[TestDox("IsEqual() and isEqualExactly() method check the equality of a vector with a matrix")]
@@ -1107,7 +1123,6 @@ class VectorTest extends TestCase
      * @param float $tolerance
      * @return void
      * @throws InvalidArgumentException
-     * @throws OutOfBoundsException
      */
     #[DataProvider("providerIsEqualMatrixVector")]
     #[TestDox("IsEqual() and isEqualExactly() method check the equality of a vector with a matrix")]

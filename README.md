@@ -192,7 +192,9 @@ $columnVector->vectorType();              // Returns VectorEnum::Column
 $numberOfComponents = $rowVector->size(); // Returns 3
 $numberOfElements = count($rowVector);    // Alternative way as Vector implements "Countable" interface
 $rows = $rowVector->rows();               // Returns 1
-$columns = $rowVector->columns();         // Returns 3 
+$columns = $rowVector->columns();         // Returns 3
+$rows = $columnVector->rows();               // Returns 3
+$columns = $columnVector->columns();         // Returns 1  
 
 // Element getters and setters (zero-based indexing)
 $element = $rowVector->vGet(2);            // Equivalent to get(1, 2) using the Matrix method
@@ -217,6 +219,10 @@ $columnVector->toPlainArray();      // Returns a 1D array [1, 2, 3]
 
 // Get a subvector
 $subvector = $rowVector->subvector(1, 2); // Returns a new vector [2, 3]
+
+// Vector binary operations
+dotProduct = $rowVector->dotProduct($anotherVector);
+$crossProduct = $rowVector->crossProduct($anotherVector);
 
 // Conversion to a string representation
 $string = $rowVector->toString();
