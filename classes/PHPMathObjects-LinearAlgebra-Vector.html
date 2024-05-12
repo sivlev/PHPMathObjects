@@ -334,6 +334,13 @@
 <dd>Implementation of the &quot;Countable&quot; interface, alias for size() method</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_crossProduct">crossProduct()</a>
+    <span>
+                                &nbsp;: self    </span>
+</dt>
+<dd>Calculates the cross product of two 3D vectors</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_dotProduct">dotProduct()</a>
     <span>
                                 &nbsp;: int|float    </span>
@@ -1569,6 +1576,69 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_crossProduct">
+        crossProduct()
+        <a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_crossProduct" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Vector.php"><a href="files/src-linearalgebra-vector.html"><abbr title="src/LinearAlgebra/Vector.php">Vector.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">333</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Calculates the cross product of two 3D vectors</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">crossProduct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html"><abbr title="\PHPMathObjects\LinearAlgebra\Vector">Vector</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$anotherVector</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$anotherVector</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html"><abbr title="\PHPMathObjects\LinearAlgebra\Vector">Vector</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_crossProduct#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/PHPMathObjects-Exception-MatrixException.html"><abbr title="\PHPMathObjects\Exception\MatrixException">MatrixException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>if vectors have the number of components different from 3</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_dotProduct">
         dotProduct()
         <a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_dotProduct" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2238,7 +2308,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Vector.php"><a href="files/src-linearalgebra-vector.html"><abbr title="src/LinearAlgebra/Vector.php">Vector.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">375</span>
+    <span class="phpdocumentor-element-found-in__line">398</span>
 
     </aside>
 
@@ -2319,7 +2389,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Vector.php"><a href="files/src-linearalgebra-vector.html"><abbr title="src/LinearAlgebra/Vector.php">Vector.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">335</span>
+    <span class="phpdocumentor-element-found-in__line">358</span>
 
     </aside>
 
@@ -3329,7 +3399,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/LinearAlgebra/Vector.php"><a href="files/src-linearalgebra-vector.html"><abbr title="src/LinearAlgebra/Vector.php">Vector.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">416</span>
+    <span class="phpdocumentor-element-found-in__line">439</span>
 
     </aside>
 
@@ -4402,6 +4472,7 @@
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_columns">columns()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Matrix.html#method_columnToVector">columnToVector()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_count">count()</a></li>
+                                            <li><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_crossProduct">crossProduct()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_dotProduct">dotProduct()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-AbstractMatrix.html#method_fill">fill()</a></li>
                                             <li><a href="classes/PHPMathObjects-LinearAlgebra-Vector.html#method_fromArray">fromArray()</a></li>

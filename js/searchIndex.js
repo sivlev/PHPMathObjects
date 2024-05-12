@@ -391,6 +391,11 @@ Search.appendIndex(
             "summary": "Calculates\u0020the\u0020dot\u0020\u0028scalar\u0029\u0020product\u0020of\u0020two\u0020vectors",
             "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_dotProduct"
         },                {
+            "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AcrossProduct\u0028\u0029",
+            "name": "crossProduct",
+            "summary": "Calculates\u0020the\u0020cross\u0020product\u0020of\u0020two\u00203D\u0020vectors",
+            "url": "classes/PHPMathObjects-LinearAlgebra-Vector.html#method_crossProduct"
+        },                {
             "fqsen": "\\PHPMathObjects\\LinearAlgebra\\Vector\u003A\u003AjoinRight\u0028\u0029",
             "name": "joinRight",
             "summary": "Override\u0020joinRight\u0028\u0029\u0020method\u0020to\u0020account\u0020for\u0020that\u0020\u0022vector\u0020x\u0020vector\u0022\u0020is\u0020not\u0020always\u0020a\u0020vector\u0020but\u0020can\u0020also\u0020be\u0020a\u0020matrix",
@@ -445,6 +450,11 @@ Search.appendIndex(
             "name": "areEqual",
             "summary": "Returns\u0020true\u0020if\u0020the\u0020two\u0020numbers\u0020are\u0020equal\u0020with\u0020the\u0020given\u0020tolerance",
             "url": "classes/PHPMathObjects-Math-Math.html#method_areEqual"
+        },                {
+            "fqsen": "\\PHPMathObjects\\Math\\Math\u003A\u003AareArraysEqual\u0028\u0029",
+            "name": "areArraysEqual",
+            "summary": "Returns\u0020true\u0020if\u0020the\u0020elements\u0020of\u0020the\u0020two\u0020arrays\u0020are\u0020equal\u0020with\u0020the\u0020given\u0020tolerance",
+            "url": "classes/PHPMathObjects-Math-Math.html#method_areArraysEqual"
         },                {
             "fqsen": "\\PHPMathObjects\\Math\\Math\u003A\u003Asign\u0028\u0029",
             "name": "sign",
