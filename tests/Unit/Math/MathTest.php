@@ -92,9 +92,9 @@ class MathTest extends TestCase
     #[TestWith([[1, 2, 3], [1, 2, 3.0000001], false])]
     #[TestWith([[1, 2, 3], [1, 2, 3.0000001], true, 1e-6])]
     #[TestDox("Math::areArraysEqual() method returns true if the elements of the two arrays are equal within the tolerance")]
-    public function areArraysEqual(array $array1, array $array2, bool $result, float $tolerance = self::e): void
+    public function testAreArraysEqual(array $array1, array $array2, bool $result, float $tolerance = self::e): void
     {
-        $this->assertEquals($result, Math::areArraysEqual($array1, $array2));
+        $this->assertEquals($result, Math::areArraysEqual($array1, $array2, $tolerance));
     }
 
     /**

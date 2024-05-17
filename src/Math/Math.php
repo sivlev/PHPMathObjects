@@ -64,6 +64,7 @@ class Math
 
     /**
      * Returns true if the elements of the two arrays are equal with the given tolerance
+     *
      * @param array<int, int|float> $array1
      * @param array<int, int|float> $array2
      * @param float $tolerance
